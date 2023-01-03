@@ -34,9 +34,10 @@ public class Product extends BaseTimeEntity {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String image;
 
+    @Enumerated(EnumType.STRING)
     private ProductType status;
 
 

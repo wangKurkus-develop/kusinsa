@@ -20,7 +20,7 @@ public class Review extends BaseTimeEntity {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String image;
 
     @Column(nullable = false)

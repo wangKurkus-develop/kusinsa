@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.utils;
+package com.kurkus.kusinsa.utils.constants;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

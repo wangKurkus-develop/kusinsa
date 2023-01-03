@@ -1,2 +1,8 @@
-package com.kurkus.kusinsa.exception;public class LoginException {
+package com.kurkus.kusinsa.exception;
+
+public class LoginException extends RuntimeException{
+
+    public LoginException(String msg){
+        super(msg);
+    }
 }

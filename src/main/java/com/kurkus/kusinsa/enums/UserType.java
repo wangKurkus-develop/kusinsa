@@ -2,5 +2,6 @@ package com.kurkus.kusinsa.enums;
 
 public enum UserType {
     USER,
-    ADMIN
+    ADMIN,
+    ALL
 }

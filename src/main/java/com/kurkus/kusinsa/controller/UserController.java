@@ -20,11 +20,7 @@ public class UserController {
     private final UserService userService;
     private final SessionLoginService sessionLoginService;
 
-    /**
-     * 요청으로 Valid 체크를 추가해야한다.
-     * @param requestDto
-     * @return Void 상태코드
-     */
+
     @PostMapping("/signup")
     public ResponseEntity<Void> signupUser(@Valid @RequestBody SignupRequestDto requestDto){
         userService.signup(requestDto);

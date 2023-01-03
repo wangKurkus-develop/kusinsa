@@ -1,5 +1,7 @@
 package com.kurkus.kusinsa.aop;
 
+import static com.kurkus.kusinsa.utils.constants.ExceptionConstants.*;
+
 import com.kurkus.kusinsa.annotation.LoginCheck;
 import com.kurkus.kusinsa.enums.UserType;
 import com.kurkus.kusinsa.exception.SessionLoginException;
@@ -24,7 +26,7 @@ public class LoginCheckAspect {
         String sessionUserId = sessionLoginService.getSessionUserId();
 
         if (sessionUserId == null) {
-            throw new SessionLoginException("세션 아이디가 존재하지않습니다", HttpStatus.UNAUTHORIZED);
+            throw new SessionLoginException(UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
         }
 
         UserType targetUserType = target.userType();
@@ -36,7 +38,7 @@ public class LoginCheckAspect {
         UserType userType = sessionLoginService.getUserType();
 
         if (userType != targetUserType) {
-            throw new SessionLoginException("권한이 없습니다", HttpStatus.FORBIDDEN);
+            throw new SessionLoginException(FORBIDDEN, HttpStatus.FORBIDDEN);
         }
     }
 

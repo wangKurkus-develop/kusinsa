@@ -37,14 +37,8 @@ public class SignupRequestDto {
     @NotNull(message = "이름을 입력해주세요")
     private String name;
 
-    public static SignupRequestDto encryptPasswordDto(SignupRequestDto signUpDto) {
-        return SignupRequestDto.builder()
-                .email(signUpDto.getEmail())
-                .password(PasswordEncoder.encrypt(signUpDto.getPassword()))
-                .phoneNumber(signUpDto.getPhoneNumber())
-                .address(signUpDto.getAddress())
-                .name(signUpDto.name)
-                .build();
+    public void encryptPassword(){
+        this.password = PasswordEncoder.encrypt(password);
     }
 
     public User toUser(){

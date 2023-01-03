@@ -2,17 +2,10 @@ package com.kurkus.kusinsa.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class SessionLoginException extends RuntimeException{
+public class SessionLoginException extends RuntimeCommonException {
 
-    private HttpStatus httpStatus;
+
     public SessionLoginException(String msg, HttpStatus httpStatus){
-        super(msg);
-        this.httpStatus = httpStatus;
+        super(msg, httpStatus);
     }
-
-    public HttpStatus getHttpStatus() {
-        return httpStatus;
-    }
-
-
 }

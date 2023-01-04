@@ -9,6 +9,7 @@ import com.kurkus.kusinsa.dto.user.SignupRequestDto;
 import com.kurkus.kusinsa.service.SessionLoginService;
 import com.kurkus.kusinsa.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<Void> signupUser(@Valid @RequestBody SignupRequestDto requestDto){
         userService.signup(requestDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/login")

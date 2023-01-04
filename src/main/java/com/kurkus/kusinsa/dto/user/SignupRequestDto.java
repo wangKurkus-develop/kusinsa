@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.Length;
 public class SignupRequestDto {
 
 
-    @NotNull(message = "이메일은 필수 입력값입니다")
+    @NotNull(message = "이메일 형식이 아닙니다")
     @Email(message = "이메일 형식이 아닙니다",
             regexp = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")
     private String email;
@@ -27,7 +27,6 @@ public class SignupRequestDto {
     @Length(min = 4, max = 16, message = "비밀번호는 4글자 이상 16자 이하입니다")
     private String password;
 
-    @NotNull(message = "핸드폰 번호는 필수 입력값입니다")
     @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "핸드폰 형식이 아닙니다")
     private String phoneNumber;
 

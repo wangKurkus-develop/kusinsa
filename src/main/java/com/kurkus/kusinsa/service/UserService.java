@@ -1,6 +1,8 @@
 package com.kurkus.kusinsa.service;
 
 
+import static com.kurkus.kusinsa.utils.constants.ExceptionConstants.*;
+
 import com.kurkus.kusinsa.dto.user.LoginRequestDto;
 import com.kurkus.kusinsa.dto.user.SignupRequestDto;
 import com.kurkus.kusinsa.entity.User;
@@ -27,9 +29,8 @@ public class UserService {
     @Transactional
     public void signup(SignupRequestDto requestDto) {
         if(userRepository.findByEmail(requestDto.getEmail()).isPresent()){
-            throw new UserException("이미 존재하는 이메일입니다", HttpStatus.BAD_REQUEST);
+            throw new UserException(EXISTS_EMAIL, HttpStatus.BAD_REQUEST);
         }
-
         requestDto.encryptPassword();
         userRepository.save(requestDto.toUser());
     }
@@ -41,11 +42,11 @@ public class UserService {
     public void login(LoginRequestDto requestDto) {
         // 없다면 예외 안그러면 user사용
         User user = userRepository.findByEmail(requestDto.getEmail()).orElseThrow(
-                () -> new UserException("아이디를 다시확인해주세요", HttpStatus.BAD_REQUEST)
+                () -> new UserException(AGAIN_ID_CHECK, HttpStatus.BAD_REQUEST)
         );
         // 비밀번호 일치하지않는다면 예외
         if(!PasswordEncoder.matches(requestDto.getPassword(), user.getPassword())){
-            throw new UserException("비밀번호를 다시확인해주세요", HttpStatus.BAD_REQUEST);
+            throw new UserException(AGAIN_PASSWORD_CHECK, HttpStatus.BAD_REQUEST);
         }
 
         sessionLoginService.login(user);

@@ -8,8 +8,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@SpringBootApplication
 @EnableJpaAuditing
+@SpringBootApplication
 public class KusinsaApplication {
 
     public static void main(String[] args) {

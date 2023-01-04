@@ -25,12 +25,13 @@ public class Order extends BaseTimeEntity {
     @Column(name = "order_price", nullable = false)
     private Long price;
 
-    @Column(name = "order_status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
     private OrderType status;
 
     @Column(name = "delivery_address", nullable = false)
     private String deliveryAddress;
 
-    @Column(name = "order_history", nullable = false)
+    @Column(name = "order_history", nullable = false, columnDefinition = "LONGTEXT")
     private String history;
 }

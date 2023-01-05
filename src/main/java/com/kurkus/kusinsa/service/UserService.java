@@ -1,7 +1,7 @@
 package com.kurkus.kusinsa.service;
 
 
-import static com.kurkus.kusinsa.utils.constants.ExceptionConstants.*;
+import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 
 import com.kurkus.kusinsa.dto.user.LoginRequestDto;
 import com.kurkus.kusinsa.dto.user.SignupRequestDto;

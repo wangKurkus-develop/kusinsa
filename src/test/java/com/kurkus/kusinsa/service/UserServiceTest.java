@@ -2,7 +2,7 @@ package com.kurkus.kusinsa.service;
 
 import java.util.Optional;
 
-import static com.kurkus.kusinsa.utils.constants.ExceptionConstants.*;
+import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 

@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ExceptionConstants {
+public final class ErrorMessages {
     // 회원가입
     public static final String EXISTS_EMAIL = "이미 존재하는 이메일입니다";
     // 로그인

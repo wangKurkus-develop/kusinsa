@@ -1,6 +1,6 @@
 package com.kurkus.kusinsa.aop;
 
-import static com.kurkus.kusinsa.utils.constants.ExceptionConstants.*;
+import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 
 import com.kurkus.kusinsa.annotation.LoginCheck;
 import com.kurkus.kusinsa.enums.UserType;
@@ -26,7 +26,7 @@ public class LoginCheckAspect {
         String sessionUserId = sessionLoginService.getSessionUserId();
 
         if (sessionUserId == null) {
-            throw new SessionLoginException(UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
+            throw new SessionLoginException(NOT_FOUND_SESSION, HttpStatus.UNAUTHORIZED);
         }
 
         UserType targetUserType = target.userType();

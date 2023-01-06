@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ExceptionConstants {
+public final class ErrorMessages {
     // 회원가입
     public static final String EXISTS_EMAIL = "이미 존재하는 이메일입니다";
     // 로그인
@@ -13,7 +13,7 @@ public final class ExceptionConstants {
     public static final String AGAIN_PASSWORD_CHECK =  "비밀번호를 다시확인해주세요";
 
     // 세션 로그인
-    public static final String UNAUTHORIZED = "세션이 존재하지 않습니다";
+    public static final String NOT_FOUND_SESSION = "세션이 존재하지 않습니다";
     public static final String FORBIDDEN = "권한이 없습니다";
 
 }

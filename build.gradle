@@ -36,6 +36,13 @@ dependencies {
 
     // staticMock을 위해서 추가
     testImplementation 'org.mockito:mockito-inline:3.11.2'
+
+    // Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.session:spring-session-data-redis'
+
+    // TestContainer
+    testImplementation 'org.testcontainers:junit-jupiter:1.17.3'
 }
 
 tasks.named('test') {

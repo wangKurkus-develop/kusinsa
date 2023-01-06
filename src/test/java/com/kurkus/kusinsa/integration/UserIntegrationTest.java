@@ -1,12 +1,14 @@
 package com.kurkus.kusinsa.integration;
 
 
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
-import static com.kurkus.kusinsa.utils.constants.ExceptionConstants.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import java.io.File;
+import java.time.Duration;
+
+import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
+import static com.kurkus.kusinsa.utils.constants.SessionConstants.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -14,8 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kurkus.kusinsa.dto.user.LoginRequestDto;
 import com.kurkus.kusinsa.dto.user.SignupRequestDto;
 import com.kurkus.kusinsa.enums.UserType;
-import com.kurkus.kusinsa.utils.constants.ExceptionConstants;
-import com.kurkus.kusinsa.utils.constants.SessionConstants;
+import com.kurkus.kusinsa.utils.constants.ErrorMessages;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,8 +25,13 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.testcontainers.containers.DockerComposeContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
-
+//@ContextConfiguration(initializers = {DockerComposeInitializer.class})
+@Testcontainers
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -36,6 +42,13 @@ public class UserIntegrationTest {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Container
+    static DockerComposeContainer composeContainer =
+            new DockerComposeContainer(new File("src/test/resources/docker-compose.yml"))
+                    .withExposedService("redis-session", 6379,
+                            Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
+
 
     private String email = "cwg@naver.com";
     private String password = "1234";
@@ -270,24 +283,16 @@ public class UserIntegrationTest {
 
     }
 
+
     @Nested
     @DisplayName("로그아웃")
     class logout {
-        MockHttpSession mockHttpSession = new MockHttpSession();
-
-        @BeforeEach
-        void setUp() throws Exception{
-            mvc.perform(post("/users/login")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(getLoginRequestDto())));
-
-            mockHttpSession.setAttribute(SessionConstants.SESSION_ID, email);
-            mockHttpSession.setAttribute(SessionConstants.AUTH_TYPE, UserType.USER);
-        }
-
         @Test
         public void 성공() throws Exception {
             // given
+            MockHttpSession mockHttpSession = new MockHttpSession();
+            mockHttpSession.setAttribute(SESSION_ID, email);
+            mockHttpSession.setAttribute(AUTH_TYPE, UserType.USER);
             // when
             ResultActions resultActions = mvc.perform(delete("/users/logout")
                             .session(mockHttpSession))
@@ -295,10 +300,21 @@ public class UserIntegrationTest {
             // then
             resultActions
                     .andExpect(status().isOk());
-            Assertions.assertNull(mockHttpSession.getAttribute(SessionConstants.SESSION_ID));
-            Assertions.assertNull(mockHttpSession.getAttribute(SessionConstants.AUTH_TYPE));
+            Assertions.assertNull(mockHttpSession.getAttribute(SESSION_ID));
+            Assertions.assertNull(mockHttpSession.getAttribute(AUTH_TYPE));
         }
 
+        @Test
+        public void 실패_세션없는경우() throws Exception {
+            // given
+            // when
+            ResultActions resultActions = mvc.perform(delete("/users/logout"))
+                    .andDo(print());
+            // then
+            resultActions
+                    .andExpect(status().is4xxClientError())
+                    .andExpect(content().string(NOT_FOUND_SESSION));
+        }
     }
 
 

@@ -2,6 +2,7 @@ package com.kurkus.kusinsa.entity;
 
 import javax.persistence.*;
 
+import com.kurkus.kusinsa.dto.request.category.CategoryUpdateRequest;
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import lombok.*;
 
@@ -18,5 +19,9 @@ public class Category extends BaseTimeEntity {
     @Column(nullable = false)
     private String name;
 
+
+    public void update(CategoryUpdateRequest request){
+        this.name = request.getCategoryName();
+    }
 
 }

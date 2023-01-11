@@ -3,22 +3,23 @@ package com.kurkus.kusinsa.exception.handler;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.kurkus.kusinsa.controller.ProductController;
 import com.kurkus.kusinsa.controller.UserController;
+import com.kurkus.kusinsa.exception.product.ProductException;
 import com.kurkus.kusinsa.exception.user.UserException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(assignableTypes = {UserController.class})
+@RestControllerAdvice(assignableTypes = {ProductController.class})
 @Slf4j
-public class UserExceptionHandler {
+public class ProductExceptionHandler {
 
-    @ExceptionHandler(UserException.class)
-    public ResponseEntity<String> handleUserException(UserException ex, HttpServletRequest request) {
+    @ExceptionHandler(ProductException.class)
+    public ResponseEntity<String> handleProductException(ProductException ex, HttpServletRequest request) {
         log.info("Http Method : {},  URI : {}, msg : {}, status : {}", request.getMethod(), request.getRequestURI(),
                 ex.getMessage(), ex.getHttpStatus());
         return ResponseEntity.status(ex.getHttpStatus()).body(ex.getMessage());
     }
-
 }

@@ -3,10 +3,10 @@ package com.kurkus.kusinsa.service;
 
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 
-import com.kurkus.kusinsa.dto.user.LoginRequestDto;
-import com.kurkus.kusinsa.dto.user.SignupRequestDto;
+import com.kurkus.kusinsa.dto.request.user.LoginRequest;
+import com.kurkus.kusinsa.dto.request.user.SignupRequest;
 import com.kurkus.kusinsa.entity.User;
-import com.kurkus.kusinsa.exception.UserException;
+import com.kurkus.kusinsa.exception.user.UserException;
 import com.kurkus.kusinsa.repository.UserRepository;
 import com.kurkus.kusinsa.utils.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class UserService {
      * 3. 저장하기
      */
     @Transactional
-    public void signup(SignupRequestDto requestDto) {
+    public void signup(SignupRequest requestDto) {
         if(userRepository.findByEmail(requestDto.getEmail()).isPresent()){
             throw new UserException(EXISTS_EMAIL, HttpStatus.BAD_REQUEST);
         }
@@ -39,7 +39,7 @@ public class UserService {
      * 아이디랑 비밀번호 확인
      */
     @Transactional(readOnly = true)
-    public void login(LoginRequestDto requestDto) {
+    public void login(LoginRequest requestDto) {
         // 없다면 예외 안그러면 user사용
         User user = userRepository.findByEmail(requestDto.getEmail()).orElseThrow(
                 () -> new UserException(AGAIN_ID_CHECK, HttpStatus.BAD_REQUEST)

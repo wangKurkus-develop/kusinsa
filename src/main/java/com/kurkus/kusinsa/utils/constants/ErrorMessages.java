@@ -16,4 +16,16 @@ public final class ErrorMessages {
     public static final String NOT_FOUND_SESSION = "세션이 존재하지 않습니다";
     public static final String FORBIDDEN = "권한이 없습니다";
 
+    // user
+    public static final String NOT_FOUND_USER = "존재하지 않는 유저입니다";
+
+    // product
+    public static final String EXISTS_PRODUCT = "이미존재하는 상품입니다";
+    public static final String NOT_FOUND_PRODUCT = "존재하지 않는 브랜드입니다";
+    // category
+    public static final String NOT_FOUND_CATEGORY = "존재하지 않는 카테고리입니다";
+    // brand
+    public static final String NOT_FOUND_BRAND = "존재하지 않는 브랜드입니다";
+
+
 }

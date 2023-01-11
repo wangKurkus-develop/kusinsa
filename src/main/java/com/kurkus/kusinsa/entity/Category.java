@@ -3,13 +3,13 @@ package com.kurkus.kusinsa.entity;
 import javax.persistence.*;
 
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class Category extends BaseTimeEntity {
 
     @Id
@@ -17,5 +17,6 @@ public class Category extends BaseTimeEntity {
     private Long id;
     @Column(nullable = false)
     private String name;
+
 
 }

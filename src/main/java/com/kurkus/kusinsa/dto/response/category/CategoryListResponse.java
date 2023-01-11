@@ -9,17 +9,17 @@ import lombok.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class CategoryListResponse {
 
     private List<CategoryResponse> categoryList;
 
+    public CategoryListResponse(List<CategoryResponse> list){
+        this.categoryList = list;
+    }
 
     public static CategoryListResponse of(List<Category> list){
-        return CategoryListResponse.builder()
-                .categoryList(list.stream().map(c -> CategoryResponse.of(c)).collect(Collectors.toList()))
-                .build();
+        return new CategoryListResponse(list.stream().map(c -> CategoryResponse.of(c)).collect(Collectors.toList()));
     }
 
 }

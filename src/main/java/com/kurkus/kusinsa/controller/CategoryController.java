@@ -29,8 +29,7 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<CategoryListResponse> findAll(){
-        CategoryListResponse response = categoryService.findAll();
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(categoryService.findAll());
     }
 
     @PatchMapping("/{id}")

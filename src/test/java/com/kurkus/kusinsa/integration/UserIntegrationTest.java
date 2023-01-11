@@ -13,10 +13,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kurkus.kusinsa.dto.user.LoginRequestDto;
-import com.kurkus.kusinsa.dto.user.SignupRequestDto;
+import com.kurkus.kusinsa.dto.request.user.LoginRequest;
+import com.kurkus.kusinsa.dto.request.user.SignupRequest;
 import com.kurkus.kusinsa.enums.UserType;
-import com.kurkus.kusinsa.utils.constants.ErrorMessages;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -56,8 +55,8 @@ public class UserIntegrationTest {
     private String address = "쿠르쿠스시 쿠르쿠르아파트";
     private String phoneNumber = "010-1111-1111";
 
-    private SignupRequestDto getSignupRequestDto() {
-        return SignupRequestDto.builder()
+    private SignupRequest getSignupRequestDto() {
+        return SignupRequest.builder()
                 .email(email)
                 .password(password)
                 .name(name)
@@ -66,8 +65,8 @@ public class UserIntegrationTest {
                 .build();
     }
 
-    private LoginRequestDto getLoginRequestDto() {
-        return new LoginRequestDto(email, password);
+    private LoginRequest getLoginRequestDto() {
+        return new LoginRequest(email, password);
     }
 
 

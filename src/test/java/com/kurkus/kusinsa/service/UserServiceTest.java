@@ -6,10 +6,10 @@ import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
-import com.kurkus.kusinsa.dto.user.LoginRequestDto;
-import com.kurkus.kusinsa.dto.user.SignupRequestDto;
+import com.kurkus.kusinsa.dto.request.user.LoginRequest;
+import com.kurkus.kusinsa.dto.request.user.SignupRequest;
 import com.kurkus.kusinsa.entity.User;
-import com.kurkus.kusinsa.exception.UserException;
+import com.kurkus.kusinsa.exception.user.UserException;
 import com.kurkus.kusinsa.repository.UserRepository;
 import com.kurkus.kusinsa.utils.PasswordEncoder;
 import org.junit.jupiter.api.*;
@@ -43,8 +43,8 @@ class UserServiceTest {
 
 
 
-    private SignupRequestDto getSignupRequestDto(){
-        return SignupRequestDto.builder()
+    private SignupRequest getSignupRequestDto(){
+        return SignupRequest.builder()
                 .email(email)
                 .password(password)
                 .name(name)
@@ -53,8 +53,8 @@ class UserServiceTest {
                 .build();
     }
 
-    private LoginRequestDto getLoginRequestDto(){
-        return new LoginRequestDto(email, password);
+    private LoginRequest getLoginRequestDto(){
+        return new LoginRequest(email, password);
     }
 
     @Nested

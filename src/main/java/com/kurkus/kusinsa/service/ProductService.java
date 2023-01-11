@@ -57,6 +57,7 @@ public class ProductService {
      * 없으면 없는정보를 주면되기때문이다.
      * v3 : 아니다 jpa에서는 of메서드라던지 toEntity라는 메서드를 활용하기때문에 NPE문제가 발생하므로 Null 체크를해줘야합니다.
      */
+    @Transactional(readOnly = true)
     public ProductResponse findById(Long id) {
         Product product = productRepository.getByIdWithAll(id);
         return ProductResponse.of(product);
@@ -76,6 +77,7 @@ public class ProductService {
      * 정렬기준을 parameter로 받을지 request로 받을지고민이된다...
      * 테스트코드시 Page객체를 response를 해야하는것도 동적쿼리 작성후에 작성하기
      */
+    @Transactional(readOnly = true)
     public Page<ProductAllResponse> findAllByCategory(ProductPageRequest request){
         Page<Product> productPage= productRepository.findAllByCategory(request.getId(),
                 PageRequest.of(request.getPage(), request.getSize(),

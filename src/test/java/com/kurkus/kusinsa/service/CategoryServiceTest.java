@@ -17,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -71,7 +72,7 @@ class CategoryServiceTest {
     }
 
     @Test
-    public void update_실패_존재안한는경우(){
+    public void update_실패_존재안한는경우() {
         // given
         given(categoryRepository.getById(anyLong())).willThrow(new CategoryNotFoundException());
         // when

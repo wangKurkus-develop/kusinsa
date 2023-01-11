@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.dto.user;
+package com.kurkus.kusinsa.dto.request.user;
 
 
 import javax.validation.constraints.Email;
@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.Length;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class SignupRequestDto {
+public class SignupRequest {
 
 
     @NotNull(message = "이메일 형식이 아닙니다")

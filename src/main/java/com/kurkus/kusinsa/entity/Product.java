@@ -2,15 +2,18 @@ package com.kurkus.kusinsa.entity;
 
 import javax.persistence.*;
 
+import com.kurkus.kusinsa.dto.request.product.ProductUpdateRequest;
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import com.kurkus.kusinsa.enums.ProductType;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 @Getter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
+@DynamicInsert
 public class Product extends BaseTimeEntity {
 
     @Id
@@ -24,7 +27,7 @@ public class Product extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    private Long steams;
+    private long steams;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -34,11 +37,23 @@ public class Product extends BaseTimeEntity {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @Column(nullable = false, columnDefinition = "LONGTEXT")
-    private String image;
-
     @Enumerated(EnumType.STRING)
     private ProductType status;
 
 
+    @Column(name = "origin_image_path",columnDefinition = "LONGTEXT")
+    private String originImagePath;
+
+    @Column(name = "thumbnail_image_path",columnDefinition = "LONGTEXT")
+    private String thumbnailImagePath;
+
+    private long stock;
+
+    public void update(ProductUpdateRequest request) {
+        this.name = request.getName();
+        this.price = request.getPrice();
+        this.content  = request.getContent();
+        this.stock = request.getStock();
+        this.status = request.getStatus();
+    }
 }

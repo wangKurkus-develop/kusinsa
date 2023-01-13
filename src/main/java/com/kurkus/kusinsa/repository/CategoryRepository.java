@@ -17,7 +17,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
         return findById(id).orElseThrow(() -> new CategoryNotFoundException());
     }
 
-    List<Category> findAllOrderByNameAsc();
+    List<Category> findAllByOrderByNameAsc();
 
 
 

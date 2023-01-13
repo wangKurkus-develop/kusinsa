@@ -33,7 +33,7 @@ public class BrandService {
 
     @Transactional(readOnly = true)
     public BrandListResponse findAll() {
-        List<Brand> list = brandRepository.findAllOrderByNameAsc();
+        List<Brand> list = brandRepository.findAllByOrderByNameAsc();
         return BrandListResponse.of(list);
     }
 

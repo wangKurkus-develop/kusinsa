@@ -37,7 +37,7 @@ public class CategoryService {
 
     @Transactional(readOnly = true)
     public CategoryListResponse findAll() {
-        List<Category> list = categoryRepository.findAllOrderByNameAsc();
+        List<Category> list = categoryRepository.findAllByOrderByNameAsc();
         return CategoryListResponse.of(list);
     }
 

@@ -4,12 +4,14 @@ import javax.persistence.*;
 
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 @Getter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
+@DynamicInsert
 public class Review extends BaseTimeEntity {
 
     @Id
@@ -28,6 +30,9 @@ public class Review extends BaseTimeEntity {
 
     @Column(nullable = false)
     private int score;
+
+    @Column(nullable = false)
+    private boolean deleted;
 
 
 }

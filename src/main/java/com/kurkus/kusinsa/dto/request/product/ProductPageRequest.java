@@ -10,6 +10,5 @@ public class ProductPageRequest {
 
     private Long id; // categoryId이든 BrandId이든 둘중하나임
     private int page;
-    private int size;
     private String sortProperty;
 }

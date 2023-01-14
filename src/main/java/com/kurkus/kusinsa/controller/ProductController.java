@@ -45,6 +45,7 @@ public class ProductController {
     /**
      * Controller Search Controller 만들어서 하기
      * 맨투맨 별로 Serach니까 (검색창이아니더라도)
+     * QueryDSL로 동적쿼리로 만들기 pathvariable 받아가지고
      * @return
      */
     @GetMapping("/categories")
@@ -52,11 +53,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.findAllByCategory(request));
     }
 
-    // QueryDSL로 동적쿼리로 만들기 param으로 받아가지고
-    @GetMapping("/brands")
-    public ResponseEntity<Page<ProductAllResponse>> findAllByBrand(@RequestBody ProductPageRequest request){
-        return ResponseEntity.ok(productService.findAllByCategory(request));
-    }
+//    // QueryDSL로 동적쿼리로 만들기 param으로 받아가지고
+//    @GetMapping("/brands")
+//    public ResponseEntity<Page<ProductAllResponse>> findAllByBrand(@RequestBody ProductPageRequest request){
+//        return ResponseEntity.ok(productService.findAllByCategory(request));
+//    }
 
 
 

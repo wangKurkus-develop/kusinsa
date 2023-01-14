@@ -1,10 +1,10 @@
-package com.kurkus.kusinsa.dto.request.point;
+package com.kurkus.kusinsa.dto.response.point;
 
 
-import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.kurkus.kusinsa.entity.Point;
-import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.enums.PointType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,14 +21,16 @@ public class PointResponse {
     private Long score;
     private PointType division;
     private String content;
+    private LocalDate createdAt;
 
 
-    public static PointResponse of(Point point){
+    public static PointResponse from(Point point){
         return PointResponse.builder()
                 .id(point.getId())
                 .score(point.getScore())
                 .division(point.getDivision())
                 .content(point.getContent())
+                .createdAt(point.getCreatedAt().toLocalDate())
                 .build();
     }
 

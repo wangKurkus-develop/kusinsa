@@ -1,2 +1,7 @@
-package com.kurkus.kusinsa.enums;public class PointType {
+package com.kurkus.kusinsa.enums;
+
+public enum PointType {
+    OBTAIN,
+    USED,
+    ALL
 }

@@ -1,2 +1,19 @@
-package com.kurkus.kusinsa.service.point;public interface PointService {
+package com.kurkus.kusinsa.service.point;
+
+
+import com.kurkus.kusinsa.dto.request.point.PointCreateRequest;
+import com.kurkus.kusinsa.dto.response.point.PointResponse;
+import com.kurkus.kusinsa.enums.PointType;
+import org.springframework.data.domain.Page;
+
+/**
+ * Point정책은 매번 달라질수있기때문에 인터페이스를 활용
+ */
+public interface PointService {
+
+    void save(String userId, PointCreateRequest request);
+
+    Page<PointResponse> findAll(String userId, PointType division, int page);
+
+
 }

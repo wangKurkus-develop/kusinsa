@@ -2,6 +2,8 @@ package com.kurkus.kusinsa.events.point;
 
 import javax.transaction.Transactional;
 
+import static com.kurkus.kusinsa.enums.PointType.*;
+
 import com.kurkus.kusinsa.dto.request.point.PointCreateRequest;
 import com.kurkus.kusinsa.enums.PointType;
 import com.kurkus.kusinsa.service.point.PointService;
@@ -22,12 +24,7 @@ public class PointEventHandler {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void pointSave(PointSavedEvent event) {
-        PointCreateRequest request = PointCreateRequest.builder()
-                .score(event.getScore())
-                .division(PointType.OBTAIN)
-                .content(event.getContent())
-                .build();
-
+        PointCreateRequest request = new PointCreateRequest(event.getScore(), event.getContent(), OBTAIN);
         pointService.save(event.getUserId(), request);
         log.info("{} 포인트 저장 완료", event.getUserId());
     }

@@ -15,12 +15,12 @@ public class SessionLoginService {
     private final HttpSession httpSession;
 
     public void login(User user) {
-        httpSession.setAttribute(SessionConstants.SESSION_ID, user.getEmail());
+        httpSession.setAttribute(SessionConstants.SESSION_ID, user.getId());
         httpSession.setAttribute(SessionConstants.AUTH_TYPE, user.getType());
     }
 
-    public String getSessionUserId() {
-        return (String) httpSession.getAttribute(SessionConstants.SESSION_ID);
+    public Long getSessionUserId() {
+        return (Long) httpSession.getAttribute(SessionConstants.SESSION_ID);
     }
 
     public UserType getUserType() {

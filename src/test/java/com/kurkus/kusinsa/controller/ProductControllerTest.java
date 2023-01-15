@@ -44,7 +44,6 @@ class ProductControllerTest {
         return ProductPageRequest.builder()
                 .id(1L)
                 .page(0)
-                .size(3)
                 .sortProperty("steams")
                 .build();
     }

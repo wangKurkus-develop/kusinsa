@@ -55,6 +55,6 @@ public class UserService {
         }
 
         sessionLoginService.login(user);
-        publisher.publishEvent(new PointSavedEvent(user.getEmail(), LOGIN_POINT, LOGIN_POINT_CONTENT));
+        publisher.publishEvent(new PointSavedEvent(user.getId(), LOGIN_POINT, LOGIN_POINT_CONTENT));
     }
 }

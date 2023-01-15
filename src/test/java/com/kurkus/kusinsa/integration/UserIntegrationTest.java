@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kurkus.kusinsa.dto.request.user.LoginRequest;
 import com.kurkus.kusinsa.dto.request.user.SignupRequest;
 import com.kurkus.kusinsa.enums.UserType;
+import com.kurkus.kusinsa.utils.constants.ErrorMessages;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -49,6 +50,7 @@ public class UserIntegrationTest {
                             Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
 
 
+    private Long id = 18L;
     private String email = "cwg@naver.com";
     private String password = "1234";
     private String name = "최왕규";
@@ -76,6 +78,7 @@ public class UserIntegrationTest {
         @Test
         public void 성공() throws Exception {
             // given
+            email = "testemail@naver.com";
             // when
             ResultActions resultActions = mvc.perform(post("/users/signup")
                             .contentType(MediaType.APPLICATION_JSON)
@@ -262,7 +265,7 @@ public class UserIntegrationTest {
             // then
             resultActions
                     .andExpect(status().is4xxClientError())
-                    .andExpect(content().string(AGAIN_ID_CHECK));
+                    .andExpect(content().string(NOT_FOUND_USER));
         }
 
         @Test
@@ -290,7 +293,7 @@ public class UserIntegrationTest {
         public void 성공() throws Exception {
             // given
             MockHttpSession mockHttpSession = new MockHttpSession();
-            mockHttpSession.setAttribute(SESSION_ID, email);
+            mockHttpSession.setAttribute(SESSION_ID, id);
             mockHttpSession.setAttribute(AUTH_TYPE, UserType.USER);
             // when
             ResultActions resultActions = mvc.perform(delete("/users/logout")

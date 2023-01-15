@@ -232,7 +232,6 @@ public class ProductIntegrationTest {
         ProductPageRequest request = ProductPageRequest.builder()
                 .id(1L)
                 .page(0)
-                .size(3)
                 .sortProperty("name")
                 .build();
         // when
@@ -246,12 +245,12 @@ public class ProductIntegrationTest {
 
 
     private void adminLogin(){
-        mockHttpSession.setAttribute(SESSION_ID, "admin@naver.com");
+        mockHttpSession.setAttribute(SESSION_ID, 18L);
         mockHttpSession.setAttribute(AUTH_TYPE, UserType.ADMIN);
     }
 
     private void userLogin(){
-        mockHttpSession.setAttribute(SESSION_ID, "hello@naver.com");
+        mockHttpSession.setAttribute(SESSION_ID, 20L);
         mockHttpSession.setAttribute(AUTH_TYPE, UserType.USER);
     }
 

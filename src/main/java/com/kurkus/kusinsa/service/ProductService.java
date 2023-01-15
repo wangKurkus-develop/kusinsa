@@ -41,7 +41,6 @@ public class ProductService {
      */
     @Transactional
     public void save(ProductCreateRequest request) {
-        log.error("시작");
         if(productRepository.findByName(request.getName()).isPresent()){
             throw new ProductException(EXISTS_PRODUCT, HttpStatus.BAD_REQUEST);
         }

@@ -4,13 +4,9 @@ package com.kurkus.kusinsa.service;
 import javax.servlet.http.HttpSession;
 
 import static com.kurkus.kusinsa.utils.constants.SessionConstants.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
-import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.enums.UserType;
-import com.kurkus.kusinsa.utils.constants.SessionConstants;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,13 +23,13 @@ class SessionLoginServiceTest {
     @InjectMocks
     SessionLoginService sessionLoginService;
 
-    private String email = "hello@naver.com";
+    private Long userId = 1L;
     private UserType userType = UserType.USER;
 
     @Test
     void getSessionUserId() {
         // given
-        given(httpSession.getAttribute(SESSION_ID)).willReturn(email);
+        given(httpSession.getAttribute(SESSION_ID)).willReturn(userId);
         // when
         sessionLoginService.getSessionUserId();
         // then

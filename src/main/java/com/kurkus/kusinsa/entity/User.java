@@ -39,4 +39,7 @@ public class User extends BaseTimeEntity {
     @ColumnDefault("USER")
     private UserType type;
 
+    @Column(nullable = false)
+    private boolean deleted;
+
 }

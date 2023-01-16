@@ -10,13 +10,16 @@ import com.kurkus.kusinsa.dto.request.user.LoginRequest;
 import com.kurkus.kusinsa.dto.request.user.SignupRequest;
 import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.exception.user.UserException;
+import com.kurkus.kusinsa.exception.user.UserNotFoundException;
 import com.kurkus.kusinsa.repository.UserRepository;
 import com.kurkus.kusinsa.utils.PasswordEncoder;
+import com.kurkus.kusinsa.utils.constants.ErrorMessages;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -30,11 +33,15 @@ class UserServiceTest {
     @Mock
     SessionLoginService sessionLoginService;
 
+    @Mock
+    ApplicationEventPublisher publisher;
+
     @BeforeAll()
     public static void setUp(){
         mockStatic(PasswordEncoder.class);
     }
 
+    private Long id = 10L;
     private String email = "hello@naver.com";
     private String password = "1234";
     private String name = "최왕규";
@@ -95,9 +102,9 @@ class UserServiceTest {
     class login{
 
         @Test
-        public void 성공() throws Exception {
+        public void 성공() {
             // given
-            given(userRepository.findByEmail(email)).willReturn(Optional.of(User.builder().password(password).build()));
+            given(userRepository.getByEmail(email)).willReturn(User.builder().id(id).email(email).password(password).build());
             given(PasswordEncoder.matches(anyString(), anyString())).willReturn(true);
             // when
             userService.login(getLoginRequestDto());
@@ -108,17 +115,17 @@ class UserServiceTest {
         @Test
         public void 아이디_존재x() throws Exception {
             // given
-            given(userRepository.findByEmail(email)).willReturn(Optional.empty());
+            given(userRepository.getByEmail(email)).willThrow(new UserNotFoundException());
             // when
-            UserException ex = assertThrows(UserException.class, () -> userService.login(getLoginRequestDto()));
+            UserNotFoundException ex = assertThrows(UserNotFoundException.class, () -> userService.login(getLoginRequestDto()));
             // then
-            assertEquals(AGAIN_ID_CHECK, ex.getMessage());
+            assertEquals(NOT_FOUND_USER, ex.getMessage());
         }
 
         @Test
         public void 비빌번호_일치x() throws Exception {
             // given
-            given(userRepository.findByEmail(email)).willReturn(Optional.of(User.builder().password(password).build()));
+            given(userRepository.getByEmail(email)).willReturn(User.builder().password(password).build());
             given(PasswordEncoder.matches(anyString(), anyString())).willReturn(false);
             // when
             UserException ex = assertThrows(UserException.class, () -> userService.login(getLoginRequestDto()));

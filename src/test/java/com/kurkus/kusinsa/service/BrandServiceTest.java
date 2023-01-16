@@ -56,7 +56,7 @@ class BrandServiceTest {
         // when
         brandService.findAll();
         // then
-        then(brandRepository).should(times(1)).findAllOrderByNameAsc();
+        then(brandRepository).should(times(1)).findAllByOrderByNameAsc();
     }
 
     @Test

@@ -58,7 +58,7 @@ class CategoryServiceTest {
         // when
         categoryService.findAll();
         // then
-        then(categoryRepository).should(times(1)).findAllOrderByNameAsc();
+        then(categoryRepository).should(times(1)).findAllByOrderByNameAsc();
     }
 
     @Test

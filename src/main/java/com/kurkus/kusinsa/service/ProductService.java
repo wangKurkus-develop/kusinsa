@@ -1,6 +1,7 @@
 package com.kurkus.kusinsa.service;
 
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
+import static com.kurkus.kusinsa.utils.constants.PageSizeConstants.*;
 
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductPageRequest;
@@ -16,6 +17,7 @@ import com.kurkus.kusinsa.exception.product.ProductException;
 import com.kurkus.kusinsa.repository.BrandRepository;
 import com.kurkus.kusinsa.repository.CategoryRepository;
 import com.kurkus.kusinsa.repository.ProductRepository;
+import com.kurkus.kusinsa.utils.constants.PageSizeConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -39,7 +41,6 @@ public class ProductService {
      */
     @Transactional
     public void save(ProductCreateRequest request) {
-        log.error("시작");
         if(productRepository.findByName(request.getName()).isPresent()){
             throw new ProductException(EXISTS_PRODUCT, HttpStatus.BAD_REQUEST);
         }
@@ -80,7 +81,7 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Page<ProductAllResponse> findAllByCategory(ProductPageRequest request){
         Page<Product> productPage= productRepository.findAllByCategory(request.getId(),
-                PageRequest.of(request.getPage(), request.getSize(),
+                PageRequest.of(request.getPage(), PRODUCT_SIZE,
                         Sort.by(Sort.Direction.DESC,request.getSortProperty())));
 
         Page<ProductAllResponse> response = productPage.map(p -> ProductAllResponse.of(p));

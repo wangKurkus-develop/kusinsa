@@ -53,7 +53,7 @@ public class ProductIntegrationTest {
                             Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
 
     private MockHttpSession mockHttpSession = new MockHttpSession();
-    private final String URL = "/products";
+    private final String URI = "/products";
 
 
 
@@ -86,7 +86,7 @@ public class ProductIntegrationTest {
             // given
             adminLogin();
             // when
-            ResultActions result = mvc.perform(post(URL).contentType(MediaType.APPLICATION_JSON)
+            ResultActions result = mvc.perform(post(URI).contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(getCreateRequest()))
                     .session(mockHttpSession)).andDo(print());
             // then
@@ -98,7 +98,7 @@ public class ProductIntegrationTest {
             // given
             userLogin();
             // when
-            ResultActions result = mvc.perform(post(URL).contentType(MediaType.APPLICATION_JSON)
+            ResultActions result = mvc.perform(post(URI).contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(getCreateRequest()))
                     .session(mockHttpSession)).andDo(print());
             // then
@@ -112,7 +112,7 @@ public class ProductIntegrationTest {
             adminLogin();
             name = "상품1";
             // when
-            ResultActions result = mvc.perform(post(URL).contentType(MediaType.APPLICATION_JSON)
+            ResultActions result = mvc.perform(post(URI).contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(getCreateRequest()))
                     .session(mockHttpSession)).andDo(print());
             // then
@@ -126,7 +126,7 @@ public class ProductIntegrationTest {
             adminLogin();
             categoryId = 1000L;
             // when
-            ResultActions result = mvc.perform(post(URL).contentType(MediaType.APPLICATION_JSON)
+            ResultActions result = mvc.perform(post(URI).contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(getCreateRequest()))
                     .session(mockHttpSession)).andDo(print());
             // then
@@ -139,7 +139,7 @@ public class ProductIntegrationTest {
             adminLogin();
             brandId = 1000L;
             // when
-            ResultActions result = mvc.perform(post(URL).contentType(MediaType.APPLICATION_JSON)
+            ResultActions result = mvc.perform(post(URI).contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(getCreateRequest()))
                     .session(mockHttpSession)).andDo(print());
             // then
@@ -158,7 +158,7 @@ public class ProductIntegrationTest {
             // given
             String productId = "/1";
             // when
-            ResultActions result = mvc.perform(get(URL + productId))
+            ResultActions result = mvc.perform(get(URI + productId))
                     .andDo(print());
             // then
             result.andExpect(status().isOk())
@@ -171,7 +171,7 @@ public class ProductIntegrationTest {
             // given
             String productId = "/1000";
             // when
-            ResultActions result = mvc.perform(get(URL + productId))
+            ResultActions result = mvc.perform(get(URI + productId))
                     .andDo(print());
             // then
             result.andExpect(status().is4xxClientError())
@@ -200,7 +200,7 @@ public class ProductIntegrationTest {
             adminLogin();
             String productId = "/1";
             // when
-            ResultActions result = mvc.perform(patch(URL + productId).contentType(MediaType.APPLICATION_JSON)
+            ResultActions result = mvc.perform(patch(URI + productId).contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(getUpdateRequest()))
                             .session(mockHttpSession))
                     .andDo(print());
@@ -214,7 +214,7 @@ public class ProductIntegrationTest {
             adminLogin();
             String productId = "/100000";
             // when
-            ResultActions result = mvc.perform(patch(URL + productId)
+            ResultActions result = mvc.perform(patch(URI + productId)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(getUpdateRequest()))
                             .session(mockHttpSession))
@@ -232,11 +232,10 @@ public class ProductIntegrationTest {
         ProductPageRequest request = ProductPageRequest.builder()
                 .id(1L)
                 .page(0)
-                .size(3)
                 .sortProperty("name")
                 .build();
         // when
-        ResultActions result = mvc.perform(get(URL + "/categories").contentType(MediaType.APPLICATION_JSON)
+        ResultActions result = mvc.perform(get(URI + "/categories").contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andDo(print());
         // then
@@ -246,12 +245,12 @@ public class ProductIntegrationTest {
 
 
     private void adminLogin(){
-        mockHttpSession.setAttribute(SESSION_ID, "admin@naver.com");
+        mockHttpSession.setAttribute(SESSION_ID, 18L);
         mockHttpSession.setAttribute(AUTH_TYPE, UserType.ADMIN);
     }
 
     private void userLogin(){
-        mockHttpSession.setAttribute(SESSION_ID, "hello@naver.com");
+        mockHttpSession.setAttribute(SESSION_ID, 20L);
         mockHttpSession.setAttribute(AUTH_TYPE, UserType.USER);
     }
 

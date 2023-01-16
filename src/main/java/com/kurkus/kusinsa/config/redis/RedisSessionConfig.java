@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.config;
+package com.kurkus.kusinsa.config.redis;
 
 
 import org.springframework.beans.factory.annotation.Value;

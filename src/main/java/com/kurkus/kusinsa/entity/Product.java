@@ -49,6 +49,10 @@ public class Product extends BaseTimeEntity {
 
     private long stock;
 
+    @Column(nullable = false)
+    private boolean deleted;
+
+
     public void update(ProductUpdateRequest request) {
         this.name = request.getName();
         this.price = request.getPrice();
@@ -56,4 +60,5 @@ public class Product extends BaseTimeEntity {
         this.stock = request.getStock();
         this.status = request.getStatus();
     }
+
 }

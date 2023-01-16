@@ -5,6 +5,7 @@ import javax.persistence.*;
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import com.kurkus.kusinsa.enums.OrderType;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 @Getter
 @Entity
@@ -12,6 +13,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Table(name = "orders")
+@DynamicInsert
 public class Order extends BaseTimeEntity {
 
     @Id
@@ -34,4 +36,7 @@ public class Order extends BaseTimeEntity {
 
     @Column(name = "order_history", nullable = false, columnDefinition = "LONGTEXT")
     private String history;
+
+    @Column(nullable = false)
+    private boolean deleted;
 }

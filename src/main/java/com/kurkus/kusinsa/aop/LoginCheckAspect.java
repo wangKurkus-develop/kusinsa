@@ -23,7 +23,7 @@ public class LoginCheckAspect {
 
     @Before("@annotation(com.kurkus.kusinsa.annotation.LoginCheck) && @annotation(target)")
     public void sessionLoginCheck(LoginCheck target) {
-        String sessionUserId = sessionLoginService.getSessionUserId();
+        Long sessionUserId = sessionLoginService.getSessionUserId();
 
         if (sessionUserId == null) {
             throw new SessionLoginException(NOT_FOUND_SESSION, HttpStatus.UNAUTHORIZED);

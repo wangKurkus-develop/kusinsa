@@ -6,6 +6,7 @@ import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import com.kurkus.kusinsa.enums.OrderType;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.SQLDelete;
 
 @Getter
 @Entity
@@ -39,4 +40,8 @@ public class Order extends BaseTimeEntity {
 
     @Column(nullable = false)
     private boolean deleted;
+
+    public void delete(){
+        this.deleted = true;
+    }
 }

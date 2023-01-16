@@ -7,6 +7,8 @@ import com.kurkus.kusinsa.enums.UserType;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Getter
 @Entity
@@ -41,5 +43,9 @@ public class User extends BaseTimeEntity {
 
     @Column(nullable = false)
     private boolean deleted;
+
+    public void delete(){
+        this.deleted = true;
+    }
 
 }

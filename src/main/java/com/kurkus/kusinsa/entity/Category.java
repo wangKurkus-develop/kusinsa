@@ -6,6 +6,7 @@ import com.kurkus.kusinsa.dto.request.category.CategoryUpdateRequest;
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.SQLDelete;
 
 @Getter
 @Entity
@@ -29,4 +30,7 @@ public class Category extends BaseTimeEntity {
         this.name = request.getCategoryName();
     }
 
+    public void delete(){
+        this.deleted = true;
+    }
 }

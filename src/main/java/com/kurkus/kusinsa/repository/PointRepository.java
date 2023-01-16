@@ -31,7 +31,7 @@ public interface PointRepository extends JpaRepository<Point, Long> {
 
 
     @Query(value = "select sum(if(p.division ='OBTAIN', p.score, -p.score)) from Point p " +
-            "where p.user_id = :userId and p.deleted=false", nativeQuery = true)
+            "where p.user_id = :userId and p.deleted = false", nativeQuery = true)
     long findPointSum(@Param("userId") Long userId);
 
 

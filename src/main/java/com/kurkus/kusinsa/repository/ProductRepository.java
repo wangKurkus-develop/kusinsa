@@ -27,8 +27,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         return findByIdWithAll(id).orElseThrow(() -> new ProductNotFoundException());
     }
 
-
-
     @Query(value = "select p from Product p join fetch p.category join fetch p.brand where p.category.id = :categoryId"
     , countQuery = "select count(p) from Product p where p.category.id = :categoryId")
     Page<Product> findAllByCategory(@Param("categoryId") Long categoryId, Pageable pageable);

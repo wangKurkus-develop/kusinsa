@@ -80,8 +80,13 @@ public class ProductService {
      */
     @Transactional(readOnly = true)
     public Page<ProductAllResponse> findAllByCategory(ProductPageRequest request){
+        int page = request.getPage();
+        if(request.getPage() < 0){
+            page = 0;
+        }
+
         Page<Product> productPage= productRepository.findAllByCategory(request.getId(),
-                PageRequest.of(request.getPage(), PRODUCT_SIZE,
+                PageRequest.of(page, PRODUCT_SIZE,
                         Sort.by(Sort.Direction.DESC,request.getSortProperty())));
 
         Page<ProductAllResponse> response = productPage.map(p -> ProductAllResponse.of(p));

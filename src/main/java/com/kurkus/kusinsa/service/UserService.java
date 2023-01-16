@@ -7,7 +7,7 @@ import static com.kurkus.kusinsa.utils.constants.PointMessages.*;
 import com.kurkus.kusinsa.dto.request.user.LoginRequest;
 import com.kurkus.kusinsa.dto.request.user.SignupRequest;
 import com.kurkus.kusinsa.entity.User;
-import com.kurkus.kusinsa.events.point.PointSavedEvent;
+import com.kurkus.kusinsa.events.point.PointLoginSavedEvent;
 import com.kurkus.kusinsa.exception.user.UserException;
 import com.kurkus.kusinsa.repository.UserRepository;
 import com.kurkus.kusinsa.utils.PasswordEncoder;
@@ -55,6 +55,6 @@ public class UserService {
         }
 
         sessionLoginService.login(user);
-        publisher.publishEvent(new PointSavedEvent(user.getId(), LOGIN_POINT, LOGIN_POINT_CONTENT));
+        publisher.publishEvent(new PointLoginSavedEvent(user.getId(), LOGIN_POINT, LOGIN_POINT_CONTENT));
     }
 }

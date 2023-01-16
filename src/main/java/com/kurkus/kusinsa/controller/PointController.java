@@ -1,5 +1,7 @@
 package com.kurkus.kusinsa.controller;
 
+import javax.validation.Valid;
+
 import com.kurkus.kusinsa.annotation.LoginCheck;
 import com.kurkus.kusinsa.annotation.SessionUserId;
 import com.kurkus.kusinsa.dto.request.point.PointCreateRequest;
@@ -22,20 +24,20 @@ public class PointController {
 
     private final PointService pointService;
 
-//    @PostMapping
-//    @LoginCheck(userType = UserType.USER)
-//    public ResponseEntity<Void> save(@SessionUserId String userId, @RequestBody PointCreateRequest request){
-//        pointService.save(userId, request);
-//        return ResponseEntity.status(HttpStatus.CREATED).build();
-//    }
+
+    @PostMapping
+    @LoginCheck(userType = UserType.USER)
+    public ResponseEntity<Void> save(@SessionUserId Long userId, @RequestBody @Valid PointCreateRequest request) {
+        pointService.save(userId, request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 
     @GetMapping
     @LoginCheck(userType = UserType.USER)
-    public ResponseEntity<Page<PointResponse>> findAll(@SessionUserId String userId,
+    public ResponseEntity<Page<PointResponse>> findAll(@SessionUserId Long userId,
                                                        @RequestParam(defaultValue = "all") PointType division,
-                                                       @RequestParam(name = "page") int page){
-        log.info("page : {}", page);
-        log.info("Point division test : {}", division);
+                                                       @RequestParam(name = "page") int page) {
         return ResponseEntity.ok(pointService.findAll(userId, division, page));
     }
+
 }

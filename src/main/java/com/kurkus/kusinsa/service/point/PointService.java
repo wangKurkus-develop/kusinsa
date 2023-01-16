@@ -11,9 +11,11 @@ import org.springframework.data.domain.Page;
  */
 public interface PointService {
 
-    void save(String userId, PointCreateRequest request);
+    void save(Long userId, PointCreateRequest request);
 
-    Page<PointResponse> findAll(String userId, PointType division, int page);
+    Page<PointResponse> findAll(Long userId, PointType division, int page);
+
+    long findPointSum(Long userId);
 
 
 }

@@ -15,17 +15,24 @@ public interface PointRepository extends JpaRepository<Point, Long> {
 
     @Query(value = "select p  " +
             "from Point p inner join p.user u on p.user.id = u.id " +
-            "where p.user.email = :userId and p.division = :division and p.deleted= false" +
+            "where p.user.id = :userId and p.division = :division and p.deleted= false" +
             " order by p.createdAt desc",
     countQuery = "select count(p) from Point p inner join p.user u on p.user.id = u.id " +
-            "where p.user.email = :userId and p.division = :division and p.deleted= false")
-    Page<Point> findAllByDivision(@Param("userId") String userId, @Param("division") PointType division,
+            "where p.user.id = :userId and p.division = :division and p.deleted= false")
+    Page<Point> findAllByDivision(@Param("userId") Long userId, @Param("division") PointType division,
                                   Pageable pageable);
 
     @Query(value = "select p "+
             "from Point p inner join p.user u on p.user.id = u.id " +
-            "where p.user.email = :userId and p.deleted = false order by p.createdAt desc",
+            "where p.user.id = :userId and p.deleted = false order by p.createdAt desc",
     countQuery = "select count(p) from Point p inner join p.user u on p.user.id = u.id" +
-            " where p.user.email = :userId and p.deleted = false ")
-    Page<Point> findAll(@Param("userId") String userId, Pageable pageable);
+            " where p.user.id = :userId and p.deleted = false ")
+    Page<Point> findAll(@Param("userId") Long userId, Pageable pageable);
+
+
+    @Query(value = "select sum(if(p.division ='OBTAIN', p.score, -p.score)) from Point p " +
+            "where p.user_id = :userId and p.deleted=false", nativeQuery = true)
+    long findPointSum(@Param("userId") Long userId);
+
+
 }

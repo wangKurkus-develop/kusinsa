@@ -4,12 +4,10 @@ import static com.kurkus.kusinsa.utils.constants.PageSizeConstants.*;
 
 import com.kurkus.kusinsa.dto.request.point.PointCreateRequest;
 import com.kurkus.kusinsa.dto.response.point.PointResponse;
-import com.kurkus.kusinsa.entity.Point;
 import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.enums.PointType;
 import com.kurkus.kusinsa.repository.PointRepository;
 import com.kurkus.kusinsa.repository.UserRepository;
-import com.kurkus.kusinsa.utils.constants.PageSizeConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -33,8 +31,8 @@ public class PointServiceImpl implements PointService{
      */
     @Override
     @Transactional
-    public void save(String userId, PointCreateRequest request) {
-        User user = userRepository.getByEmail(userId);
+    public void save(Long userId, PointCreateRequest request) {
+        User user = userRepository.getById(userId);
         pointRepository.save(request.toPoint(user));
     }
 
@@ -43,7 +41,7 @@ public class PointServiceImpl implements PointService{
      */
     @Transactional(readOnly = true)
     @Override
-    public Page<PointResponse> findAll(String userId, PointType division, int page) {
+    public Page<PointResponse> findAll(Long userId, PointType division, int page) {
         if(division == PointType.ALL){
             return pointRepository.findAll(userId, PageRequest.of(page, POINT_SIZE)).
                     map(p -> PointResponse.from(p));
@@ -52,6 +50,20 @@ public class PointServiceImpl implements PointService{
                     map(p -> PointResponse.from(p));
         }
     }
+
+
+    /**
+     * @param userId
+     * @return 유저가 가진 포인트 합 주기
+     * v2 : review삭제시 deleted로 바꿔주어야한다 그러기위해선 외래키나 컬럼으로로 review id를 가져야할지도
+     */
+    @Override
+    public long findPointSum(Long userId) {
+        return pointRepository.findPointSum(userId);
+    }
+
+
+
 
 
 

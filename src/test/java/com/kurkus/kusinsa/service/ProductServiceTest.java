@@ -72,7 +72,7 @@ class ProductServiceTest {
         @Test
         public void 성공() {
             // given
-            given(productRepository.findByName(anyString())).willReturn(Optional.empty());
+            given(productRepository.existsByName(anyString())).willReturn(false);
             given(categoryRepository.getById(anyLong())).willReturn(Category.builder().build());
             given(brandRepository.getById(anyLong())).willReturn(Brand.builder().build());
             // when
@@ -84,7 +84,7 @@ class ProductServiceTest {
         @Test
         public void 실패_이미존재하는경우() {
             // given
-            given(productRepository.findByName(anyString())).willThrow(new ProductException(EXISTS_PRODUCT, HttpStatus.BAD_REQUEST));
+            given(productRepository.existsByName(anyString())).willReturn(true);
             // when
             ProductException ex = assertThrows(ProductException.class, () -> productService.save(getCreateRequest()));
             // then
@@ -94,7 +94,7 @@ class ProductServiceTest {
         @Test
         public void 실패_카테고리존재_x() {
             // given
-            given(productRepository.findByName(anyString())).willReturn(Optional.empty());
+            given(productRepository.existsByName(anyString())).willReturn(false);
             given(categoryRepository.getById(anyLong())).willThrow(new CategoryNotFoundException());
             // when
             CategoryNotFoundException ex = assertThrows(CategoryNotFoundException.class, () -> productService.save(getCreateRequest()));
@@ -105,7 +105,7 @@ class ProductServiceTest {
         @Test
         public void 실패_브랜드존재_x() {
             // given
-            given(productRepository.findByName(anyString())).willReturn(Optional.empty());
+            given(productRepository.existsByName(anyString())).willReturn(false);
             given(categoryRepository.getById(anyLong())).willReturn(Category.builder().build());
             given(brandRepository.getById(anyLong())).willThrow(new BrandNotFoundException());
             // when

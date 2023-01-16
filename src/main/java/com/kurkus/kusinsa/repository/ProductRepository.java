@@ -15,6 +15,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Optional<Product> findByName(String name);
 
+    boolean existsByName(String name);
+
     default Product getById(Long id){
         return findById(id).orElseThrow(()-> new ProductNotFoundException());
     }

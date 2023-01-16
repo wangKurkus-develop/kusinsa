@@ -35,7 +35,7 @@ public class UserService {
      */
     @Transactional
     public void signup(SignupRequest requestDto) {
-        if(userRepository.findByEmail(requestDto.getEmail()).isPresent()){
+        if(userRepository.existsByEmail(requestDto.getEmail())){
             throw new UserException(EXISTS_EMAIL, HttpStatus.BAD_REQUEST);
         }
         requestDto.encryptPassword();

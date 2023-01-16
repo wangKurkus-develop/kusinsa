@@ -41,7 +41,7 @@ public class ProductService {
      */
     @Transactional
     public void save(ProductCreateRequest request) {
-        if(productRepository.findByName(request.getName()).isPresent()){
+        if(productRepository.existsByName(request.getName())){
             throw new ProductException(EXISTS_PRODUCT, HttpStatus.BAD_REQUEST);
         }
 
@@ -80,8 +80,13 @@ public class ProductService {
      */
     @Transactional(readOnly = true)
     public Page<ProductAllResponse> findAllByCategory(ProductPageRequest request){
+        int page = request.getPage();
+        if(request.getPage() < 0){
+            page = 0;
+        }
+
         Page<Product> productPage= productRepository.findAllByCategory(request.getId(),
-                PageRequest.of(request.getPage(), PRODUCT_SIZE,
+                PageRequest.of(page, PRODUCT_SIZE,
                         Sort.by(Sort.Direction.DESC,request.getSortProperty())));
 
         Page<ProductAllResponse> response = productPage.map(p -> ProductAllResponse.of(p));
@@ -91,4 +96,10 @@ public class ProductService {
     // 페이지로 반환하는 findAll (category, brand도 함께)
     // 브랜드별로 반환 (정렬기준은 steams 개수) 아니면 정렬기준을 받는것도 괜찮음
     // 카테고리별로 반환 (정렬기준은 steam )
+
+    @Transactional
+    public void delete(Long id){
+        Product product = productRepository.getById(id);
+        product.delete();
+    }
 }

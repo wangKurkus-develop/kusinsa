@@ -7,6 +7,8 @@ import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import com.kurkus.kusinsa.enums.ProductType;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SQLDelete;
 
 @Getter
 @Entity
@@ -59,6 +61,10 @@ public class Product extends BaseTimeEntity {
         this.content  = request.getContent();
         this.stock = request.getStock();
         this.status = request.getStatus();
+    }
+
+    public void delete(){
+        this.deleted = true;
     }
 
 }

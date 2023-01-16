@@ -15,6 +15,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Optional<Product> findByName(String name);
 
+    boolean existsByName(String name);
+
     default Product getById(Long id){
         return findById(id).orElseThrow(()-> new ProductNotFoundException());
     }
@@ -26,8 +28,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     default Product getByIdWithAll(Long id){
         return findByIdWithAll(id).orElseThrow(() -> new ProductNotFoundException());
     }
-
-
 
     @Query(value = "select p from Product p join fetch p.category join fetch p.brand where p.category.id = :categoryId"
     , countQuery = "select count(p) from Product p where p.category.id = :categoryId")

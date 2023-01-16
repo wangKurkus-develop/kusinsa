@@ -35,7 +35,7 @@ public class UserService {
      */
     @Transactional
     public void signup(SignupRequest requestDto) {
-        if(userRepository.findByEmail(requestDto.getEmail()).isPresent()){
+        if(userRepository.existsByEmail(requestDto.getEmail())){
             throw new UserException(EXISTS_EMAIL, HttpStatus.BAD_REQUEST);
         }
         requestDto.encryptPassword();
@@ -56,5 +56,11 @@ public class UserService {
 
         sessionLoginService.login(user);
         publisher.publishEvent(new PointLoginSavedEvent(user.getId(), LOGIN_POINT, LOGIN_POINT_CONTENT));
+    }
+
+    @Transactional
+    public void delete(Long userId){
+        User user = userRepository.getById(userId);
+        user.delete();
     }
 }

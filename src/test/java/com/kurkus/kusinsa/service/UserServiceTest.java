@@ -74,7 +74,7 @@ class UserServiceTest {
         @DisplayName("성공")
         public void success() throws Exception {
             // given
-            given(userRepository.findByEmail(stubEmail)).willReturn(Optional.empty());
+            given(userRepository.existsByEmail(stubEmail)).willReturn(false);
             // when
             userService.signup(getSignupRequestDto());
             // then
@@ -85,7 +85,7 @@ class UserServiceTest {
         @DisplayName("실패-이미존재하는경우")
         public void fail() throws Exception {
             // given
-            given(userRepository.findByEmail(stubEmail)).willReturn(Optional.of(User.builder().build()));
+            given(userRepository.existsByEmail(stubEmail)).willReturn(true);
             // when
             UserException ex = assertThrows(UserException.class, () -> {
                 userService.signup(getSignupRequestDto());

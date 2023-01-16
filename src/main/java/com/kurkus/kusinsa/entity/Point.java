@@ -7,6 +7,8 @@ import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import com.kurkus.kusinsa.enums.PointType;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SQLDelete;
 
 @Getter
 @Entity
@@ -37,5 +39,9 @@ public class Point extends BaseTimeEntity {
 
     @Column(nullable = false)
     private boolean deleted;
+
+    public void delete(){
+        this.deleted = true;
+    }
 
 }

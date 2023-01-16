@@ -5,6 +5,7 @@ import javax.persistence.*;
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.SQLDelete;
 
 @Getter
 @Entity
@@ -33,6 +34,10 @@ public class Review extends BaseTimeEntity {
 
     @Column(nullable = false)
     private boolean deleted;
+
+    public void delete(){
+        this.deleted = true;
+    }
 
 
 }

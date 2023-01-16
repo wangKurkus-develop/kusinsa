@@ -8,6 +8,7 @@ import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.SQLDelete;
 
 @Getter
 @Entity
@@ -31,4 +32,7 @@ public class Brand extends BaseTimeEntity {
         this.name = request.getBrandName();
     }
 
+    public void delete(){
+        this.deleted = true;
+    }
 }

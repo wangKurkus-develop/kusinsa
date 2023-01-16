@@ -58,6 +58,7 @@ public class PointServiceImpl implements PointService{
      * v2 : review삭제시 deleted로 바꿔주어야한다 그러기위해선 외래키나 컬럼으로로 review id를 가져야할지도
      */
     @Override
+    @Transactional(readOnly = true)
     public long findPointSum(Long userId) {
         return pointRepository.findPointSum(userId);
     }

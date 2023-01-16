@@ -23,13 +23,13 @@ class SessionLoginServiceTest {
     @InjectMocks
     SessionLoginService sessionLoginService;
 
-    private Long email = 1L;
+    private Long userId = 1L;
     private UserType userType = UserType.USER;
 
     @Test
     void getSessionUserId() {
         // given
-        given(httpSession.getAttribute(SESSION_ID)).willReturn(email);
+        given(httpSession.getAttribute(SESSION_ID)).willReturn(userId);
         // when
         sessionLoginService.getSessionUserId();
         // then

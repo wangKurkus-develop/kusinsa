@@ -91,4 +91,10 @@ public class ProductService {
     // 페이지로 반환하는 findAll (category, brand도 함께)
     // 브랜드별로 반환 (정렬기준은 steams 개수) 아니면 정렬기준을 받는것도 괜찮음
     // 카테고리별로 반환 (정렬기준은 steam )
+
+    @Transactional
+    public void delete(Long id){
+        Product product = productRepository.getById(id);
+        product.delete();
+    }
 }

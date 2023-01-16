@@ -46,4 +46,10 @@ public class CategoryService {
         Category category = categoryRepository.getById(id);
         category.update(request);
     }
+
+    @Transactional
+    public void delete(Long id){
+        Category category = categoryRepository.getById(id);
+        category.delete();
+    }
 }

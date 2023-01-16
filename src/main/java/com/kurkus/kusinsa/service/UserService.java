@@ -57,4 +57,10 @@ public class UserService {
         sessionLoginService.login(user);
         publisher.publishEvent(new PointLoginSavedEvent(user.getId(), LOGIN_POINT, LOGIN_POINT_CONTENT));
     }
+
+    @Transactional
+    public void delete(Long userId){
+        User user = userRepository.getById(userId);
+        user.delete();
+    }
 }

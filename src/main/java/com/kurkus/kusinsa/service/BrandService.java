@@ -42,4 +42,10 @@ public class BrandService {
         Brand brand = brandRepository.getById(id);
         brand.update(request);
     }
+
+    @Transactional
+    public void delete(Long id){
+        Brand brand = brandRepository.getById(id);
+        brand.delete();
+    }
 }

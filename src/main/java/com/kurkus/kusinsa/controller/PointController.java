@@ -1,6 +1,7 @@
 package com.kurkus.kusinsa.controller;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 import com.kurkus.kusinsa.annotation.LoginCheck;
 import com.kurkus.kusinsa.annotation.SessionUserId;
@@ -36,7 +37,7 @@ public class PointController {
     @LoginCheck(userType = UserType.USER)
     public ResponseEntity<Page<PointResponse>> findAll(@SessionUserId Long userId,
                                                        @RequestParam(defaultValue = "all") PointType division,
-                                                       @RequestParam(name = "page") int page) {
+                                                       @RequestParam(name = "page", defaultValue = "0")int page) {
         return ResponseEntity.ok(pointService.findAll(userId, division, page));
     }
 

@@ -42,6 +42,9 @@ public class PointServiceImpl implements PointService{
     @Transactional(readOnly = true)
     @Override
     public Page<PointResponse> findAll(Long userId, PointType division, int page) {
+        if(page<0){
+            page = 0;
+        }
         if(division == PointType.ALL){
             return pointRepository.findAll(userId, PageRequest.of(page, POINT_SIZE)).
                     map(p -> PointResponse.from(p));

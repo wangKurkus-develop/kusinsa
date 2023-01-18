@@ -22,3 +22,4 @@ CREATE TABLE ORDERS_PRODUCT_HISTORY(
                                        FOREIGN KEY(user_id) REFERENCES USER(id),
                                        FOREIGN KEY(product_id) REFERENCES PRODUCT(id)
 );
+ALTER TABLE ORDERS_PRODUCT_HISTORY ADD quantity INT NOT NULL;

@@ -36,7 +36,11 @@ public class OrderHistory extends BaseTimeEntity {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column(nullable = false)
     private long price;
+
+    @Column(nullable = false)
+    private int quantity;
 
     @Column(name = "obtain_point")
     private long obtainPoint;

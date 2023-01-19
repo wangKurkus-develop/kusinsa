@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
 import com.kurkus.kusinsa.entity.Order;
 import com.kurkus.kusinsa.entity.OrderHistory;
+import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.repository.OrderHistoryRepository;
 import com.kurkus.kusinsa.repository.ProductRepository;
@@ -22,12 +23,11 @@ public class OrderHistoryService {
     private final ProductRepository productRepository;
     private final OrderHistoryRepository orderHistoryRepository;
 
-    // produt에서 getById에서 앞에서 valid체크가일어났으니까 이때 lock을 걸어야하나
     @Transactional
-    public void save(Order order, User user, OrderProductRequest validProduct){
-
-
+    public void save(Order order, OrderProductRequest request){
+        Product product = productRepository.getById(request.getProductId());
+        OrderHistory orderHistory = request.toOrderHistory(order, product);
+        orderHistoryRepository.save(orderHistory);
     }
-    // decrease에서 lock을 걸어야하는것
 
 }

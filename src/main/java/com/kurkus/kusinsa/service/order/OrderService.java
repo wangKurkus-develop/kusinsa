@@ -3,18 +3,27 @@ package com.kurkus.kusinsa.service.order;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.kurkus.kusinsa.utils.constants.PointMessages.LOGIN_POINT;
+import static com.kurkus.kusinsa.utils.constants.PointMessages.LOGIN_POINT_CONTENT;
+
 import com.kurkus.kusinsa.dto.request.order.OrderCreateRequest;
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
+import com.kurkus.kusinsa.dto.response.orderhistory.OrderHistoryResponse;
 import com.kurkus.kusinsa.entity.Order;
 import com.kurkus.kusinsa.entity.OrderHistory;
 import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.enums.ProductType;
+import com.kurkus.kusinsa.events.order.OrderHistorySavedEvent;
+import com.kurkus.kusinsa.events.point.PointLoginSavedEvent;
+import com.kurkus.kusinsa.events.point.PointOrderSavedEvent;
 import com.kurkus.kusinsa.repository.OrderRepository;
 import com.kurkus.kusinsa.repository.ProductRepository;
 import com.kurkus.kusinsa.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +36,7 @@ public class OrderService {
     private final UserRepository userRepository;
     private final OrderHistoryService orderHistoryService;
     private final ProductRepository productRepository;
-
+    private final ApplicationEventPublisher publisher;
     /**
      * v1 : 동시성 처리
      * v2 : 포인트 지급
@@ -36,17 +45,34 @@ public class OrderService {
     // 하나의 트랜잭션으로 묶어야한다 왜냐하면 주문은 생성이됬는데 주문기록이 안남으면 안되기때문이다.
     @Transactional
     public void save(Long userId, OrderCreateRequest request) {
-        User user = userRepository.getById(userId);
-        Order order = request.toOrder(user);
-        Order saveOrder = orderRepository.save(order);
-        //
+        // 1차적으로 valid 체크를 하고 lock후 수량을 감소시킵니다.
         List<OrderProductRequest> list = request.getOrderProductRequestList();
         for(int i=0; i< list.size(); i++){
-            decrease(list.get(i).getProductId(), list.get(i).getQuantity()); // 실패시?? 롤백이되나 테스트해봐야함
-            orderHistoryService.save(saveOrder, user, list.get(i)); // 이벤트로하기 기록하는게 실수가나면 재시도해야지
+            decrease(list.get(i).getProductId(), list.get(i).getQuantity());
         }
+        Order order = request.toOrder(userRepository.getById(userId));
+        Order saveOrder = orderRepository.save(order);
         log.info("주문완료");
+        // 포인트 이벤트
+        publisher.publishEvent(new PointOrderSavedEvent(userId, request.getTotalObtainPoint(),
+                request.getTotalUsedPoint(),saveOrder.getId()));
+        // 주문기록 이벤트
+        publisher.publishEvent(new OrderHistorySavedEvent(saveOrder, request.getOrderProductRequestList()));
     }
+
+    /**
+     * Transactional new로 한다면
+     * decrease하나의 메소드만 lock이 걸리는것이고
+     * decrease
+     */
+    @Transactional
+    public void decrease(Long productId, int quantity){
+        Product product = productRepository.findByIdWithPessimisticLock(productId);
+        validStock(product, quantity);
+        validStatus(product);
+        product.decrease(quantity);
+    }
+
 
 
     private void validStock(Product product, int quantity){
@@ -61,17 +87,8 @@ public class OrderService {
         }
     }
 
+    public Page<OrderHistoryResponse> findAll(Long userId) {
 
-    /**
-     * Transactional new로 한다면
-     * decrease하나의 메소드만 lock이 걸리는것이고
-     * decrease
-     */
-    @Transactional
-    public void decrease(Long productId, int quantity){
-        Product product = productRepository.findByIdWithPessimisticLock(productId);
-        validStock(product, quantity);
-        validStatus(product);
-        product.decrease(quantity);
+        return null;
     }
 }

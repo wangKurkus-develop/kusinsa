@@ -55,7 +55,8 @@ public class UserService {
         }
 
         sessionLoginService.login(user);
-        publisher.publishEvent(new PointLoginSavedEvent(user.getId(), LOGIN_POINT, LOGIN_POINT_CONTENT));
+        log.info("UserService Thread ID : {}", Thread.currentThread().getId());
+        publisher.publishEvent(new PointLoginSavedEvent(user.getId()));
     }
 
     @Transactional

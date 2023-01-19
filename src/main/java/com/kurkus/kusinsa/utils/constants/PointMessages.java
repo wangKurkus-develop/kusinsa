@@ -2,9 +2,12 @@ package com.kurkus.kusinsa.utils.constants;
 
 public final class PointMessages {
 
-    // 포인트
+    // 로그인 포인트
     public static final Long LOGIN_POINT = 100L;
     public static final String LOGIN_POINT_CONTENT = "로그인 포인트";
-    // 포인트사용
-    public static final String PAY_POINT_CONTENT = "포인트 결제";
+
+
+    // 주문
+    public static final String ORDER_USED_CONTENT = "주문 결제 주문번호 : ";
+    public static final String ORDER_OBTAIN_CONTENT = "주문 적립 주문번호 : ";
 }

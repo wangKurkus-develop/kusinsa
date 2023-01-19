@@ -32,7 +32,6 @@ public class PointEventHandler {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void loginPointSave(PointLoginSavedEvent event) {
-        log.info("PointLoginSavedEvent Thread ID : {}", Thread.currentThread().getId());
         if(pointDao.checkTodayLoginPoint(event.getUserId()) == 1){
             PointCreateRequest request = new PointCreateRequest(LOGIN_POINT, LOGIN_POINT_CONTENT, OBTAIN);
             pointService.save(event.getUserId(), request);

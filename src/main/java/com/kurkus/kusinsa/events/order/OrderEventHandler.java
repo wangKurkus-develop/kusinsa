@@ -35,5 +35,6 @@ public class OrderEventHandler {
             OrderProductRequest request = list.get(i);
             orderHistoryService.save(event.getOrder(), request);
         }
+        log.info("주문 기록 저장완료 : "+event.getOrder().getId());
     }
 }

@@ -7,4 +7,6 @@ public final class PageSizeConstants {
 
     // point page
     public static final int POINT_SIZE = 10;
+    // order history page
+    public static final int HISTORY_SIZE = 15;
 }

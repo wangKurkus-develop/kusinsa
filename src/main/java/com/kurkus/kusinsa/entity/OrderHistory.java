@@ -5,13 +5,10 @@ import javax.persistence.*;
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import com.kurkus.kusinsa.enums.DeliveryStatus;
 import com.kurkus.kusinsa.enums.OrderStatus;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
-
+@Getter
 @Builder
 @Entity
 @AllArgsConstructor
@@ -24,15 +21,15 @@ public class OrderHistory extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -47,7 +44,7 @@ public class OrderHistory extends BaseTimeEntity {
 
     @Column(name = "delivery_status")
     @Enumerated(EnumType.STRING)
-    private DeliveryStatus deliveryType;
+    private DeliveryStatus deliveryStatus;
 
     @Column(name = "order_status")
     @Enumerated(EnumType.STRING)

@@ -28,6 +28,8 @@ public final class ErrorMessages {
     // brand
     public static final String NOT_FOUND_BRAND = "존재하지 않는 브랜드입니다";
     public static final String EXISTS_BRAND = "이미존재하는 카테고리입니다";
+    // order history
+    public static final String NOT_FOUND_ORDER_HISTORY = "존재하지 않는 주문 기록입니다";
 
 
 }

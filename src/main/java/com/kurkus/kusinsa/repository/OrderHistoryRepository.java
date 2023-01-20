@@ -14,7 +14,6 @@ import org.springframework.data.repository.query.Param;
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Long> {
 
 
-    // join join은 안되나
     @Query(value = "select new com.kurkus.kusinsa.dto.response.orderhistory.OrderHistoryResponse(" +
             "h.id, p.id, p.thumbnailImagePath, p.name, b.id, b.name, " +
             "o.createdAt, o.id, h.price, h.quantity, h.orderStatus ,h.deliveryStatus) " +

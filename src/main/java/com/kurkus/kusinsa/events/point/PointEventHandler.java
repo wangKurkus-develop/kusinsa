@@ -25,6 +25,14 @@ public class PointEventHandler {
     private final PointService pointService;
     private final PointDao pointDao;
 
+    @EventListener
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    public void save(PointEvent event){
+        pointService.save(event.getUserId(),
+                new PointCreateRequest(event.getPoint(), event.getContent(), event.getType()));
+    }
+
     /**
      * 로그인 포인트 중복체크하기
      */
@@ -55,5 +63,4 @@ public class PointEventHandler {
                 ));
         log.info(ORDER_OBTAIN_CONTENT+event.getOrderId());
     }
-
 }

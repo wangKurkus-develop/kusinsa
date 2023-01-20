@@ -36,6 +36,7 @@ public class OrderController {
                                                               @RequestParam(name = "page", defaultValue = "0") int page){
         return ResponseEntity.ok(historyService.findAllWithPage(userId, page));
     }
+
     // 주문 취소 만들기
     @PatchMapping("/{historyId}")
     @LoginCheck(userType = UserType.USER)

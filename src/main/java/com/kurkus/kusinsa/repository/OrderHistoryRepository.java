@@ -16,7 +16,7 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Long
 
     // join join은 안되나
     @Query(value = "select new com.kurkus.kusinsa.dto.response.orderhistory.OrderHistoryResponse(" +
-            "p.id, p.thumbnailImagePath, p.name, b.id, b.name, " +
+            "h.id, p.id, p.thumbnailImagePath, p.name, b.id, b.name, " +
             "o.createdAt, o.id, h.price, h.quantity, h.orderStatus ,h.deliveryStatus) " +
             "from OrderHistory h " +
             "inner join Product p on h.product.id = p.id " +

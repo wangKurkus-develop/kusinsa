@@ -45,6 +45,9 @@ public class OrderHistoryService {
 
     @Transactional(readOnly = true)
     public Page<OrderHistoryResponse> findAllWithPage(Long userId, int page) {
+        if(page < 0){
+            page = 0;
+        }
         Page<OrderHistoryResponse> result = historyRepository.findAllWithPage(userId, PageRequest.of(page, HISTORY_SIZE));
         return result;
     }

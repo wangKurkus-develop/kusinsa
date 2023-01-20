@@ -3,6 +3,7 @@ package com.kurkus.kusinsa.service.order;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static com.kurkus.kusinsa.utils.constants.PointMessages.LOGIN_POINT;
 import static com.kurkus.kusinsa.utils.constants.PointMessages.LOGIN_POINT_CONTENT;
 
@@ -21,6 +22,7 @@ import com.kurkus.kusinsa.exception.order.OrderException;
 import com.kurkus.kusinsa.repository.OrderRepository;
 import com.kurkus.kusinsa.repository.ProductRepository;
 import com.kurkus.kusinsa.repository.UserRepository;
+import com.kurkus.kusinsa.utils.constants.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -74,13 +76,13 @@ public class OrderService {
 
     private void validStock(Product product, int quantity){
         if(product.getStock() - quantity < 0){
-            throw new OrderException(product.getName()+"수량이 모자릅니다.", HttpStatus.BAD_REQUEST);
+            throw new OrderException(product.getName()+ NOT_ENOUGH_QUANTITY, HttpStatus.BAD_REQUEST);
         }
     }
 
     private void validStatus(Product product){
         if(product.getStatus() != ProductType.SALE){
-            throw new OrderException(product.getName()+"판매중인 상품이 아닙니다", HttpStatus.BAD_REQUEST);
+            throw new OrderException(product.getName()+ NOT_SALE, HttpStatus.BAD_REQUEST);
         }
     }
 }

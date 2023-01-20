@@ -30,6 +30,15 @@ public final class ErrorMessages {
     public static final String EXISTS_BRAND = "이미존재하는 카테고리입니다";
     // order history
     public static final String NOT_FOUND_ORDER_HISTORY = "존재하지 않는 주문 기록입니다";
+    // 배송상태
+    public static final String FAIL_CANCEL_DELIVERY = "주문취소는 배송준비중일떄만가능합니다";
 
+
+    // 주문=결제 상태
+
+
+    // order
+    public static final String NOT_ENOUGH_QUANTITY = "수량이 모자릅니다";
+    public static final String NOT_SALE = "매진이거나 판매중이 아닙니다";
 
 }

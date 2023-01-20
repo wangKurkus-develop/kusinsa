@@ -57,6 +57,10 @@ public class OrderHistory extends BaseTimeEntity {
         this.deleted = true;
     }
 
+    public void refund(){
+        this.orderStatus = OrderStatus.REFUND;
+    }
+
 
 
 

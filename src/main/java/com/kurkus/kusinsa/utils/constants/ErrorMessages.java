@@ -32,9 +32,8 @@ public final class ErrorMessages {
     public static final String NOT_FOUND_ORDER_HISTORY = "존재하지 않는 주문 기록입니다";
     // 배송상태
     public static final String FAIL_CANCEL_DELIVERY = "주문취소는 배송준비중일떄만가능합니다";
-
-
     // 주문=결제 상태
+    public static final String NOT_AUTHORITY = "환불 권한이 없습니다";
 
 
     // order

@@ -1,12 +1,9 @@
 package com.kurkus.kusinsa.repository;
 
 import javax.persistence.LockModeType;
-import java.util.Optional;
 
+import com.kurkus.kusinsa.dto.response.orderhistory.OrderHistoryResponse;
 import com.kurkus.kusinsa.entity.OrderHistory;
-import com.kurkus.kusinsa.entity.User;
-import com.kurkus.kusinsa.exception.order.OrderHistoryNotFoundException;
-import com.kurkus.kusinsa.exception.user.UserNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,20 +14,26 @@ import org.springframework.data.repository.query.Param;
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Long> {
 
 
-    @Query("select h from OrderHistory h join fetch h.order join fetch h.product join fetch h.product.brand " +
-            "where h.user.id = :userId order by h.createdAt desc")
-    Page<OrderHistory> findAllWithPage(@Param("userId") Long userId, Pageable page);
+    // join join은 안되나
+    @Query(value = "select new com.kurkus.kusinsa.dto.response.orderhistory.OrderHistoryResponse(" +
+            "p.id, p.thumbnailImagePath, p.name, b.id, b.name, " +
+            "o.createdAt, o.id, h.price, h.quantity, h.orderStatus ,h.deliveryStatus) " +
+            "from OrderHistory h " +
+            "inner join Product p on h.product.id = p.id " +
+            "inner join Order o on h.order.id = o.id " +
+            "inner join Brand b on h.product.brand.id = b.id " +
+            "where h.user.id = :userId order by h.createdAt desc",
+            countQuery = "select count(h) from OrderHistory  h where h.user.id = :userId")
+    Page<OrderHistoryResponse> findAllWithPage(@Param("userId") Long userId, Pageable pageable);
 
-//    default User getById(Long id){
-//        return findById(id).orElseThrow(()-> new UserNotFoundException());
-//    }
 
-    // fetch
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("select h from OrderHistory h join fetch h.order where h.id = :id")
-    Optional<OrderHistory> customFindById(@Param("id") Long id);
+    @Query(value = "select h from OrderHistory h join fetch h.product join fetch h.user where h.id = :id")
+    OrderHistory findByIdPessimisticLock(@Param("id") Long id);
 
-    default OrderHistory getById(Long id){
-        return customFindById(id).orElseThrow(() -> new OrderHistoryNotFoundException());
-    }
+
+
+
+
+
 }

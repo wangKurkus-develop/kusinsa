@@ -55,7 +55,7 @@ public class UserService {
         }
 
         sessionLoginService.login(user);
-        publisher.publishEvent(new PointLoginSavedEvent(user.getId(), LOGIN_POINT, LOGIN_POINT_CONTENT));
+        publisher.publishEvent(new PointLoginSavedEvent(user.getId()));
     }
 
     @Transactional

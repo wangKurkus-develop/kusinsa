@@ -15,6 +15,9 @@ public class PointDao {
     private final RedisTemplate<String, Object> redisPointTemplate;
     private final String PREFIX = "attendance_check:";
 
+    /**
+     * @return 기존에 존재하는경우 : 0, 처음저장인경우 : 1
+     */
     public Long checkTodayLoginPoint(Long userId){
         Long add = redisPointTemplate.opsForSet().add(PREFIX+LocalDate.now(),  userId.toString());
         return add;

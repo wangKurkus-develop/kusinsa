@@ -9,13 +9,11 @@ import static com.kurkus.kusinsa.utils.constants.SessionConstants.AUTH_TYPE;
 import static com.kurkus.kusinsa.utils.constants.SessionConstants.SESSION_ID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kurkus.kusinsa.annotation.LoginCheck;
-import com.kurkus.kusinsa.annotation.SessionUserId;
+
 import com.kurkus.kusinsa.dto.request.point.PointCreateRequest;
 import com.kurkus.kusinsa.dto.response.point.PointResponse;
 import com.kurkus.kusinsa.enums.PointType;
 import com.kurkus.kusinsa.enums.UserType;
-import com.kurkus.kusinsa.utils.constants.ErrorMessages;
 import com.kurkus.kusinsa.utils.constants.PointMessages;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,12 +22,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -69,7 +66,7 @@ public class PointIntegrationTest {
         public void 성공() throws Exception {
             // given
             Long score = 10000L;
-            String content = PointMessages.PAY_POINT_CONTENT;
+            String content = PointMessages.ORDER_USED_CONTENT;
             PointType division = PointType.USED;
             loginUser();
             PointCreateRequest request = new PointCreateRequest(score, content, division);
@@ -84,7 +81,7 @@ public class PointIntegrationTest {
         public void 실패_UserNotFound() throws Exception {
             // given
             Long score = 10000L;
-            String content = PointMessages.PAY_POINT_CONTENT;
+            String content = PointMessages.ORDER_USED_CONTENT;
             PointType division = PointType.USED;
             PointCreateRequest request = new PointCreateRequest(score, content, division);
 
@@ -102,7 +99,7 @@ public class PointIntegrationTest {
         public void point_최소값_만족안하는경우() throws Exception {
             // given
             Long score = 1L;
-            String content = PointMessages.PAY_POINT_CONTENT;
+            String content = PointMessages.ORDER_USED_CONTENT;
             PointType division = PointType.USED;
             PointCreateRequest request = new PointCreateRequest(score, content, division);
             loginUser();

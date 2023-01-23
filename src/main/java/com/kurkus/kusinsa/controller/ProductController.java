@@ -43,13 +43,6 @@ public class ProductController {
         return ResponseEntity.ok().build();
     }
 
-    @LoginCheck(userType = UserType.USER)
-    @PostMapping("/{productId}")
-    public ResponseEntity<Void> like(@SessionUserId Long userId, @PathVariable Long productId) {
-        productService.like(userId, productId);
-        return ResponseEntity.ok().build();
-    }
-
     /**
      * Controller Search Controller 만들어서 하기
      * 맨투맨 별로 Serach니까 (검색창이아니더라도)

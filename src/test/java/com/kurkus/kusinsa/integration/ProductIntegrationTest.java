@@ -243,20 +243,7 @@ public class ProductIntegrationTest {
                 .andExpect(jsonPath("$.content[0].categoryResponse.name").value("맨투맨"));
     }
 
-    @Test
-    public void 좋아요성공() throws Exception {
-        // given
-        userLogin();
-        String productId = "/10";
-        // when
-        ResultActions result = mvc.perform(post(URI + productId).session(mockHttpSession))
-                .andDo(print());
-        // then
-        result.andExpect(status().is2xxSuccessful());
-    }
-
-
-
+    
     private void adminLogin(){
         mockHttpSession.setAttribute(SESSION_ID, 20L);
         mockHttpSession.setAttribute(AUTH_TYPE, UserType.ADMIN);

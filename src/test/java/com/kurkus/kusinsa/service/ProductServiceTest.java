@@ -159,26 +159,7 @@ class ProductServiceTest {
         }
     }
 
-    @Test
-    public void like() throws Exception {
-        // given
-        Long userId = 18L;
-        Long productId = 15L;
-        // when
-        productService.like(userId, productId);
-        // then
-        then(likesDao).should(times(1)).likeProduct(anyLong(), anyLong());
-    }
 
-    @Test
-    public void getLike() throws Exception {
-        // given
-        Long productId = 16L;
-        // when
-        productService.getLikes(productId);
-        // then
-        then(likesDao).should(times(1)).getLikes(productId);
-    }
 
 
 

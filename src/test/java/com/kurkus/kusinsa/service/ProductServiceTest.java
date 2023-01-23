@@ -6,6 +6,7 @@ import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.EXISTS_PRODUCT;
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.kurkus.kusinsa.dao.LikesDao;
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductUpdateRequest;
 import com.kurkus.kusinsa.entity.Brand;
@@ -44,6 +45,9 @@ class ProductServiceTest {
 
     @Mock
     BrandRepository brandRepository;
+
+    @Mock
+    LikesDao likesDao;
 
     private String name = "상품1";
     private Long price = 1000L;
@@ -154,6 +158,28 @@ class ProductServiceTest {
             assertEquals(NOT_FOUND_PRODUCT, ex.getMessage());
         }
     }
+
+    @Test
+    public void like() throws Exception {
+        // given
+        Long userId = 18L;
+        Long productId = 15L;
+        // when
+        productService.like(userId, productId);
+        // then
+        then(likesDao).should(times(1)).likeProduct(anyLong(), anyLong());
+    }
+
+    @Test
+    public void getLike() throws Exception {
+        // given
+        Long productId = 16L;
+        // when
+        productService.getLikes(productId);
+        // then
+        then(likesDao).should(times(1)).getLikes(productId);
+    }
+
 
 
 }

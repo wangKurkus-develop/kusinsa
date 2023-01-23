@@ -3,6 +3,7 @@ package com.kurkus.kusinsa.service;
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static com.kurkus.kusinsa.utils.constants.PageSizeConstants.*;
 
+import com.kurkus.kusinsa.dao.LikesDao;
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductPageRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductUpdateRequest;
@@ -35,6 +36,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final BrandRepository brandRepository;
+    private final LikesDao likesDao;
 
     /**
      * 이름 중복체크
@@ -101,5 +103,13 @@ public class ProductService {
     public void delete(Long id){
         Product product = productRepository.getById(id);
         product.delete();
+    }
+
+    public void like(Long userId, Long productId) {
+        likesDao.likeProduct(userId, productId);
+    }
+
+    public Long getLikes(Long productId){
+        return likesDao.getLikes(productId);
     }
 }

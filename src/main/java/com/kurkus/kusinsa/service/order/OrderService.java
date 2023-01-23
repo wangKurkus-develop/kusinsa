@@ -76,13 +76,13 @@ public class OrderService {
 
     private void validStock(Product product, int quantity){
         if(product.getStock() - quantity < 0){
-            throw new OrderException(product.getName()+ NOT_ENOUGH_QUANTITY, HttpStatus.BAD_REQUEST);
+            throw new OrderException(product.getName()+" "+ NOT_ENOUGH_QUANTITY, HttpStatus.BAD_REQUEST);
         }
     }
 
     private void validStatus(Product product){
         if(product.getStatus() != ProductType.SALE){
-            throw new OrderException(product.getName()+ NOT_SALE, HttpStatus.BAD_REQUEST);
+            throw new OrderException(product.getName()+" "+ NOT_SALE, HttpStatus.BAD_REQUEST);
         }
     }
 }

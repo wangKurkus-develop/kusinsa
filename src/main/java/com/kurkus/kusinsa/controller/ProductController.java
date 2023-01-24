@@ -1,18 +1,15 @@
 package com.kurkus.kusinsa.controller;
 
 import com.kurkus.kusinsa.annotation.LoginCheck;
-import com.kurkus.kusinsa.annotation.SessionUserId;
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductPageRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductUpdateRequest;
 import com.kurkus.kusinsa.dto.response.prodcut.ProductAllResponse;
 import com.kurkus.kusinsa.dto.response.prodcut.ProductResponse;
-import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.enums.UserType;
 import com.kurkus.kusinsa.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -15,11 +15,11 @@ import org.springframework.stereotype.Repository;
 public class RecentDao {
 
     private final RedisTemplate<String, Object> redisSetTemplate;
-    private final String PREFIX = "recent_click:";
+    private final String PREFIX = "recent_user:"; // 최근본상품
 
-    public void recentSave(Long userId, String productId){
+    public void recentSave(Long userId, Long productId){
         redisSetTemplate.expire(PREFIX+userId, 6, TimeUnit.HOURS);
-        redisSetTemplate.opsForZSet().add(PREFIX+userId, productId,System.currentTimeMillis());
+        redisSetTemplate.opsForZSet().add(PREFIX+userId, productId.toString(),System.currentTimeMillis());
     }
 
     public Set<Object> findAllRecent(Long userId){

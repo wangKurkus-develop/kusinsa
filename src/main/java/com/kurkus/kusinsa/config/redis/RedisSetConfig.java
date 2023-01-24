@@ -10,29 +10,32 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-@Configuration
-public class RedisPointConfig {
 
-    @Value("${spring.redis.point.host}")
+@Configuration
+public class RedisSetConfig {
+
+    @Value("${spring.redis.set.host}")
     private String redisHost;
 
-    @Value("${spring.redis.point.port}")
+    @Value("${spring.redis.set.port}")
     private int redisPort;
 
-    @Bean("redisPointConnectionFactory")
-    public RedisConnectionFactory redisPointConnectionFactory() {
+    @Bean("redisSetConnectionFactory")
+    public RedisConnectionFactory redisSetConnectionFactory() {
         return new LettuceConnectionFactory(new RedisStandaloneConfiguration(redisHost, redisPort));
     }
 
     @Bean
-    public RedisTemplate<String, Object> redisPointTemplate(@Qualifier("redisPointConnectionFactory") RedisConnectionFactory redisPointConnectionFactory) {
+    public RedisTemplate<String, Object> redisSetTemplate(@Qualifier("redisSetConnectionFactory")
+                                                              RedisConnectionFactory redisSetConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisPointConnectionFactory);
+        redisTemplate.setConnectionFactory(redisSetConnectionFactory);
 
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new StringRedisSerializer());
         redisTemplate.setDefaultSerializer(new StringRedisSerializer());
         return redisTemplate;
     }
+
 
 }

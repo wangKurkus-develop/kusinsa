@@ -34,7 +34,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-@Testcontainers
+//@Testcontainers
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -46,11 +46,11 @@ public class ProductIntegrationTest {
     @Autowired
     ObjectMapper objectMapper;
 
-    @Container
-    static DockerComposeContainer composeContainer =
-            new DockerComposeContainer(new File("src/test/resources/docker-compose.yml"))
-                    .withExposedService("redis-session", 6379,
-                            Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
+//    @Container
+//    static DockerComposeContainer composeContainer =
+//            new DockerComposeContainer(new File("src/test/resources/docker-compose.yml"))
+//                    .withExposedService("redis-session", 6379,
+//                            Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
 
     private MockHttpSession mockHttpSession = new MockHttpSession();
     private final String URI = "/products";
@@ -243,14 +243,14 @@ public class ProductIntegrationTest {
                 .andExpect(jsonPath("$.content[0].categoryResponse.name").value("맨투맨"));
     }
 
-
+    
     private void adminLogin(){
-        mockHttpSession.setAttribute(SESSION_ID, 18L);
+        mockHttpSession.setAttribute(SESSION_ID, 20L);
         mockHttpSession.setAttribute(AUTH_TYPE, UserType.ADMIN);
     }
 
     private void userLogin(){
-        mockHttpSession.setAttribute(SESSION_ID, 20L);
+        mockHttpSession.setAttribute(SESSION_ID, 18L);
         mockHttpSession.setAttribute(AUTH_TYPE, UserType.USER);
     }
 

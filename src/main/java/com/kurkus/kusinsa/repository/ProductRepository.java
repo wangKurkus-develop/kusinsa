@@ -1,6 +1,7 @@
 package com.kurkus.kusinsa.repository;
 
 import javax.persistence.LockModeType;
+import java.util.List;
 import java.util.Optional;
 
 import com.kurkus.kusinsa.entity.Product;
@@ -40,10 +41,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAllByBrand(@Param("brandId") Long brandId, Pageable pageable);
 
 
-    // 대기시간을 몇초를해야할지모르겠다...
     @Lock(value = LockModeType.PESSIMISTIC_WRITE)
     @Query("select p from Product p where p.id = :id and p.deleted=false ")
     Product findByIdWithPessimisticLock(@Param("id") Long id);
 
 
+    @Query("select p from Product p join fetch p.brand where p.id in :list")
+    List<Product> findAllRecent(List<Long> list);
 }

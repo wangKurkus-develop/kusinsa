@@ -26,7 +26,8 @@ public class RedisSetConfig {
     }
 
     @Bean
-    public RedisTemplate<String, Object> redisPointTemplate(@Qualifier("redisSetConnectionFactory") RedisConnectionFactory redisSetConnectionFactory) {
+    public RedisTemplate<String, Object> redisSetTemplate(@Qualifier("redisSetConnectionFactory")
+                                                              RedisConnectionFactory redisSetConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisSetConnectionFactory);
 
@@ -35,5 +36,6 @@ public class RedisSetConfig {
         redisTemplate.setDefaultSerializer(new StringRedisSerializer());
         return redisTemplate;
     }
+
 
 }

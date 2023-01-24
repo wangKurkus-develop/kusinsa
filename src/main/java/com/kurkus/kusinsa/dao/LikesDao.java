@@ -2,10 +2,14 @@ package com.kurkus.kusinsa.dao;
 
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -14,20 +18,45 @@ import org.springframework.stereotype.Repository;
 public class LikesDao {
 
     private final RedisTemplate<String, Object> redisSetTemplate;
-    private final String PREFIX = "like:";
+    private final String PRODUCT_PREFIX = "like_product:";
+    private final String USER_PREFIX = "like_user:";
 
-    /**
-     * 좋아요한 개수를 count를 위해서 기존에 존재하는경우 : 0, 처음저장인경우 : 1
-     */
+
     public void likeProduct(Long userId, Long productId) {
-        Long add = redisSetTemplate.opsForSet().add(PREFIX + productId, userId.toString());
-        if (add == 0) {
-            redisSetTemplate.opsForSet().remove(PREFIX + productId, userId.toString());
-        }
+        redisSetTemplate.execute(new SessionCallback<Object>() {
+            @Override
+            public Object execute(RedisOperations operations) throws DataAccessException {
+                try {
+                    redisSetTemplate.multi();
+                    redisSetTemplate.opsForSet().add(PRODUCT_PREFIX + productId, userId.toString());
+                    redisSetTemplate.opsForSet().add(USER_PREFIX + userId, productId.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    redisSetTemplate.discard();
+                }
+                return redisSetTemplate.exec();
+            }
+        });
+    }
+
+    public void disLikeProduct(Long userId, Long productId) {
+        redisSetTemplate.execute(new SessionCallback<Object>() {
+            @Override
+            public Object execute(RedisOperations operations) throws DataAccessException {
+                try {
+                    redisSetTemplate.multi();
+                    redisSetTemplate.opsForSet().remove(PRODUCT_PREFIX + productId, userId.toString());
+                    redisSetTemplate.opsForSet().remove(USER_PREFIX + userId, productId.toString());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                return redisSetTemplate.exec();
+            }
+        });
     }
 
     public Long getLikes(Long productId) {
-        return redisSetTemplate.opsForSet().size(PREFIX + productId);
+        return redisSetTemplate.opsForSet().size(PRODUCT_PREFIX + productId);
     }
 
 

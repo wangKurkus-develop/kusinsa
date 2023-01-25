@@ -1,6 +1,5 @@
 package com.kurkus.kusinsa.controller;
 
-import javax.xml.ws.Response;
 import java.util.List;
 
 import com.kurkus.kusinsa.dto.response.rank.OrderRankResponse;
@@ -21,7 +20,7 @@ public class RankController {
     // 실시간 click과 order를 둘다 보내주어야한다.
     @GetMapping("/order")
     public ResponseEntity<List<OrderRankResponse>> orderRank(){
-        return ResponseEntity.ok(rankService.orderRank());
+        return ResponseEntity.ok(rankService.orderRankTop10());
     }
 
 

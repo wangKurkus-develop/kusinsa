@@ -39,4 +39,16 @@ class RankServiceTest {
         then(rankDao).should(times(1)).orderRankTop10();
         then(productRepository).should(times(1)).findAllByList(anyList());
     }
+
+    @Test
+    public void clickRankTop10() throws Exception {
+        // given
+        given(rankDao.clickRankTop10()).willReturn(new ArrayList<>());
+        given(productRepository.findAllByList(anyList())).willReturn(new ArrayList<>());
+        // when
+        rankService.clickRankTop10();
+        // then
+        then(rankDao).should(times(1)).clickRankTop10();
+        then(productRepository).should(times(1)).findAllByList(anyList());
+    }
 }

@@ -2,6 +2,7 @@ package com.kurkus.kusinsa.controller;
 
 import java.util.List;
 
+import com.kurkus.kusinsa.dto.response.rank.ClickRankResponseV1;
 import com.kurkus.kusinsa.dto.response.rank.OrderRankResponse;
 import com.kurkus.kusinsa.service.RankService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,11 @@ public class RankController {
     @GetMapping("/order")
     public ResponseEntity<List<OrderRankResponse>> orderRank(){
         return ResponseEntity.ok(rankService.orderRankTop10());
+    }
+
+    @GetMapping("/click")
+    public ResponseEntity<List<ClickRankResponseV1>> clickRank(){
+        return ResponseEntity.ok(rankService.clickRankTop10());
     }
 
 

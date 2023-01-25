@@ -35,4 +35,14 @@ public class RankIntegrationTest {
         // then
         result.andExpect(status().is2xxSuccessful());
     }
+
+    @Test
+    public void clickRank() throws Exception {
+        // given
+        String URI = PREFIX_URI+"/click";
+        // when
+        ResultActions result = mockMvc.perform(get(URI)).andDo(print());
+        // then
+        result.andExpect(status().is2xxSuccessful());
+    }
 }

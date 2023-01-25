@@ -1,13 +1,9 @@
 package com.kurkus.kusinsa.dao;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.kurkus.kusinsa.dto.response.rank.ClickRankResponse;
-import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,10 +37,10 @@ public class RankDao {
     }
 
 //    // top10 리스트
-//    public List<Long> clickRankTop10(){
-//        Set<Object> set = redisSetTemplate.opsForZSet().reverseRangeByScore("testzset", 10, 1000, 0, 3);
-//        return set.stream().map(o -> new Long(o.toString())).collect(Collectors.toList());
-//    }
+    public List<Long> clickRankTop10(){
+        Set<Object> set = redisSetTemplate.opsForZSet().reverseRangeByScore(CLICK_KEY, 5, 3000, 0, 10);
+        return set.stream().map(o -> new Long(o.toString())).collect(Collectors.toList());
+    }
 
 
 

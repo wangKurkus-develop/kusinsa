@@ -52,22 +52,6 @@ public class ProductController {
         return ResponseEntity.ok(productService.findAllByCategory(request));
     }
 
-//    // QueryDSL로 동적쿼리로 만들기 param으로 받아가지고
-//    @GetMapping("/brands")
-//    public ResponseEntity<Page<ProductAllResponse>> findAllByBrand(@RequestBody ProductPageRequest request){
-//        return ResponseEntity.ok(productService.findAllByCategory(request));
-//    }
-
-
-//    @GetMapping
-//    public ResponseEntity<ProductPageResponse> findBySearchConditions(@RequestBody ProductCategoryRequest request, Pageable pageable){
-//
-//    }
-//
-//    @GetMapping
-//    public ResponseEntity<ProductPageResponse> findBySearchConditions(@RequestBody ProductBrandRequest request, Pageable pageable){
-//
-//    }
 
 
 }

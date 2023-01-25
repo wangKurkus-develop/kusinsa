@@ -7,7 +7,6 @@ import java.util.Optional;
 import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.exception.product.ProductNotFoundException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
@@ -46,6 +45,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findByIdWithPessimisticLock(@Param("id") Long id);
 
 
-    @Query("select p from Product p join fetch p.brand where p.id in :list")
-    List<Product> findAllRecent(List<Long> list);
+    @Query(value = "select p from Product p join fetch p.brand where p.id in :list")
+    List<Product> findAllByList(@Param("list") List<Long> list);
+
+
+
+
+
 }

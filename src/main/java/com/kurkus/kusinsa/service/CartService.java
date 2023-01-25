@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import com.kurkus.kusinsa.dao.LikesDao;
 import com.kurkus.kusinsa.dao.RecentDao;
-import com.kurkus.kusinsa.dto.response.prodcut.ProductRecentResponse;
+import com.kurkus.kusinsa.dto.response.prodcut.ProductCommonResponse;
 import com.kurkus.kusinsa.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,15 +34,15 @@ public class CartService {
         return likesDao.getLikes(productId);
     }
 
-    public List<ProductRecentResponse> findAllRecent(Long userId) {
+    public List<ProductCommonResponse> findAllRecent(Long userId) {
         Set<Object> set = recentDao.findAllRecent(userId);
         List<Long> list = new ArrayList<>();
         Iterator<Object> iterator = set.iterator();
         while(iterator.hasNext()){
             list.add((long)iterator.next());
         }
-        List<ProductRecentResponse> result = productRepository.findAllRecent(list).stream()
-                .map(p -> ProductRecentResponse.of(p)).collect(Collectors.toList());
+        List<ProductCommonResponse> result = productRepository.findAllByList(list).stream()
+                .map(p -> ProductCommonResponse.of(p)).collect(Collectors.toList());
         return result;
     }
 }

@@ -3,8 +3,6 @@ package com.kurkus.kusinsa.service;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.kurkus.kusinsa.dao.LikesDao;
 import com.kurkus.kusinsa.dao.RecentDao;
 import com.kurkus.kusinsa.repository.ProductRepository;
@@ -68,12 +66,12 @@ class CartServiceTest {
         // given
         Long userId = 16L;
         given(recentDao.findAllRecent(userId)).willReturn(new HashSet<>());
-        given(productRepository.findAllRecent(any())).willReturn(new ArrayList<>());
+        given(productRepository.findAllByList(any())).willReturn(new ArrayList<>());
         // when
         cartService.findAllRecent(userId);
         // then
         then(recentDao).should(times(1)).findAllRecent(anyLong());
-        then(productRepository).should(times(1)).findAllRecent(any());
+        then(productRepository).should(times(1)).findAllByList(any());
     }
 
 

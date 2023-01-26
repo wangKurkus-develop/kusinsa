@@ -14,12 +14,14 @@ import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.repository.ProductRepository;
 import com.kurkus.kusinsa.utils.constants.RedisCacheConstants;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class RankService {
 
     private final RankDao rankDao;

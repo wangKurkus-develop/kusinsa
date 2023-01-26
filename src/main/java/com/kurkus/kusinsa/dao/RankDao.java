@@ -32,14 +32,19 @@ public class RankDao {
 
     // 애는 그냥 10개를 가지고오면됨
     public List<Long> orderRankTop10(){
-        Set<Object> set = redisSetTemplate.opsForZSet().reverseRangeByScore(ORDER_KEY, 5, 1000, 0, 10);
+        Set<Object> set = redisSetTemplate.opsForZSet().reverseRangeByScore("test2", 5, 1000, 0, 10);
         return set.stream().map(o -> new Long(o.toString())).collect(Collectors.toList());
     }
 
 //    // top10 리스트
     public List<Long> clickRankTop10(){
-        Set<Object> set = redisSetTemplate.opsForZSet().reverseRangeByScore(CLICK_KEY, 5, 3000, 0, 10);
+        Set<Object> set = redisSetTemplate.opsForZSet().reverseRangeByScore("test2", 5, 3000, 0, 10);
         return set.stream().map(o -> new Long(o.toString())).collect(Collectors.toList());
+    }
+
+    public void resetRankData(){
+        redisSetTemplate.delete(ORDER_KEY);
+        redisSetTemplate.delete(CLICK_KEY);
     }
 
 

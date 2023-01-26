@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderRankResponse {
 
-    private Long id;
+    private Long productId;
     private String name;
     private Long price;
     private String thumbnailImagePath;

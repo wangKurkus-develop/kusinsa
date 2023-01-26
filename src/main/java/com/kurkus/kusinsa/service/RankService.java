@@ -53,6 +53,11 @@ public class RankService {
         return result;
     }
 
+    public void resetRankData(){
+        rankDao.resetRankData();
+    }
+
+
 
 
 }

@@ -5,11 +5,14 @@ import java.util.*;
 
 import com.kurkus.kusinsa.dao.RankDao;
 import com.kurkus.kusinsa.dto.response.rank.OrderRankResponse;
+import com.kurkus.kusinsa.entity.documents.ClickRank;
+import com.kurkus.kusinsa.repository.mongo.ClickRankRepository;
 import com.kurkus.kusinsa.service.RankService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 public class test {
@@ -22,17 +25,14 @@ public class test {
 
     @Autowired
     RankService rankService;
+
+    @Autowired
+    ClickRankRepository test;
     
     @Test
+    @Transactional
     public void before채우기(){
-        // 이전에 20등까지있는거임 // 구 버전 순위
-        List<OrderRankResponse> orderRankResponses = rankService.orderRankTop10();
-        for(OrderRankResponse o : orderRankResponses){
-            System.out.println("o.getName() = " + o.getName());
-            System.out.println("o.getId() = " + o.getId());
-            System.out.println("o.getRank() = " + o.getRank());
-        }
-
+        test.save(new ClickRank(22L, "test", 1, "hello"));
 
     }
 

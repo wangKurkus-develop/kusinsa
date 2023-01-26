@@ -43,6 +43,8 @@ dependencies {
 
     // TestContainer
     testImplementation 'org.testcontainers:junit-jupiter:1.17.3'
+    // mongodb
+    implementation ('org.springframework.boot:spring-boot-starter-data-mongodb')
 }
 
 tasks.named('test') {

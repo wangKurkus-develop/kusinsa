@@ -6,3 +6,13 @@ services:
     container_name: redisTest-session
     ports:
       - 6379:6379
+  redis-set:
+    image: redis
+    container_name: redisTest-set
+    ports:
+      - 6479:6379
+  redis-cache:
+    image: redis
+    container_name: redisTest-cache
+    ports:
+      - 6579:6379

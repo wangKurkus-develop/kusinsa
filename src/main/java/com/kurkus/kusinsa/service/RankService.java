@@ -33,7 +33,7 @@ public class RankService {
         for (int i = 0; i < longs.size(); i++) {
             map.put(longs.get(i), i + 1);
         }
-        List<Product> list = productRepository.findAllByList(longs);
+        List<Product> list = productRepository.findAllWithBrandByList(longs);
 
         List<OrderRankResponse> result = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -50,7 +50,7 @@ public class RankService {
         for (int i = 0; i < longs.size(); i++) {
             map.put(longs.get(i), i + 1);
         }
-        List<Product> list = productRepository.findAllByList(longs);
+        List<Product> list = productRepository.findAllWithBrandByList(longs);
 
         List<ClickRankResponseV1> result = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {

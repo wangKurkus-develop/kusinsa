@@ -28,7 +28,7 @@ public class ProductResponse {
                 .name(product.getName())
                 .price(product.getPrice())
                 .content(product.getContent())
-                .steams(product.getSteams())
+                .steams(product.getLikes())
                 .status(product.getStatus())
                 .originImagePath(product.getOriginImagePath())
                 .thumbnailImagePath(product.getThumbnailImagePath())

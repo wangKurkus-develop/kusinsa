@@ -46,9 +46,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 
     @Query(value = "select p from Product p join fetch p.brand where p.id in :list")
+    List<Product> findAllWithBrandByList(@Param("list") List<Long> list);
+
+
+
+    @Query(value = "select p from Product p where p.id in :list")
     List<Product> findAllByList(@Param("list") List<Long> list);
-
-
 
 
 

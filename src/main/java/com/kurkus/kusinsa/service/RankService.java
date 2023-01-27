@@ -12,7 +12,6 @@ import com.kurkus.kusinsa.dto.response.rank.ClickRankResponseV1;
 import com.kurkus.kusinsa.dto.response.rank.OrderRankResponse;
 import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.repository.ProductRepository;
-import com.kurkus.kusinsa.utils.constants.RedisCacheConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -39,7 +38,7 @@ public class RankService {
         List<OrderRankResponse> result = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             Product product = list.get(i);
-            result.add(OrderRankResponse.from(product, map.get(product.getId())));
+            result.add(OrderRankResponse.of(product, map.get(product.getId())));
         }
         return result;
     }
@@ -56,7 +55,7 @@ public class RankService {
         List<ClickRankResponseV1> result = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             Product product = list.get(i);
-            result.add(ClickRankResponseV1.from(product, map.get(product.getId())));
+            result.add(ClickRankResponseV1.of(product, map.get(product.getId())));
         }
         return result;
     }

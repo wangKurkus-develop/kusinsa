@@ -23,14 +23,12 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Long
             "inner join Brand b on h.product.brand.id = b.id " +
             "where h.user.id = :userId order by h.createdAt desc",
             countQuery = "select count(h) from OrderHistory  h where h.user.id = :userId")
-    Page<OrderHistoryResponse> findAllWithPage(@Param("userId") Long userId, Pageable pageable);
+    Page<OrderHistoryResponse> findAllWithPageDto(@Param("userId") Long userId, Pageable pageable);
 
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query(value = "select h from OrderHistory h join fetch h.product join fetch h.user where h.id = :id")
     OrderHistory findByIdPessimisticLock(@Param("id") Long id);
-
-
 
 
 

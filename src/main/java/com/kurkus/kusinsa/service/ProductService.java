@@ -7,8 +7,6 @@ import com.kurkus.kusinsa.dao.LikesDao;
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductPageRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductUpdateRequest;
-import com.kurkus.kusinsa.dto.response.brand.BrandResponse;
-import com.kurkus.kusinsa.dto.response.category.CategoryResponse;
 import com.kurkus.kusinsa.dto.response.prodcut.ProductAllResponse;
 import com.kurkus.kusinsa.dto.response.prodcut.ProductResponse;
 import com.kurkus.kusinsa.entity.Brand;
@@ -18,7 +16,6 @@ import com.kurkus.kusinsa.exception.product.ProductException;
 import com.kurkus.kusinsa.repository.BrandRepository;
 import com.kurkus.kusinsa.repository.CategoryRepository;
 import com.kurkus.kusinsa.repository.ProductRepository;
-import com.kurkus.kusinsa.utils.constants.PageSizeConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -63,7 +60,7 @@ public class ProductService {
     @Transactional(readOnly = true)
     public ProductResponse findById(Long id) {
         Product product = productRepository.getByIdWithAll(id);
-        return ProductResponse.of(product);
+        return ProductResponse.from(product);
     }
 
     /**
@@ -91,7 +88,7 @@ public class ProductService {
                 PageRequest.of(page, PRODUCT_SIZE,
                         Sort.by(Sort.Direction.DESC,request.getSortProperty())));
 
-        Page<ProductAllResponse> response = productPage.map(p -> ProductAllResponse.of(p));
+        Page<ProductAllResponse> response = productPage.map(p -> ProductAllResponse.from(p));
         return response;
     }
 

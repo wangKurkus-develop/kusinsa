@@ -42,7 +42,7 @@ public class CartService {
             list.add((long)iterator.next());
         }
         List<ProductCommonResponse> result = productRepository.findAllByList(list).stream()
-                .map(p -> ProductCommonResponse.of(p)).collect(Collectors.toList());
+                .map(p -> ProductCommonResponse.from(p)).collect(Collectors.toList());
         return result;
     }
 }

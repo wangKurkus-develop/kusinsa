@@ -15,12 +15,12 @@ public class BrandListResponse {
 
     private List<BrandResponse> brandList;
 
-    public BrandListResponse(List<BrandResponse> list){
+    private BrandListResponse(List<BrandResponse> list){
         this.brandList = list;
     }
 
-    public static BrandListResponse of(List<Brand> list){
-        return new BrandListResponse(list.stream().map(b -> BrandResponse.of(b)).collect(Collectors.toList()));
+    public static BrandListResponse from(List<Brand> list){
+        return new BrandListResponse(list.stream().map(b -> BrandResponse.from(b)).collect(Collectors.toList()));
     }
 
 }

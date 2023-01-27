@@ -20,7 +20,7 @@ public class ProductCommonResponse {
     private Long brandId;
     private String brandName;
 
-    public static ProductCommonResponse of(Product product){
+    public static ProductCommonResponse from(Product product){
         return new ProductCommonResponse(product.getId(), product.getName(), product.getPrice(),
                 product.getThumbnailImagePath(), product.getBrand().getId(), product.getBrand().getName());
     }

@@ -12,12 +12,12 @@ public class BrandResponse {
     private Long id;
     private String name;
 
-    public BrandResponse(Long id, String name){
+    private BrandResponse(Long id, String name){
         this.id = id;
         this.name = name;
     }
 
-    public static BrandResponse of(Brand brand){
+    public static BrandResponse from(Brand brand){
         return new BrandResponse(brand.getId(), brand.getName());
     }
 }

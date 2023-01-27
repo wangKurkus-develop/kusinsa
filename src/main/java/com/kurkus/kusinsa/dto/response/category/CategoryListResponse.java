@@ -14,12 +14,12 @@ public class CategoryListResponse {
 
     private List<CategoryResponse> categoryList;
 
-    public CategoryListResponse(List<CategoryResponse> list){
+    private CategoryListResponse(List<CategoryResponse> list){
         this.categoryList = list;
     }
 
-    public static CategoryListResponse of(List<Category> list){
-        return new CategoryListResponse(list.stream().map(c -> CategoryResponse.of(c)).collect(Collectors.toList()));
+    public static CategoryListResponse from(List<Category> list){
+        return new CategoryListResponse(list.stream().map(c -> CategoryResponse.from(c)).collect(Collectors.toList()));
     }
 
 }

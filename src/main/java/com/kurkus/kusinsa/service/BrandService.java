@@ -10,7 +10,6 @@ import com.kurkus.kusinsa.dto.response.brand.BrandListResponse;
 import com.kurkus.kusinsa.entity.Brand;
 import com.kurkus.kusinsa.exception.brand.BrandException;
 import com.kurkus.kusinsa.repository.BrandRepository;
-import com.kurkus.kusinsa.utils.constants.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,7 @@ public class BrandService {
     @Transactional(readOnly = true)
     public BrandListResponse findAll() {
         List<Brand> list = brandRepository.findAllByOrderByNameAsc();
-        return BrandListResponse.of(list);
+        return BrandListResponse.from(list);
     }
 
     @Transactional

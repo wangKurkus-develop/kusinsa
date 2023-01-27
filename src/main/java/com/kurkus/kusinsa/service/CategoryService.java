@@ -2,18 +2,15 @@ package com.kurkus.kusinsa.service;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 
 import com.kurkus.kusinsa.dto.request.category.CategoryCreateRequest;
 import com.kurkus.kusinsa.dto.request.category.CategoryUpdateRequest;
 import com.kurkus.kusinsa.dto.response.category.CategoryListResponse;
-import com.kurkus.kusinsa.dto.response.category.CategoryResponse;
 import com.kurkus.kusinsa.entity.Category;
 import com.kurkus.kusinsa.exception.category.CategoryException;
 import com.kurkus.kusinsa.repository.CategoryRepository;
-import com.kurkus.kusinsa.utils.constants.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -38,7 +35,7 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public CategoryListResponse findAll() {
         List<Category> list = categoryRepository.findAllByOrderByNameAsc();
-        return CategoryListResponse.of(list);
+        return CategoryListResponse.from(list);
     }
 
     @Transactional

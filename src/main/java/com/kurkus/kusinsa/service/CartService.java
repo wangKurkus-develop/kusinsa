@@ -30,9 +30,6 @@ public class CartService {
         likesDao.disLikeProduct(userId, productId);
     }
 
-    public Long getLikes(Long productId){
-        return likesDao.getLikes(productId);
-    }
 
     public List<ProductCommonResponse> findAllRecent(Long userId) {
         Set<Object> set = recentDao.findAllRecent(userId);
@@ -41,7 +38,7 @@ public class CartService {
         while(iterator.hasNext()){
             list.add((long)iterator.next());
         }
-        List<ProductCommonResponse> result = productRepository.findAllByList(list).stream()
+        List<ProductCommonResponse> result = productRepository.findAllWithBrandByList(list).stream()
                 .map(p -> ProductCommonResponse.from(p)).collect(Collectors.toList());
         return result;
     }

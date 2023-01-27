@@ -102,11 +102,5 @@ public class ProductService {
         product.delete();
     }
 
-    public void like(Long userId, Long productId) {
-        likesDao.likeProduct(userId, productId);
-    }
 
-    public Long getLikes(Long productId){
-        return likesDao.getLikes(productId);
-    }
 }

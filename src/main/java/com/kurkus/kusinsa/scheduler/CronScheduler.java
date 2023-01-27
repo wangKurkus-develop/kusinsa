@@ -6,10 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.kurkus.kusinsa.dto.response.rank.ClickRankResponseV1;
-import com.kurkus.kusinsa.dto.response.rank.OrderRankResponse;
+import com.kurkus.kusinsa.dao.LikesDao;
+import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.entity.documents.ClickRank;
 import com.kurkus.kusinsa.entity.documents.OrderRank;
+import com.kurkus.kusinsa.repository.ProductRepository;
 import com.kurkus.kusinsa.repository.mongo.ClickRankRepository;
 import com.kurkus.kusinsa.repository.mongo.OrderRankRepository;
 import com.kurkus.kusinsa.service.RankService;
@@ -27,8 +28,10 @@ public class CronScheduler {
 
 
     private final RankService rankService;
+    private final LikesDao likesDao;
     private final ClickRankRepository clickRankRepository;
     private final OrderRankRepository orderRankRepository;
+    private final ProductRepository productRepository;
 
     /**
      * 1. sorted Set 캐시를 초기화 시킨다
@@ -37,9 +40,9 @@ public class CronScheduler {
      */
 //    @Scheduled(cron = "0 0 0/3 * * *")
 //    @Scheduled(cron = "0 0/5 * * * *") // 초 분 시 일 월 요일
-    public void myMethod(){
-        log.info("스케줄러 시작");
-        
+    public void rankSchedule() {
+        log.info("rank save schedule start");
+
         rankService.resetRankData();
 
         String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH"));// 년 월 일 시
@@ -52,7 +55,21 @@ public class CronScheduler {
                 map(o -> OrderRank.of(o, time)).collect(Collectors.toList());
         orderRankRepository.saveAll(saveOrderList);
 
-        log.info("스케줄러 끝");
+        log.info("rank save schedule end");
+    }
+
+
+//    @Transactional
+//    @Scheduled(cron = "0 0/5 * * * *")
+    public void likeUpdateSchedule() {
+        log.info("like update schedule start");
+        List<Product> products = productRepository.findAllByList(likesDao.getLikes());
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
+            long likeCount = likesDao.getLikeQuantity(product.getId().toString());
+            product.updateLikes(likeCount);
+        }
+        log.info("like update schedule end");
     }
 
 

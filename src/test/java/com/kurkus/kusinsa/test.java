@@ -3,9 +3,12 @@ package com.kurkus.kusinsa;
 
 import java.util.*;
 
+import com.kurkus.kusinsa.dao.LikesDao;
 import com.kurkus.kusinsa.dao.RankDao;
 import com.kurkus.kusinsa.dto.response.rank.OrderRankResponse;
+import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.entity.documents.ClickRank;
+import com.kurkus.kusinsa.repository.ProductRepository;
 import com.kurkus.kusinsa.repository.mongo.ClickRankRepository;
 import com.kurkus.kusinsa.service.RankService;
 import org.junit.jupiter.api.Test;
@@ -28,12 +31,16 @@ public class test {
 
     @Autowired
     ClickRankRepository test;
+
+    @Autowired
+    LikesDao likesDao;
+
+    @Autowired
+    ProductRepository productRepository;
     
     @Test
-    @Transactional
-    public void before채우기(){
-        test.save(new ClickRank(22L, "test", 1, "hello"));
-
+    public void aaa(){
+        likesDao.getLikes();
     }
 
 

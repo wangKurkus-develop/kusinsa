@@ -29,7 +29,7 @@ public class Product extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    private long steams;
+    private long likes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -80,5 +80,10 @@ public class Product extends BaseTimeEntity {
             this.status = ProductType.SALE;
         }
     }
+
+    public void updateLikes(long likes){
+        this.likes = likes;
+    }
+
 
 }

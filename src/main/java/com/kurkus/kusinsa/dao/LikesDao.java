@@ -1,8 +1,9 @@
 package com.kurkus.kusinsa.dao;
 
 
-import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class LikesDao {
     private final RedisTemplate<String, Object> redisSetTemplate;
     private final String PRODUCT_PREFIX = "like_product:";
     private final String USER_PREFIX = "like_user:";
-
+    private final String PRODUCT_LIKES = "product_likes";
 
     public void likeProduct(Long userId, Long productId) {
         redisSetTemplate.execute(new SessionCallback<Object>() {
@@ -30,6 +31,7 @@ public class LikesDao {
                     redisSetTemplate.multi();
                     redisSetTemplate.opsForSet().add(PRODUCT_PREFIX + productId, userId.toString());
                     redisSetTemplate.opsForSet().add(USER_PREFIX + userId, productId.toString());
+                    redisSetTemplate.opsForZSet().add(PRODUCT_LIKES, productId.toString(), System.currentTimeMillis());
                 } catch (Exception e) {
                     e.printStackTrace();
                     redisSetTemplate.discard();
@@ -55,9 +57,16 @@ public class LikesDao {
         });
     }
 
-    public Long getLikes(Long productId) {
-        return redisSetTemplate.opsForSet().size(PRODUCT_PREFIX + productId);
+    public List<Long> getLikes(){
+        Set<Object> set = redisSetTemplate.opsForZSet().range(PRODUCT_LIKES, 0, 9);
+        redisSetTemplate.opsForZSet().removeRange(PRODUCT_LIKES, 0, 9);
+        return set.stream().map(o -> new Long(o.toString())).collect(Collectors.toList());
     }
+
+    public Long getLikeQuantity(String productId){
+        return redisSetTemplate.opsForSet().size(PRODUCT_PREFIX+productId);
+    }
+
 
 
 }

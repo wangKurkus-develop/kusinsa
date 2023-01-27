@@ -51,27 +51,18 @@ class CartServiceTest {
         then(likesDao).should(times(1)).disLikeProduct(anyLong(), anyLong());
     }
 
-    @Test
-    public void getLikes() throws Exception {
-        // given
-        Long productId = 15L;
-        // when
-        cartService.getLikes(productId);
-        // then
-        then(likesDao).should(times(1)).getLikes(anyLong());
-    }
 
     @Test
     public void findAllRecent() throws Exception {
         // given
         Long userId = 16L;
         given(recentDao.findAllRecent(userId)).willReturn(new HashSet<>());
-        given(productRepository.findAllByList(any())).willReturn(new ArrayList<>());
+        given(productRepository.findAllWithBrandByList(any())).willReturn(new ArrayList<>());
         // when
         cartService.findAllRecent(userId);
         // then
         then(recentDao).should(times(1)).findAllRecent(anyLong());
-        then(productRepository).should(times(1)).findAllByList(any());
+        then(productRepository).should(times(1)).findAllWithBrandByList(any());
     }
 
 

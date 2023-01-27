@@ -1,13 +1,9 @@
 package com.kurkus.kusinsa.service.order;
 
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static com.kurkus.kusinsa.enums.PointType.*;
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static com.kurkus.kusinsa.utils.constants.PageSizeConstants.HISTORY_SIZE;
-import static com.kurkus.kusinsa.utils.constants.PageSizeConstants.POINT_SIZE;
 import static com.kurkus.kusinsa.utils.constants.PointMessages.*;
 
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
@@ -15,15 +11,11 @@ import com.kurkus.kusinsa.dto.response.orderhistory.OrderHistoryResponse;
 import com.kurkus.kusinsa.entity.Order;
 import com.kurkus.kusinsa.entity.OrderHistory;
 import com.kurkus.kusinsa.entity.Product;
-import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.enums.DeliveryStatus;
-import com.kurkus.kusinsa.enums.PointType;
 import com.kurkus.kusinsa.events.point.PointEvent;
 import com.kurkus.kusinsa.exception.order.OrderException;
 import com.kurkus.kusinsa.repository.OrderHistoryRepository;
 import com.kurkus.kusinsa.repository.ProductRepository;
-import com.kurkus.kusinsa.utils.constants.ErrorMessages;
-import com.kurkus.kusinsa.utils.constants.PointMessages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -55,7 +47,7 @@ public class OrderHistoryService {
         if (page < 0) {
             page = 0;
         }
-        Page<OrderHistoryResponse> result = historyRepository.findAllWithPage(userId, PageRequest.of(page, HISTORY_SIZE));
+        Page<OrderHistoryResponse> result = historyRepository.findAllWithPageDto(userId, PageRequest.of(page, HISTORY_SIZE));
         return result;
     }
 

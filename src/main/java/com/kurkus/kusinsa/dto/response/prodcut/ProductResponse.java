@@ -1,9 +1,6 @@
 package com.kurkus.kusinsa.dto.response.prodcut;
 
 
-import java.time.LocalDateTime;
-
-import com.kurkus.kusinsa.entity.Brand;
 import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.enums.ProductType;
 import lombok.*;
@@ -25,7 +22,7 @@ public class ProductResponse {
     private long stock;
 
 
-    public static ProductResponse of(Product product){
+    public static ProductResponse from(Product product){
         return ProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())

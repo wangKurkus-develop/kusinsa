@@ -6,14 +6,11 @@ import java.time.LocalDateTime;
 
 import com.kurkus.kusinsa.entity.Point;
 import com.kurkus.kusinsa.enums.PointType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class PointResponse {
 

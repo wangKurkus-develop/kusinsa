@@ -4,10 +4,12 @@ package com.kurkus.kusinsa.controller;
 import javax.validation.Valid;
 
 import com.kurkus.kusinsa.annotation.LoginCheck;
+import com.kurkus.kusinsa.dto.request.user.DeviceCreateRequest;
 import com.kurkus.kusinsa.dto.request.user.LoginRequest;
 import com.kurkus.kusinsa.dto.request.user.SignupRequest;
-import com.kurkus.kusinsa.service.SessionLoginService;
-import com.kurkus.kusinsa.service.UserService;
+import com.kurkus.kusinsa.service.user.DeviceService;
+import com.kurkus.kusinsa.service.user.SessionLoginService;
+import com.kurkus.kusinsa.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ public class UserController {
 
     private final UserService userService;
     private final SessionLoginService sessionLoginService;
+    private final DeviceService deviceService;
 
 
     @PostMapping("/signup")
@@ -42,6 +45,14 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * 푸시알림을 회원가입 유저만 보내는것도 있고 할인행사나 이런거 광고용도로 회원가입안한 유저들도있다
+     */
+    @PostMapping("/devices")
+    public ResponseEntity<Void> deviceSave(@RequestBody DeviceCreateRequest request){
+        deviceService.save(request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 
 
 }

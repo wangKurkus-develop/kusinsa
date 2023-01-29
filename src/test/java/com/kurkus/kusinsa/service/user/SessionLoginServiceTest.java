@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.service;
+package com.kurkus.kusinsa.service.user;
 
 
 import javax.servlet.http.HttpSession;

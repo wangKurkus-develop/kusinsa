@@ -2,9 +2,8 @@ package com.kurkus.kusinsa.exception.handler;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.kurkus.kusinsa.controller.OrderController;
+import com.kurkus.kusinsa.controller.order.OrderController;
 import com.kurkus.kusinsa.exception.order.OrderException;
-import com.kurkus.kusinsa.exception.point.PointException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

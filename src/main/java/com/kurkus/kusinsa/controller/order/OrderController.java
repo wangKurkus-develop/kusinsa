@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.controller;
+package com.kurkus.kusinsa.controller.order;
 
 import com.kurkus.kusinsa.annotation.LoginCheck;
 import com.kurkus.kusinsa.annotation.SessionUserId;

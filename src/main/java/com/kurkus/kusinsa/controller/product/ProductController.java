@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.controller;
+package com.kurkus.kusinsa.controller.product;
 
 import com.kurkus.kusinsa.annotation.LoginCheck;
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;

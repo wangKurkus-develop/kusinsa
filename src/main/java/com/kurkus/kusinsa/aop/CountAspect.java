@@ -30,7 +30,7 @@ public class CountAspect {
     }
 
     // 조회 많이한 상품 count + 유저가 최신에본상품
-    @AfterReturning("execution(* com.kurkus.kusinsa.service.ProductService.findById(..))")
+    @AfterReturning("execution(* com.kurkus.kusinsa.service.product.ProductService.findById(..))")
     public void findCount(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
         Long productId = (long) args[0];

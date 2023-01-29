@@ -1,7 +1,5 @@
 package com.kurkus.kusinsa.service;
 
-import java.util.Optional;
-
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.EXISTS_PRODUCT;
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,15 +17,13 @@ import com.kurkus.kusinsa.exception.product.ProductNotFoundException;
 import com.kurkus.kusinsa.repository.BrandRepository;
 import com.kurkus.kusinsa.repository.CategoryRepository;
 import com.kurkus.kusinsa.repository.ProductRepository;
-import com.kurkus.kusinsa.utils.constants.ErrorMessages;
-import org.junit.jupiter.api.DisplayName;
+import com.kurkus.kusinsa.service.product.ProductService;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 
 import static org.mockito.BDDMockito.*;
 

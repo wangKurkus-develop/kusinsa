@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.service;
+package com.kurkus.kusinsa.service.product;
 
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static com.kurkus.kusinsa.utils.constants.PageSizeConstants.*;

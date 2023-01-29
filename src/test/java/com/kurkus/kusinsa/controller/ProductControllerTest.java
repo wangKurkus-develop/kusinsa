@@ -1,14 +1,8 @@
 package com.kurkus.kusinsa.controller;
 
-import javax.transaction.Transactional;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductPageRequest;
-import com.kurkus.kusinsa.entity.Product;
-import com.kurkus.kusinsa.repository.ProductRepository;
-import com.kurkus.kusinsa.service.ProductService;
+import com.kurkus.kusinsa.service.product.ProductService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

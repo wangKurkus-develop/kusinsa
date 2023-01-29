@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kurkus.kusinsa.dto.request.user.DeviceCreateRequest;
 import com.kurkus.kusinsa.dto.request.user.LoginRequest;
 import com.kurkus.kusinsa.dto.request.user.SignupRequest;
 import com.kurkus.kusinsa.enums.UserType;
@@ -31,7 +32,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 //@ContextConfiguration(initializers = {DockerComposeInitializer.class})
-@Testcontainers
+//@Testcontainers
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -43,11 +44,11 @@ public class UserIntegrationTest {
     @Autowired
     ObjectMapper objectMapper;
 
-    @Container
-    static DockerComposeContainer composeContainer =
-            new DockerComposeContainer(new File("src/test/resources/docker-compose.yml"))
-                    .withExposedService("redis-session", 6379,
-                            Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
+//    @Container
+//    static DockerComposeContainer composeContainer =
+//            new DockerComposeContainer(new File("src/test/resources/docker-compose.yml"))
+//                    .withExposedService("redis-session", 6379,
+//                            Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
 
 
     private Long id = 18L;
@@ -317,6 +318,30 @@ public class UserIntegrationTest {
                     .andExpect(status().is4xxClientError())
                     .andExpect(content().string(NOT_FOUND_SESSION));
         }
+    }
+
+    @Test
+    public void deviceSave_유저_null인경우() throws Exception {
+        // given
+        DeviceCreateRequest request = new DeviceCreateRequest("testDeviceToken");
+        // when
+        ResultActions result = mvc.perform(post("/users" + "/devices").
+                content(objectMapper.writeValueAsString(request)).
+                contentType(MediaType.APPLICATION_JSON)).andDo(print());
+        // then
+        result.andExpect(status().isCreated());
+    }
+
+    @Test
+    public void deviceSave_유저_null아닌경우() throws Exception {
+        // given
+        DeviceCreateRequest request = new DeviceCreateRequest(18L,"testDeviceToken");
+        // when
+        ResultActions result = mvc.perform(post("/users" + "/devices").
+                content(objectMapper.writeValueAsString(request)).
+                contentType(MediaType.APPLICATION_JSON)).andDo(print());
+        // then
+        result.andExpect(status().isCreated());
     }
 
 

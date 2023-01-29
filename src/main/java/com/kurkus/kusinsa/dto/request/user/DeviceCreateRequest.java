@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 public class DeviceCreateRequest {
@@ -16,6 +15,14 @@ public class DeviceCreateRequest {
     private Long userId;
     private String deviceToken;
 
+    public DeviceCreateRequest(Long userId, String deviceToken) {
+        this.userId = userId;
+        this.deviceToken = deviceToken;
+    }
+
+    public DeviceCreateRequest(String deviceToken){
+        this.deviceToken = deviceToken;
+    }
 
     public Device toDevice(User user) {
         return Device.builder()
@@ -24,7 +31,7 @@ public class DeviceCreateRequest {
                 .build();
     }
 
-    public Device toNotUserDevice(){
+    public Device toNotUserDevice() {
         return Device.builder()
                 .deviceToken(deviceToken)
                 .build();

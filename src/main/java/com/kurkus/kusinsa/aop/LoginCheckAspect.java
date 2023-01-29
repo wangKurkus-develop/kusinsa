@@ -5,7 +5,7 @@ import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import com.kurkus.kusinsa.annotation.LoginCheck;
 import com.kurkus.kusinsa.enums.UserType;
 import com.kurkus.kusinsa.exception.SessionLoginException;
-import com.kurkus.kusinsa.service.SessionLoginService;
+import com.kurkus.kusinsa.service.user.SessionLoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;

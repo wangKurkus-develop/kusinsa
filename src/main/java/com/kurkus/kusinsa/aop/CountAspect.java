@@ -3,7 +3,7 @@ package com.kurkus.kusinsa.aop;
 import com.kurkus.kusinsa.dao.RankDao;
 import com.kurkus.kusinsa.dao.RecentDao;
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
-import com.kurkus.kusinsa.service.SessionLoginService;
+import com.kurkus.kusinsa.service.user.SessionLoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;

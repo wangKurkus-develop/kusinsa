@@ -7,6 +7,7 @@ import static com.kurkus.kusinsa.utils.constants.SessionConstants.*;
 import static org.mockito.BDDMockito.*;
 
 import com.kurkus.kusinsa.enums.UserType;
+import com.kurkus.kusinsa.service.user.SessionLoginService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

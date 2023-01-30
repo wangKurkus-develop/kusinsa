@@ -28,6 +28,8 @@ public class ProductStatusController {
         return ResponseEntity.ok().build();
     }
 
-    // 판매중지나 이런거 MVP후에 추가하기
+    // 재고변경 일괄적으로 변경하는것도 추가하기
+
+    // 판매중지나 MVP후에 추가하기
 
 }

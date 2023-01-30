@@ -6,6 +6,8 @@ import javax.persistence.*;
 import com.kurkus.kusinsa.dto.request.product.status.NotificationStatus;
 import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
@@ -16,7 +18,9 @@ import org.hibernate.annotations.DynamicInsert;
 @Entity
 @Table(name = "notification_group_user")
 @DynamicInsert
-public class NotificationGroupUser extends BaseTimeEntity {
+@AllArgsConstructor
+@Builder
+public class NotificationUser extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

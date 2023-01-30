@@ -5,6 +5,8 @@ import javax.persistence.*;
 import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import com.kurkus.kusinsa.enums.notification.NotificationGroupStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
@@ -15,6 +17,8 @@ import org.hibernate.annotations.DynamicInsert;
 @Entity
 @Table(name = "notification_group")
 @DynamicInsert
+@AllArgsConstructor
+@Builder
 public class NotificationGroup extends BaseTimeEntity {
 
     @Id
@@ -31,6 +35,10 @@ public class NotificationGroup extends BaseTimeEntity {
 
     @Column(nullable = false)
     private boolean deleted;
+
+    @Column(name = "unique_key")
+    private String uniqueKey;
+
 
 
 }

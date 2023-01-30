@@ -39,5 +39,8 @@ public final class ErrorMessages {
     // order
     public static final String NOT_ENOUGH_QUANTITY = "수량이 모자릅니다";
     public static final String NOT_SALE = "매진이거나 판매중이 아닙니다";
+    // notification
+    public static final String NOT_FOUND_NOTIFICATION_GROUP = "존재하지 않는 알림그룹 입니다";
+
 
 }

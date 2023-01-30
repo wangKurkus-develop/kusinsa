@@ -33,7 +33,6 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final BrandRepository brandRepository;
-    private final LikesDao likesDao;
 
     /**
      * 이름 중복체크

@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.integration;
+package com.kurkus.kusinsa.integration.product;
 
 
 import javax.transaction.Transactional;

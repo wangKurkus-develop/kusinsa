@@ -70,13 +70,13 @@ public class Product extends BaseTimeEntity {
     public void decrease(int quantity){
         this.stock -= quantity;
         if(this.stock == 0){
-            this.status = ProductType.SOLD_OUT;
+            this.status = ProductType.TEMP_SOLD_OUT;
         }
     }
 
     public void increase(int quantity){
         this.stock +=quantity;
-        if(this.status == ProductType.SOLD_OUT){
+        if(this.status == ProductType.TEMP_SOLD_OUT){
             this.status = ProductType.SALE;
         }
     }

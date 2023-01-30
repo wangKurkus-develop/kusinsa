@@ -45,6 +45,8 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter:1.17.3'
     // mongodb
     implementation ('org.springframework.boot:spring-boot-starter-data-mongodb')
+    // kafka
+    implementation 'org.springframework.kafka:spring-kafka:2.8.5'
 }
 
 tasks.named('test') {

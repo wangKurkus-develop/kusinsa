@@ -85,5 +85,12 @@ public class Product extends BaseTimeEntity {
         this.likes = likes;
     }
 
+    public void updateStock(long quantity){
+        this.stock += quantity;
+        if(this.status != ProductType.SALE){
+            this.status = ProductType.SALE;
+        }
+    }
+
 
 }

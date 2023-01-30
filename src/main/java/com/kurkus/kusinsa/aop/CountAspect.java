@@ -3,7 +3,7 @@ package com.kurkus.kusinsa.aop;
 import com.kurkus.kusinsa.dao.RankDao;
 import com.kurkus.kusinsa.dao.RecentDao;
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
-import com.kurkus.kusinsa.service.SessionLoginService;
+import com.kurkus.kusinsa.service.user.SessionLoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -30,7 +30,7 @@ public class CountAspect {
     }
 
     // 조회 많이한 상품 count + 유저가 최신에본상품
-    @AfterReturning("execution(* com.kurkus.kusinsa.service.ProductService.findById(..))")
+    @AfterReturning("execution(* com.kurkus.kusinsa.service.product.ProductService.findById(..))")
     public void findCount(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
         Long productId = (long) args[0];

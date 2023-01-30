@@ -61,6 +61,10 @@ public class OrderHistory extends BaseTimeEntity {
         this.orderStatus = OrderStatus.REFUND;
     }
 
+    public void updateDeliveryStatus(DeliveryStatus deliveryStatus){
+        this.deliveryStatus = deliveryStatus;
+    }
+
 
 
 

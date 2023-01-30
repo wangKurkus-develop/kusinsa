@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.controller;
+package com.kurkus.kusinsa.controller.order;
 
 import com.kurkus.kusinsa.annotation.LoginCheck;
 import com.kurkus.kusinsa.annotation.SessionUserId;
@@ -44,6 +44,6 @@ public class OrderController {
         historyService.cancel(userId, historyId);
         return ResponseEntity.ok().build();
     }
-
+    // 배송지변경
 
 }

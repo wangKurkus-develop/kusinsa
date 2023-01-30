@@ -3,10 +3,8 @@ package com.kurkus.kusinsa.exception.handler;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.kurkus.kusinsa.controller.ProductController;
-import com.kurkus.kusinsa.controller.UserController;
+import com.kurkus.kusinsa.controller.product.ProductController;
 import com.kurkus.kusinsa.exception.product.ProductException;
-import com.kurkus.kusinsa.exception.user.UserException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

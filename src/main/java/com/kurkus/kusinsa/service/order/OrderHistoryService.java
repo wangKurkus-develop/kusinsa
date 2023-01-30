@@ -54,7 +54,7 @@ public class OrderHistoryService {
     /**
      * 1. 모든 주문은 결제가이미된상태 라고 가정합니다
      * 2. 권한이 있어야 환불가능하다
-     * 3. 주문 취소는 배송준비중일떄만 가능하다
+     * 3. 주문 취소는 배송준비중 일떄만 가능하다
      * 4. 주문취소는 수량개수도 다시 돌려놓아야하고 SOLD OUT이면 상태를 변경시켜야함
      * 주문 취소는 Lock걸어야한다 주문취소할때 배송출발으로 바뀌면 안되기때문이다.
      * 5. 이에따른 포인트도 회수해야함
@@ -74,6 +74,17 @@ public class OrderHistoryService {
         Product product = history.getProduct();
         product.increase(history.getQuantity());
         publisher.publishEvent(new PointEvent(userId, ORDER_CANCEL, history.getObtainPoint(), USED));
+        // 알람 기능넣기
     }
+
+    @Transactional
+    public void updateDeliveryStatus(Long orderHistoryId, DeliveryStatus deliveryStatus) {
+        OrderHistory orderHistory = historyRepository.findByIdPessimisticLock(orderHistoryId);
+        orderHistory.updateDeliveryStatus(deliveryStatus);
+        /**
+         * 알림기능 넣기
+         */
+    }
+
 
 }

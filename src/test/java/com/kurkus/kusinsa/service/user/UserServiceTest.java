@@ -1,6 +1,4 @@
-package com.kurkus.kusinsa.service;
-
-import java.util.Optional;
+package com.kurkus.kusinsa.service.user;
 
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,8 +10,9 @@ import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.exception.user.UserException;
 import com.kurkus.kusinsa.exception.user.UserNotFoundException;
 import com.kurkus.kusinsa.repository.UserRepository;
+import com.kurkus.kusinsa.service.user.SessionLoginService;
+import com.kurkus.kusinsa.service.user.UserService;
 import com.kurkus.kusinsa.utils.PasswordEncoder;
-import com.kurkus.kusinsa.utils.constants.ErrorMessages;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

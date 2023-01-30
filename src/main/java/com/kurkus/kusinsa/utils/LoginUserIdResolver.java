@@ -1,7 +1,7 @@
 package com.kurkus.kusinsa.utils;
 
 import com.kurkus.kusinsa.annotation.SessionUserId;
-import com.kurkus.kusinsa.service.SessionLoginService;
+import com.kurkus.kusinsa.service.user.SessionLoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.controller;
+package com.kurkus.kusinsa.controller.product;
 
 import com.kurkus.kusinsa.annotation.LoginCheck;
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
@@ -7,7 +7,7 @@ import com.kurkus.kusinsa.dto.request.product.ProductUpdateRequest;
 import com.kurkus.kusinsa.dto.response.prodcut.ProductAllResponse;
 import com.kurkus.kusinsa.dto.response.prodcut.ProductResponse;
 import com.kurkus.kusinsa.enums.UserType;
-import com.kurkus.kusinsa.service.ProductService;
+import com.kurkus.kusinsa.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

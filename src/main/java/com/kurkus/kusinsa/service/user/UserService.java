@@ -1,8 +1,7 @@
-package com.kurkus.kusinsa.service;
+package com.kurkus.kusinsa.service.user;
 
 
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
-import static com.kurkus.kusinsa.utils.constants.PointMessages.*;
 
 import com.kurkus.kusinsa.dto.request.user.LoginRequest;
 import com.kurkus.kusinsa.dto.request.user.SignupRequest;
@@ -10,6 +9,7 @@ import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.events.point.PointLoginSavedEvent;
 import com.kurkus.kusinsa.exception.user.UserException;
 import com.kurkus.kusinsa.repository.UserRepository;
+import com.kurkus.kusinsa.service.user.SessionLoginService;
 import com.kurkus.kusinsa.utils.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

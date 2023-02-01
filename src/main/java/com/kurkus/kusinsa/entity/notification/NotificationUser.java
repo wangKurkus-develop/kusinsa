@@ -3,7 +3,7 @@ package com.kurkus.kusinsa.entity.notification;
 
 import javax.persistence.*;
 
-import com.kurkus.kusinsa.dto.request.product.status.NotificationStatus;
+import com.kurkus.kusinsa.enums.notification.NotificationStatus;
 import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import lombok.AllArgsConstructor;

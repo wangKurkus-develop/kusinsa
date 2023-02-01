@@ -6,12 +6,10 @@ import java.util.List;
 
 import com.kurkus.kusinsa.dto.request.order.OrderCreateRequest;
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
-import com.kurkus.kusinsa.entity.Order;
+import com.kurkus.kusinsa.entity.order.Order;
 import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.enums.ProductType;
-import com.kurkus.kusinsa.events.order.OrderHistorySavedEvent;
-import com.kurkus.kusinsa.events.point.PointOrderSavedEvent;
 import com.kurkus.kusinsa.repository.OrderRepository;
 import com.kurkus.kusinsa.repository.ProductRepository;
 import com.kurkus.kusinsa.repository.UserRepository;
@@ -22,7 +20,6 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.mockito.BDDMockito.*;
 

@@ -1,7 +1,9 @@
-package com.kurkus.kusinsa.entity;
+package com.kurkus.kusinsa.entity.order;
 
 import javax.persistence.*;
 
+import com.kurkus.kusinsa.entity.Product;
+import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import com.kurkus.kusinsa.enums.DeliveryStatus;
 import com.kurkus.kusinsa.enums.OrderStatus;

@@ -4,7 +4,7 @@ package com.kurkus.kusinsa.events.order;
 import java.util.List;
 
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
-import com.kurkus.kusinsa.entity.Order;
+import com.kurkus.kusinsa.entity.order.Order;
 import lombok.Getter;
 
 @Getter

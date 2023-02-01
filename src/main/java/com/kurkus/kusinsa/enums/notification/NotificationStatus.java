@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.dto.request.product.status;
+package com.kurkus.kusinsa.enums.notification;
 
 public enum NotificationStatus {
     WAIT,

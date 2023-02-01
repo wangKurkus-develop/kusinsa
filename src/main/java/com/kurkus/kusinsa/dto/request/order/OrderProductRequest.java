@@ -1,8 +1,8 @@
 package com.kurkus.kusinsa.dto.request.order;
 
 
-import com.kurkus.kusinsa.entity.Order;
-import com.kurkus.kusinsa.entity.OrderHistory;
+import com.kurkus.kusinsa.entity.order.Order;
+import com.kurkus.kusinsa.entity.order.OrderHistory;
 import com.kurkus.kusinsa.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

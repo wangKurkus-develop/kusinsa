@@ -2,7 +2,7 @@ package com.kurkus.kusinsa.dto.request.order;
 
 import java.util.List;
 
-import com.kurkus.kusinsa.entity.Order;
+import com.kurkus.kusinsa.entity.order.Order;
 import com.kurkus.kusinsa.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

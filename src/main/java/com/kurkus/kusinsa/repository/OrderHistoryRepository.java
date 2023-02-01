@@ -3,7 +3,7 @@ package com.kurkus.kusinsa.repository;
 import javax.persistence.LockModeType;
 
 import com.kurkus.kusinsa.dto.response.orderhistory.OrderHistoryResponse;
-import com.kurkus.kusinsa.entity.OrderHistory;
+import com.kurkus.kusinsa.entity.order.OrderHistory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

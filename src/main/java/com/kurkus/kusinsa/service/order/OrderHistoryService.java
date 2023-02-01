@@ -8,8 +8,8 @@ import static com.kurkus.kusinsa.utils.constants.PointMessages.*;
 
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
 import com.kurkus.kusinsa.dto.response.orderhistory.OrderHistoryResponse;
-import com.kurkus.kusinsa.entity.Order;
-import com.kurkus.kusinsa.entity.OrderHistory;
+import com.kurkus.kusinsa.entity.order.Order;
+import com.kurkus.kusinsa.entity.order.OrderHistory;
 import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.enums.DeliveryStatus;
 import com.kurkus.kusinsa.events.point.PointEvent;
@@ -81,9 +81,6 @@ public class OrderHistoryService {
     public void updateDeliveryStatus(Long orderHistoryId, DeliveryStatus deliveryStatus) {
         OrderHistory orderHistory = historyRepository.findByIdPessimisticLock(orderHistoryId);
         orderHistory.updateDeliveryStatus(deliveryStatus);
-        /**
-         * 알림기능 넣기
-         */
     }
 
 

@@ -1,35 +1,25 @@
 package com.kurkus.kusinsa.service.order;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
-import static com.kurkus.kusinsa.utils.constants.PointMessages.LOGIN_POINT;
-import static com.kurkus.kusinsa.utils.constants.PointMessages.LOGIN_POINT_CONTENT;
 
 import com.kurkus.kusinsa.dto.request.order.OrderCreateRequest;
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
-import com.kurkus.kusinsa.dto.response.orderhistory.OrderHistoryResponse;
-import com.kurkus.kusinsa.entity.Order;
-import com.kurkus.kusinsa.entity.OrderHistory;
+import com.kurkus.kusinsa.entity.order.Order;
 import com.kurkus.kusinsa.entity.Product;
-import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.enums.ProductType;
 import com.kurkus.kusinsa.events.order.OrderHistorySavedEvent;
-import com.kurkus.kusinsa.events.point.PointLoginSavedEvent;
 import com.kurkus.kusinsa.events.point.PointOrderSavedEvent;
 import com.kurkus.kusinsa.exception.order.OrderException;
 import com.kurkus.kusinsa.repository.OrderRepository;
 import com.kurkus.kusinsa.repository.ProductRepository;
 import com.kurkus.kusinsa.repository.UserRepository;
-import com.kurkus.kusinsa.utils.constants.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -54,10 +44,10 @@ public class OrderService {
             decrease(list.get(i).getProductId(), list.get(i).getQuantity());
         }
         Order saveOrder = orderRepository.save(request.toOrder(userRepository.getById(userId)));
-        log.info("주문완료");
         publisher.publishEvent(new PointOrderSavedEvent(userId, request.getTotalObtainPoint(),
                 request.getTotalUsedPoint(),saveOrder.getId()));
         publisher.publishEvent(new OrderHistorySavedEvent(saveOrder, request.getOrderProductRequestList()));
+
     }
 
     /**

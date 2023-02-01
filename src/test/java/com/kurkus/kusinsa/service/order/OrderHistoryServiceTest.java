@@ -1,11 +1,8 @@
 package com.kurkus.kusinsa.service.order;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
-import com.kurkus.kusinsa.dto.response.orderhistory.OrderHistoryResponse;
-import com.kurkus.kusinsa.entity.Order;
-import com.kurkus.kusinsa.entity.OrderHistory;
+import com.kurkus.kusinsa.entity.order.Order;
+import com.kurkus.kusinsa.entity.order.OrderHistory;
 import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.enums.DeliveryStatus;

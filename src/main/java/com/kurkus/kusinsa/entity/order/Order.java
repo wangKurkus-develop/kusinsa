@@ -1,7 +1,8 @@
-package com.kurkus.kusinsa.entity;
+package com.kurkus.kusinsa.entity.order;
 
 import javax.persistence.*;
 
+import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.entity.common.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;

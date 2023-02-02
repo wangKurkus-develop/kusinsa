@@ -45,9 +45,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    /**
-     * 푸시알림을 회원가입 유저만 보내는것도 있고 할인행사나 이런거 광고용도로 회원가입안한 유저들도있다
-     */
+
     @PostMapping("/devices")
     public ResponseEntity<Void> deviceSave(@RequestBody DeviceCreateRequest request){
         deviceService.save(request);

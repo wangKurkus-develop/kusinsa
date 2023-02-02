@@ -3,9 +3,6 @@ package com.kurkus.kusinsa.integration.product;
 
 import javax.transaction.Transactional;
 
-import java.io.File;
-import java.time.Duration;
-
 
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static com.kurkus.kusinsa.utils.constants.SessionConstants.*;
@@ -15,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
-import com.kurkus.kusinsa.dto.request.product.ProductPageRequest;
+import com.kurkus.kusinsa.dto.request.product.ProductSearchConditionRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductUpdateRequest;
 import com.kurkus.kusinsa.enums.ProductType;
 import com.kurkus.kusinsa.enums.UserType;
@@ -29,10 +26,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.testcontainers.containers.DockerComposeContainer;
-import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 //@Testcontainers
 @Transactional
@@ -229,7 +222,7 @@ public class ProductIntegrationTest {
     @DisplayName("데이터 응답에서 categoryId가 맞게들어가는지 확인합니다")
     public void findAllByCategory() throws Exception {
         // given
-        ProductPageRequest request = ProductPageRequest.builder()
+        ProductSearchConditionRequest request = ProductSearchConditionRequest.builder()
                 .id(1L)
                 .page(0)
                 .sortProperty("name")

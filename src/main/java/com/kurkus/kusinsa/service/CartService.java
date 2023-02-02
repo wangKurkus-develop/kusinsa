@@ -36,7 +36,7 @@ public class CartService {
         List<Long> list = new ArrayList<>();
         Iterator<Object> iterator = set.iterator();
         while(iterator.hasNext()){
-            list.add((long)iterator.next());
+            list.add(Long.parseLong(iterator.next().toString()));
         }
         List<ProductCommonResponse> result = productRepository.findAllWithBrandByList(list).stream()
                 .map(p -> ProductCommonResponse.from(p)).collect(Collectors.toList());

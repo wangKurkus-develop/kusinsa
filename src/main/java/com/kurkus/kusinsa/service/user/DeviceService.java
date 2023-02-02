@@ -15,7 +15,7 @@ public class DeviceService {
     private final UserRepository userRepository;
     private final DeviceRepository deviceRepository;
 
-    
+
     public void save(DeviceCreateRequest request) {
         if(request.getUserId() == null){
             deviceRepository.save(request.toNotUserDevice());

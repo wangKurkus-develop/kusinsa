@@ -33,11 +33,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "select p from Product p join fetch p.category join fetch p.brand where p.category.id = :categoryId"
     , countQuery = "select count(p) from Product p where p.category.id = :categoryId")
-    Page<Product> findAllByCategory(@Param("categoryId") Long categoryId, Pageable pageable);
-
-    @Query(value = "select p from Product p join fetch p.category join fetch p.brand where p.brand.id = :brandId"
-            , countQuery = "select count(p) from Product p where p.category.id = :categoryId")
-    Page<Product> findAllByBrand(@Param("brandId") Long brandId, Pageable pageable);
+    Page<Product> findAllByCategoryId(@Param("categoryId") Long categoryId, Pageable pageable);
 
 
     @Lock(value = LockModeType.PESSIMISTIC_WRITE)
@@ -45,9 +41,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findByIdWithPessimisticLock(@Param("id") Long id);
 
 
+    // ORDER BY FIELD(id,2,3,1); QueryDSL로 변경
     @Query(value = "select p from Product p join fetch p.brand where p.id in :list")
     List<Product> findAllWithBrandByList(@Param("list") List<Long> list);
-
 
 
     @Query(value = "select p from Product p where p.id in :list")

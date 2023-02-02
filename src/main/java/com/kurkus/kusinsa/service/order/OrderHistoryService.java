@@ -74,13 +74,14 @@ public class OrderHistoryService {
         Product product = history.getProduct();
         product.increase(history.getQuantity());
         publisher.publishEvent(new PointEvent(userId, ORDER_CANCEL, history.getObtainPoint(), USED));
-        // 알람 기능넣기
+        log.info("주문이 추소됬습니다 - 알림");
     }
 
     @Transactional
     public void updateDeliveryStatus(Long orderHistoryId, DeliveryStatus deliveryStatus) {
         OrderHistory orderHistory = historyRepository.findByIdPessimisticLock(orderHistoryId);
         orderHistory.updateDeliveryStatus(deliveryStatus);
+        log.info("배송이 출발됬습니다 상태변경 메시지 보내기");
     }
 
 

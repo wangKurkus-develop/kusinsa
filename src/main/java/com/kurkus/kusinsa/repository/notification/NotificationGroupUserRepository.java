@@ -11,7 +11,4 @@ import org.springframework.data.repository.query.Param;
 
 public interface NotificationGroupUserRepository extends JpaRepository<NotificationUser, Long> {
 
-    @Query(value = "select u from NotificationUser u where u.deleted = false and u.status = :status")
-    List<NotificationUser> findAllByGroupId(@Param("groupId") Long groupId, @Param("status") NotificationStatus status);
-
 }

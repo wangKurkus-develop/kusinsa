@@ -1,7 +1,7 @@
 package com.kurkus.kusinsa.controller;
 
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
-import com.kurkus.kusinsa.dto.request.product.ProductPageRequest;
+import com.kurkus.kusinsa.dto.request.product.ProductSearchConditionRequest;
 import com.kurkus.kusinsa.service.product.ProductService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +34,8 @@ class ProductControllerTest {
                 .build();
     }
 
-    private ProductPageRequest getProductPageRequest(){
-        return ProductPageRequest.builder()
+    private ProductSearchConditionRequest getProductPageRequest(){
+        return ProductSearchConditionRequest.builder()
                 .id(1L)
                 .page(0)
                 .sortProperty("steams")

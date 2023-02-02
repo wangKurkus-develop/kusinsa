@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 public class ProductPageRequest {
 
-    private Long id; // categoryId이든 BrandId이든 둘중하나임
+    private Long id; // categoryId
     private int page;
-    private String sortProperty;
+    private String sortProperty; // 이름인지 날짜순인지
 }

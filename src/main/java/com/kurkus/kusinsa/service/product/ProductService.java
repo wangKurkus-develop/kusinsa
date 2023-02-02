@@ -3,11 +3,9 @@ package com.kurkus.kusinsa.service.product;
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static com.kurkus.kusinsa.utils.constants.PageSizeConstants.*;
 
-import com.kurkus.kusinsa.dao.LikesDao;
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
-import com.kurkus.kusinsa.dto.request.product.ProductPageRequest;
+import com.kurkus.kusinsa.dto.request.product.ProductSearchConditionRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductUpdateRequest;
-import com.kurkus.kusinsa.dto.response.prodcut.ProductAllResponse;
 import com.kurkus.kusinsa.dto.response.prodcut.ProductResponse;
 import com.kurkus.kusinsa.entity.Brand;
 import com.kurkus.kusinsa.entity.Category;
@@ -50,11 +48,8 @@ public class ProductService {
     }
 
     /**
-     * v1 : fetch join으로 카테고리, 브랜드까지 반환을 합니다
-     * v2 : React에서는 list로 가지고있어서 카테고리랑 브랜드까지는 반환안해도될것같음
-     * update나 findById에서는 있는지 체크하는것은 불필요한거같다 왜냐하면 없으면 업데이트를 안하고 더티체킹을 위해서 상관없지만
-     * 없으면 없는정보를 주면되기때문이다.
      * v3 : 아니다 jpa에서는 of메서드라던지 toEntity라는 메서드를 활용하기때문에 NPE문제가 발생하므로 Null 체크를해줘야합니다.
+     * v4 : dto로 바로 가져오는것이 제일좋은것같다 불필요하게 createdAt이런거를 가져와야할가?
      */
     @Transactional(readOnly = true)
     public ProductResponse findById(Long id) {
@@ -73,27 +68,20 @@ public class ProductService {
 
     /**
      * 페이징 성능개선에 포함됨
-     * 정렬기준을 parameter로 받을지 request로 받을지고민이된다...
-     * 테스트코드시 Page객체를 response를 해야하는것도 동적쿼리 작성후에 작성하기
      */
     @Transactional(readOnly = true)
-    public Page<ProductAllResponse> findAllByCategory(ProductPageRequest request){
+    public Page<ProductResponse> findAllByCategory(ProductSearchConditionRequest request){
         int page = request.getPage();
         if(request.getPage() < 0){
             page = 0;
         }
-
-        Page<Product> productPage= productRepository.findAllByCategory(request.getId(),
+        Page<Product> productPage= productRepository.findAllByCategoryId(request.getId(),
                 PageRequest.of(page, PRODUCT_SIZE,
-                        Sort.by(Sort.Direction.DESC,request.getSortProperty())));
+                        Sort.by(Sort.Direction.DESC, request.getSortProperty())));
 
-        Page<ProductAllResponse> response = productPage.map(p -> ProductAllResponse.from(p));
+        Page<ProductResponse> response = productPage.map(p -> ProductResponse.from(p));
         return response;
     }
-
-    // 페이지로 반환하는 findAll (category, brand도 함께)
-    // 브랜드별로 반환 (정렬기준은 steams 개수) 아니면 정렬기준을 받는것도 괜찮음
-    // 카테고리별로 반환 (정렬기준은 steam )
 
     @Transactional
     public void delete(Long id){

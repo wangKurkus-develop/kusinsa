@@ -25,10 +25,6 @@ public class PointServiceImpl implements PointService{
     private final PointRepository pointRepository;
 
 
-    /**
-     * event listener 사용하자
-     * 로그인시에만 주는거 따로만들어야하나??
-     */
     @Override
     @Transactional
     public void save(Long userId, PointCreateRequest request) {

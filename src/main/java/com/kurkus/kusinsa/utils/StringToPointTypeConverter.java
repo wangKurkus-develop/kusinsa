@@ -15,7 +15,6 @@ public class StringToPointTypeConverter implements Converter<String, PointType> 
 
     @Override
     public PointType convert(String source) {
-        log.info("작동될때가 언제인지 알기위한것 : {}", source);
         return PointType.valueOf(source.toUpperCase());
     }
 }

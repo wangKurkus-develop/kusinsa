@@ -6,9 +6,9 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class ProductPageRequest {
+public class ProductSearchConditionRequest {
 
-    private Long id; // categoryId이든 BrandId이든 둘중하나임
+    private Long id; //
     private int page;
-    private String sortProperty;
+    private String sortProperty; // 이름인지 날짜순인지
 }

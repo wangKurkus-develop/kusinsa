@@ -23,6 +23,6 @@ public class RecentDao {
     }
 
     public Set<Object> findAllRecent(Long userId){
-        return redisSetTemplate.opsForSet().members(PREFIX + userId);
+        return redisSetTemplate.opsForZSet().reverseRange(PREFIX+userId, 0, 30);
     }
 }

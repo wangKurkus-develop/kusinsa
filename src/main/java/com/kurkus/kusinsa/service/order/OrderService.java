@@ -47,21 +47,16 @@ public class OrderService {
         publisher.publishEvent(new PointOrderSavedEvent(userId, request.getTotalObtainPoint(),
                 request.getTotalUsedPoint(),saveOrder.getId()));
         publisher.publishEvent(new OrderHistorySavedEvent(saveOrder, request.getOrderProductRequestList()));
-
+        log.info("주문생성완료 메시지");
     }
 
-    /**
-     * Transactional new로 한다면
-     * decrease하나의 메소드만 lock이 걸리는것이고
-     * decrease
-     */
     @Transactional
     public void decrease(Long productId, int quantity)  {
         Product product = productRepository.findByIdWithPessimisticLock(productId);
         validStock(product, quantity);
         validStatus(product);
         product.decrease(quantity);
-        productRepository.flush();
+        productRepository.flush(); // 한개씩 진행하고싶기때문에 flush를 통해 쓰기지연을 안사용 db에빠르게 업데이트해서 다른사람이 주문못하게만듬
     }
 
     private void validStock(Product product, int quantity){

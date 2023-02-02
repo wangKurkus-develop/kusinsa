@@ -1,17 +1,18 @@
-#docker-compose.yml - kafka/zookeper
 version: "3"
 
 services:
-  zookeeper:
-    image: wurstmeister/zookeeper
-    container_name: zookeeper
+  redis-session:
+    image: redis
+    container_name: redis-session
     ports:
-      - 2181:2181
-  kafka:
-    image: wurstmeister/kafka
-    container_name: kafka
+      - 6379:6379
+  redis-set:
+    image: redis
+    container_name: redis-set
     ports:
-      - 9092:9092
-    environment:
-      KAFKA_ADVERTISED_HOST_NAME: localhost
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      - 6479:6379
+  redis-cache:
+    image: redis
+    container_name: redis-cache
+    ports:
+      - 6579:6379

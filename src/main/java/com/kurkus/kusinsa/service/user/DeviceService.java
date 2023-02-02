@@ -16,7 +16,6 @@ public class DeviceService {
     private final DeviceRepository deviceRepository;
 
 
-    // 외래키 제약조건이있어서 0이나 이런값으로 대체하는거슨 불가능하다
     public void save(DeviceCreateRequest request) {
         if(request.getUserId() == null){
             deviceRepository.save(request.toNotUserDevice());

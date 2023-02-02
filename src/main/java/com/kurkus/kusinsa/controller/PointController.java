@@ -26,12 +26,12 @@ public class PointController {
     private final PointService pointService;
 
 
-    @PostMapping
-    @LoginCheck(userType = UserType.USER)
-    public ResponseEntity<Void> save(@SessionUserId Long userId, @RequestBody @Valid PointCreateRequest request) {
-        pointService.save(userId, request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
+//    @PostMapping
+//    @LoginCheck(userType = UserType.USER)
+//    public ResponseEntity<Void> save(@SessionUserId Long userId, @RequestBody @Valid PointCreateRequest request) {
+//        pointService.save(userId, request);
+//        return ResponseEntity.status(HttpStatus.CREATED).build();
+//    }
 
     @GetMapping
     @LoginCheck(userType = UserType.USER)

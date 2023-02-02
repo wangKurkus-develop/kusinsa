@@ -11,28 +11,36 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProductResponse {
 
-    private Long id;
-    private String name;
+    private Long productId;
+    private String productName;
     private Long price;
     private String content;
-    private long steams;
     private ProductType status;
     private String originImagePath;
     private String thumbnailImagePath;
     private long stock;
+    private long likes;
+    private Long categoryId;
+    private String categoryName;
+    private Long brandId;
+    private String brandName;
 
 
     public static ProductResponse from(Product product){
         return ProductResponse.builder()
-                .id(product.getId())
-                .name(product.getName())
+                .productId(product.getId())
+                .productName(product.getName())
                 .price(product.getPrice())
                 .content(product.getContent())
-                .steams(product.getLikes())
+                .likes(product.getLikes())
                 .status(product.getStatus())
                 .originImagePath(product.getOriginImagePath())
                 .thumbnailImagePath(product.getThumbnailImagePath())
                 .stock(product.getStock())
+                .categoryId(product.getCategory().getId())
+                .categoryName(product.getCategory().getName())
+                .brandId(product.getBrand().getId())
+                .brandName(product.getBrand().getName())
                 .build();
     }
 }

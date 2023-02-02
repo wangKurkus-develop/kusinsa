@@ -3,6 +3,7 @@ package com.kurkus.kusinsa.config;
 import java.util.List;
 
 import com.kurkus.kusinsa.utils.LoginUserIdResolver;
+
 import com.kurkus.kusinsa.utils.StringToPointTypeConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

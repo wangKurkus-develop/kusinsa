@@ -14,6 +14,7 @@ import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,7 @@ public class RankService {
     }
 
     @Cacheable(value = CLICK_RANK)
-    public List<ClickRankResponseV1> clickRankTop10(){
+    public List<ClickRankResponseV1> clickRankTop10() {
         List<Long> longs = rankDao.clickRankTop10();
         Map<Long, Integer> map = new HashMap<>();
         for (int i = 0; i < longs.size(); i++) {
@@ -60,11 +61,15 @@ public class RankService {
         return result;
     }
 
-    public void resetRankData(){
+    public void resetRankData() {
         rankDao.resetRankData();
     }
 
 
+    @CacheEvict(value = {ORDER_RANK, CLICK_RANK})
+    public void rankCacheEvict() {
+        log.info("rank cache evict");
+    }
 
 
 }

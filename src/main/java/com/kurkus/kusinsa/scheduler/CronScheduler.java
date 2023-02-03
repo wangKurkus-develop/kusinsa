@@ -35,22 +35,26 @@ public class CronScheduler {
 
     /**
      * 1. sorted Set 캐시를 초기화 시킨다
-     * 2. 데이터를 mongoDB에 저장한다
-     * 3. 3시간 마다 그러면 캐시에 있는 데이터를 초기화시킨다 그리고 다시 호출한다
+     * 2. 데이터를 mongoDB에 저장한다 (2시간전에서 현재까지 데이터 모은거를 저장)
+     * 3. 2시간 마다 그러면 캐시에 있는 데이터를 초기화시킨다 그리고 다시 호출한다
      */
-//    @Scheduled(cron = "0 0 0/3 * * *")
-//    @Scheduled(cron = "0 0/5 * * * *") // 초 분 시 일 월 요일
+//    @Scheduled(cron = "0 55 0/1 * * *")
+//    @Scheduled(cron = "0 0/2 * * * *") // 초 분 시 일 월 요일
     public void rankSchedule() {
         log.info("rank save schedule start");
 
-        rankService.resetRankData();
+        // cache시간 맞추기 1시간동안 캐시된 데이터를 보여주기위해
+        rankService.rankCacheEvict();
+        rankService.orderRankTop10();
+        rankService.clickRankTop10();
 
+        rankService.resetRankData();
         String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH"));// 년 월 일 시
-        // click
+        // click 이전 cache된 데이터 저장
         List<ClickRank> saveClickList = rankService.clickRankTop10().stream()
                 .map(c -> ClickRank.of(c, time)).collect(Collectors.toList());
         clickRankRepository.saveAll(saveClickList);
-        // order
+        // order 이전 cache된 데이터 저장
         List<OrderRank> saveOrderList = rankService.orderRankTop10().stream().
                 map(o -> OrderRank.of(o, time)).collect(Collectors.toList());
         orderRankRepository.saveAll(saveOrderList);

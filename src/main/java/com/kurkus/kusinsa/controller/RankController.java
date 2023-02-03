@@ -18,7 +18,6 @@ public class RankController {
 
     private final RankService rankService;
 
-    // 실시간 click과 order를 둘다 보내주어야한다.
     @GetMapping("/order")
     public ResponseEntity<List<OrderRankResponse>> orderRank(){
         return ResponseEntity.ok(rankService.orderRankTop10());

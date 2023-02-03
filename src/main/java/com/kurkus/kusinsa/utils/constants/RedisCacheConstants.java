@@ -8,5 +8,5 @@ public final class RedisCacheConstants {
     public static final String CLICK_RANK = "CLICK_RANK";
 
     public static final Duration DEFAULT_EXPIRE_TIME_MIN = Duration.ofMinutes(1L);
-    public static final Duration RANK_EXPIRE_TIME_MIN = Duration.ofMinutes(8L); // 5분
+    public static final Duration RANK_EXPIRE_TIME_MIN = Duration.ofHours(1L); // 1시간마다
 }

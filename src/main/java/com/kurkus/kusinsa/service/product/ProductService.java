@@ -4,7 +4,7 @@ import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static com.kurkus.kusinsa.utils.constants.PageSizeConstants.*;
 
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
-import com.kurkus.kusinsa.dto.request.product.ProductSearchConditionRequest;
+import com.kurkus.kusinsa.dto.request.product.ProductSearchCondition;
 import com.kurkus.kusinsa.dto.request.product.ProductUpdateRequest;
 import com.kurkus.kusinsa.dto.response.prodcut.ProductResponse;
 import com.kurkus.kusinsa.entity.Brand;
@@ -14,10 +14,12 @@ import com.kurkus.kusinsa.exception.product.ProductException;
 import com.kurkus.kusinsa.repository.BrandRepository;
 import com.kurkus.kusinsa.repository.CategoryRepository;
 import com.kurkus.kusinsa.repository.product.ProductRepository;
+import com.kurkus.kusinsa.utils.constants.PageSizeConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -32,12 +34,9 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
     private final BrandRepository brandRepository;
 
-    /**
-     * 이름 중복체크
-     */
     @Transactional
     public void save(ProductCreateRequest request) {
-        if(productRepository.existsByName(request.getName())){
+        if (productRepository.existsByName(request.getName())) {
             throw new ProductException(EXISTS_PRODUCT, HttpStatus.BAD_REQUEST);
         }
 
@@ -66,28 +65,16 @@ public class ProductService {
         product.update(request);
     }
 
-    /**
-     * 페이징 성능개선에 포함됨
-     */
-    @Transactional(readOnly = true)
-    public Page<ProductResponse> findAllByCategory(ProductSearchConditionRequest request){
-        int page = request.getPage();
-        if(request.getPage() < 0){
-            page = 0;
-        }
-        Page<Product> productPage= productRepository.findAllByCategoryId(request.getId(),
-                PageRequest.of(page, PRODUCT_SIZE,
-                        Sort.by(Sort.Direction.DESC, request.getSortProperty())));
-
-        Page<ProductResponse> response = productPage.map(p -> ProductResponse.from(p));
-        return response;
-    }
 
     @Transactional
-    public void delete(Long id){
+    public void delete(Long id) {
         Product product = productRepository.getById(id);
         product.delete();
     }
 
-
+    @Transactional(readOnly = true)
+    public Page<ProductResponse> searchCondition(ProductSearchCondition request, Pageable pageable) {
+        return productRepository.searchPageCondition(request, pageable)
+                .map(p -> ProductResponse.from(p));
+    }
 }

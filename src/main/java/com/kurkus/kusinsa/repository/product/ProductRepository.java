@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.repository;
+package com.kurkus.kusinsa.repository.product;
 
 import javax.persistence.LockModeType;
 import java.util.List;
@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long>, ProductRepositoryCustom {
 
     Optional<Product> findByName(String name);
 
@@ -23,7 +23,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         return findById(id).orElseThrow(()-> new ProductNotFoundException());
     }
 
-    // brand + category까지 가져옵니다
     @Query("select p from Product p join fetch p.brand join fetch p.category where p.id = :id")
     Optional<Product> findByIdWithAll(@Param("id") Long id);
 
@@ -31,24 +30,19 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         return findByIdWithAll(id).orElseThrow(() -> new ProductNotFoundException());
     }
 
-    @Query(value = "select p from Product p join fetch p.category join fetch p.brand where p.category.id = :categoryId"
-    , countQuery = "select count(p) from Product p where p.category.id = :categoryId")
-    Page<Product> findAllByCategoryId(@Param("categoryId") Long categoryId, Pageable pageable);
-
-
     @Lock(value = LockModeType.PESSIMISTIC_WRITE)
     @Query("select p from Product p where p.id = :id and p.deleted=false ")
     Product findByIdWithPessimisticLock(@Param("id") Long id);
 
 
     // ORDER BY FIELD(id,2,3,1); QueryDSL로 변경
-    @Query(value = "select p from Product p join fetch p.brand where p.id in :list")
+    @Query(value = "select * from Product p inner join Brand b on p.brand_id = b.id where p.id in (:list) order by FIELD(p.id, :list)",
+            nativeQuery = true)
+//    @Query(value = "select p from Product p join fetch p.brand where p.id in :list")
     List<Product> findAllWithBrandByList(@Param("list") List<Long> list);
 
 
     @Query(value = "select p from Product p where p.id in :list")
     List<Product> findAllByList(@Param("list") List<Long> list);
-
-
 
 }

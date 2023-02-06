@@ -1,14 +1,20 @@
 package com.kurkus.kusinsa.controller.product;
 
+import static com.kurkus.kusinsa.utils.constants.PageSizeConstants.*;
+
 import com.kurkus.kusinsa.annotation.LoginCheck;
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
-import com.kurkus.kusinsa.dto.request.product.ProductSearchConditionRequest;
+import com.kurkus.kusinsa.dto.request.product.ProductSearchCondition;
 import com.kurkus.kusinsa.dto.request.product.ProductUpdateRequest;
 import com.kurkus.kusinsa.dto.response.prodcut.ProductResponse;
 import com.kurkus.kusinsa.enums.UserType;
 import com.kurkus.kusinsa.service.product.ProductService;
+import com.kurkus.kusinsa.utils.constants.PageSizeConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,14 +45,13 @@ public class ProductController {
         return ResponseEntity.ok().build();
     }
 
-    /**
-     * 맨투맨 별로 Serach니까 (검색창이아니더라도)
-     * QueryDSL로 동적쿼리로 만들기 pathvariable 받아가지고
-     */
-    @GetMapping("/categories")
-    public ResponseEntity<Page<ProductResponse>> findAllByCategory(@RequestBody ProductSearchConditionRequest request) {
-        return ResponseEntity.ok(productService.findAllByCategory(request));
+    @GetMapping
+    public ResponseEntity<Page<ProductResponse>> searchCondition(@RequestBody ProductSearchCondition request,
+                                                                 @PageableDefault(size = PRODUCT_SIZE, sort = "createdAt",
+                                                                         direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok(productService.searchCondition(request, pageable));
     }
+
 
 
 

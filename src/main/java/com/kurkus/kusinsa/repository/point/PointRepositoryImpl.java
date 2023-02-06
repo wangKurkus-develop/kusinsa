@@ -8,19 +8,13 @@ import static com.kurkus.kusinsa.entity.QUser.*;
 
 import com.kurkus.kusinsa.dto.request.point.PointSearchCondition;
 import com.kurkus.kusinsa.entity.Point;
-import com.kurkus.kusinsa.entity.QPoint;
-import com.kurkus.kusinsa.entity.QUser;
 import com.kurkus.kusinsa.enums.PointType;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 
 public class PointRepositoryImpl implements PointRepositoryCustom {

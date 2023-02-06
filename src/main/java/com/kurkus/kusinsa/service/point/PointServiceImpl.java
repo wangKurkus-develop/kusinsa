@@ -42,6 +42,9 @@ public class PointServiceImpl implements PointService{
 
     @Override
     public Page<PointResponse> searchCondition(PointSearchCondition condition, int page) {
+        if(page < 0){
+            page = 0;
+        }
         return pointRepository.searchPageCondition(condition, PageRequest.of(page, POINT_SIZE))
                 .map(p -> PointResponse.from(p));
     }

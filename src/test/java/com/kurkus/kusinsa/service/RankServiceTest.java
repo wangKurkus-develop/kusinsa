@@ -3,7 +3,7 @@ package com.kurkus.kusinsa.service;
 import java.util.ArrayList;
 
 import com.kurkus.kusinsa.dao.RankDao;
-import com.kurkus.kusinsa.repository.ProductRepository;
+import com.kurkus.kusinsa.repository.product.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

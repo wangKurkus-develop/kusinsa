@@ -13,7 +13,7 @@ import com.kurkus.kusinsa.events.order.OrderHistorySavedEvent;
 import com.kurkus.kusinsa.events.point.PointOrderSavedEvent;
 import com.kurkus.kusinsa.exception.order.OrderException;
 import com.kurkus.kusinsa.repository.OrderRepository;
-import com.kurkus.kusinsa.repository.ProductRepository;
+import com.kurkus.kusinsa.repository.product.ProductRepository;
 import com.kurkus.kusinsa.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

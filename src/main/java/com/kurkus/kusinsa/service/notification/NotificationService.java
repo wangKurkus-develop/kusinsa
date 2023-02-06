@@ -8,7 +8,7 @@ import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.entity.notification.NotificationGroup;
 import com.kurkus.kusinsa.enums.notification.NotificationGroupStatus;
 import com.kurkus.kusinsa.exception.notification.NotificationGroupNotFoundException;
-import com.kurkus.kusinsa.repository.ProductRepository;
+import com.kurkus.kusinsa.repository.product.ProductRepository;
 import com.kurkus.kusinsa.repository.UserRepository;
 import com.kurkus.kusinsa.repository.notification.NotificationGroupRepository;
 import com.kurkus.kusinsa.repository.notification.NotificationGroupUserRepository;

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import com.kurkus.kusinsa.dao.LikesDao;
 import com.kurkus.kusinsa.dao.RecentDao;
 import com.kurkus.kusinsa.dto.response.prodcut.ProductCommonResponse;
-import com.kurkus.kusinsa.repository.ProductRepository;
+import com.kurkus.kusinsa.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

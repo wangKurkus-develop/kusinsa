@@ -6,6 +6,7 @@ import javax.validation.constraints.Min;
 import com.kurkus.kusinsa.annotation.LoginCheck;
 import com.kurkus.kusinsa.annotation.SessionUserId;
 import com.kurkus.kusinsa.dto.request.point.PointCreateRequest;
+import com.kurkus.kusinsa.dto.request.point.PointSearchCondition;
 import com.kurkus.kusinsa.dto.response.point.PointResponse;
 import com.kurkus.kusinsa.enums.PointType;
 import com.kurkus.kusinsa.enums.UserType;
@@ -25,20 +26,11 @@ public class PointController {
 
     private final PointService pointService;
 
-
-//    @PostMapping
-//    @LoginCheck(userType = UserType.USER)
-//    public ResponseEntity<Void> save(@SessionUserId Long userId, @RequestBody @Valid PointCreateRequest request) {
-//        pointService.save(userId, request);
-//        return ResponseEntity.status(HttpStatus.CREATED).build();
-//    }
-
     @GetMapping
     @LoginCheck(userType = UserType.USER)
-    public ResponseEntity<Page<PointResponse>> findAll(@SessionUserId Long userId,
-                                                       @RequestParam(defaultValue = "all") PointType division,
+    public ResponseEntity<Page<PointResponse>> findAll(@RequestBody PointSearchCondition condition,
                                                        @RequestParam(name = "page", defaultValue = "0")int page) {
-        return ResponseEntity.ok(pointService.findAll(userId, division, page));
+        return ResponseEntity.ok(pointService.searchCondition(condition, page));
     }
 
 }

@@ -11,7 +11,7 @@ import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.enums.ProductType;
 import com.kurkus.kusinsa.repository.OrderRepository;
-import com.kurkus.kusinsa.repository.ProductRepository;
+import com.kurkus.kusinsa.repository.product.ProductRepository;
 import com.kurkus.kusinsa.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

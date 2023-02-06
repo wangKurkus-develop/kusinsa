@@ -6,6 +6,7 @@ import com.kurkus.kusinsa.dto.request.point.PointSearchCondition;
 import com.kurkus.kusinsa.dto.response.point.PointResponse;
 import com.kurkus.kusinsa.enums.PointType;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface PointService {
 

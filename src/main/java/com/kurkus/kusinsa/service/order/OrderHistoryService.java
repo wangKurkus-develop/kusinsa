@@ -15,7 +15,7 @@ import com.kurkus.kusinsa.enums.DeliveryStatus;
 import com.kurkus.kusinsa.events.point.PointEvent;
 import com.kurkus.kusinsa.exception.order.OrderException;
 import com.kurkus.kusinsa.repository.OrderHistoryRepository;
-import com.kurkus.kusinsa.repository.ProductRepository;
+import com.kurkus.kusinsa.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;

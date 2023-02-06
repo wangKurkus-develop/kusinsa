@@ -10,15 +10,13 @@ import com.kurkus.kusinsa.dao.LikesDao;
 import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.entity.documents.ClickRank;
 import com.kurkus.kusinsa.entity.documents.OrderRank;
-import com.kurkus.kusinsa.repository.ProductRepository;
+import com.kurkus.kusinsa.repository.product.ProductRepository;
 import com.kurkus.kusinsa.repository.mongo.ClickRankRepository;
 import com.kurkus.kusinsa.repository.mongo.OrderRankRepository;
 import com.kurkus.kusinsa.service.RankService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @Slf4j

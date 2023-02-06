@@ -13,7 +13,7 @@ import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.exception.product.ProductException;
 import com.kurkus.kusinsa.repository.BrandRepository;
 import com.kurkus.kusinsa.repository.CategoryRepository;
-import com.kurkus.kusinsa.repository.ProductRepository;
+import com.kurkus.kusinsa.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

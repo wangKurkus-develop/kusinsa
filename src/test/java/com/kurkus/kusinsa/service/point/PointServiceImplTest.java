@@ -8,7 +8,7 @@ import com.kurkus.kusinsa.entity.Point;
 import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.enums.PointType;
 import com.kurkus.kusinsa.exception.user.UserNotFoundException;
-import com.kurkus.kusinsa.repository.PointRepository;
+import com.kurkus.kusinsa.repository.point.PointRepository;
 import com.kurkus.kusinsa.repository.UserRepository;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

@@ -11,7 +11,7 @@ import com.kurkus.kusinsa.dao.RankDao;
 import com.kurkus.kusinsa.dto.response.rank.ClickRankResponseV1;
 import com.kurkus.kusinsa.dto.response.rank.OrderRankResponse;
 import com.kurkus.kusinsa.entity.Product;
-import com.kurkus.kusinsa.repository.ProductRepository;
+import com.kurkus.kusinsa.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;

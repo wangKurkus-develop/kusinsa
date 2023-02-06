@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 import com.kurkus.kusinsa.dao.LikesDao;
 import com.kurkus.kusinsa.dao.RecentDao;
-import com.kurkus.kusinsa.repository.ProductRepository;
+import com.kurkus.kusinsa.repository.product.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,10 +1,8 @@
 package com.kurkus.kusinsa.service.product;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.kurkus.kusinsa.dto.request.product.status.ProductStockUpdateRequest;
 import com.kurkus.kusinsa.entity.Product;
-import com.kurkus.kusinsa.repository.ProductRepository;
+import com.kurkus.kusinsa.repository.product.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

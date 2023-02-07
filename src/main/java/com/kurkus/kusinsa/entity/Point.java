@@ -24,9 +24,7 @@ public class Point extends BaseTimeEntity {
     private Long id;
 
     private Long score;
-
-    // 획득, 사용 여부를 구분한다.
-    // 획득 - post, 사용 - update
+    
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PointType division;

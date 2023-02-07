@@ -16,6 +16,7 @@ import org.hibernate.annotations.SQLDelete;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @DynamicInsert
+@Table(name = "point", indexes = @Index(name = "idx_point_created_user", columnList = "user_id, created_at"))
 public class Point extends BaseTimeEntity {
 
     @Id

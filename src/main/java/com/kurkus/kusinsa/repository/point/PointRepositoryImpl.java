@@ -28,31 +28,42 @@ public class PointRepositoryImpl implements PointRepositoryCustom {
 
     @Override
     public Page<Point> searchPageCondition(PointSearchCondition condition, Pageable pageable) {
-        List<Point> result = queryFactory
-                .select(point)
+        List<Long> ids = queryFactory
+                .select(point.id)
                 .from(point)
-                .join(point.user, user)
                 .where(
-                        point.deleted.eq(false),
-                        point.user.id.eq(condition.getUserId()),
-                        divisionEq(condition.getDivision())
+                        point.user.id.eq(condition.getUserId())
                 )
                 .orderBy(point.createdAt.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
+
+        List<Point> result = queryFactory
+                .select(point)
+                .from(point)
+                .join(point.user, user)
+                .where(
+                        point.id.in(ids),
+                        divisionEq(condition.getDivision()),
+                        point.deleted.eq(false)
+
+                )
+                .fetch();
+
         JPAQuery<Long> countQuery = queryFactory
                 .select(point.count())
                 .from(point)
-                .join(point.user, user)
-                .where(point.deleted.eq(false),
+                .where(
+                        point.deleted.eq(false),
                         point.user.id.eq(condition.getUserId())
                         , divisionEq(condition.getDivision())
                 );
 
         return new PageImpl<>(result, pageable, countQuery.fetchOne());
     }
+
 
     private BooleanExpression divisionEq(PointType pointType) {
         if (pointType == PointType.ALL || pointType == null) {

@@ -47,7 +47,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<Page<ProductResponse>> searchCondition(@RequestBody ProductSearchCondition request,
-                                                                 @PageableDefault(size = PRODUCT_SIZE, sort = "createdAt",
+                                                                 @PageableDefault(size = PRODUCT_SIZE, sort = "created_at",
                                                                          direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(productService.searchCondition(request, pageable));
     }

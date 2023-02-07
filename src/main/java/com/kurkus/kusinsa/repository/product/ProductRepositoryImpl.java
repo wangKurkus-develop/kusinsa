@@ -24,6 +24,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
@@ -38,25 +39,31 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     public Page<Product> searchPageCondition(ProductSearchCondition condition, Pageable pageable) {
         List<OrderSpecifier> ORDERS = getAllOrderSpecifiers(pageable);
 
+        List<Long> ids = queryFactory
+                .select(product.id)
+                .from(product)
+                .where(
+                        brandEq(condition.getBrandId()),
+                        categoryEq(condition.getCategoryId())
+                )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
         List<Product> result = queryFactory.select(product)
                 .from(product)
                 .join(product.brand, brand).fetchJoin()
                 .join(product.category, category).fetchJoin()
                 .where(
-                        product.deleted.eq(false),
-                        brandEq(condition.getBrandId()),
-                        categoryEq(condition.getCategoryId())
+                        product.id.in(ids),
+                        product.deleted.eq(false)
                 )
                 .orderBy(ORDERS.stream().toArray(OrderSpecifier[]::new))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
                 .fetch();
 
         JPAQuery<Long> countQuery = queryFactory
                 .select(product.count())
                 .from(product)
-                .join(product.brand, brand)
-                .join(product.category, category)
                 .where(
                         product.deleted.eq(false),
                         brandEq(condition.getBrandId()),

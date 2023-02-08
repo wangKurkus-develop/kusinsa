@@ -28,28 +28,19 @@ public class PointRepositoryImpl implements PointRepositoryCustom {
 
     @Override
     public Page<Point> searchPageCondition(PointSearchCondition condition, Pageable pageable) {
-        List<Long> ids = queryFactory
-                .select(point.id)
-                .from(point)
-                .where(
-                        point.user.id.eq(condition.getUserId())
-                )
-                .orderBy(point.createdAt.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
-
-
         List<Point> result = queryFactory
                 .select(point)
                 .from(point)
                 .join(point.user, user)
                 .where(
-                        point.id.in(ids),
+                        point.user.id.eq(condition.getUserId()),
                         divisionEq(condition.getDivision()),
                         point.deleted.eq(false)
 
                 )
+                .orderBy(point.createdAt.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
 
         JPAQuery<Long> countQuery = queryFactory

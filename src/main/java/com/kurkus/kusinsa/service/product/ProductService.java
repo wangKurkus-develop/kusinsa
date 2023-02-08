@@ -17,6 +17,7 @@ import com.kurkus.kusinsa.repository.product.ProductRepository;
 import com.kurkus.kusinsa.utils.constants.PageSizeConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -73,8 +74,9 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductResponse> searchCondition(ProductSearchCondition request, Pageable pageable) {
-        return productRepository.searchPageCondition(request, pageable)
-                .map(p -> ProductResponse.from(p));
+//    @Cacheable(value = "PRODUCT", key = "#pageNumber")
+    public Page<ProductResponse> searchCondition(ProductSearchCondition request, Pageable pageable, int pageNumber) {
+        return productRepository.searchPageCondition(request, pageable);
     }
+
 }

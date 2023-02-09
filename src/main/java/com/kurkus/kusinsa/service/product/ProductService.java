@@ -1,7 +1,6 @@
 package com.kurkus.kusinsa.service.product;
 
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
-import static com.kurkus.kusinsa.utils.constants.PageSizeConstants.*;
 
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductSearchCondition;
@@ -14,14 +13,10 @@ import com.kurkus.kusinsa.exception.product.ProductException;
 import com.kurkus.kusinsa.repository.BrandRepository;
 import com.kurkus.kusinsa.repository.CategoryRepository;
 import com.kurkus.kusinsa.repository.product.ProductRepository;
-import com.kurkus.kusinsa.utils.constants.PageSizeConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,9 +69,13 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-//    @Cacheable(value = "PRODUCT", key = "#pageNumber")
-    public Page<ProductResponse> searchCondition(ProductSearchCondition request, Pageable pageable, int pageNumber) {
+    public Page<ProductResponse> searchCondition(ProductSearchCondition request, Pageable pageable) {
         return productRepository.searchPageCondition(request, pageable);
     }
+
+
+
+
+
 
 }

@@ -43,10 +43,10 @@ public class Product extends BaseTimeEntity {
     private ProductType status;
 
 
-    @Column(name = "origin_image_path",columnDefinition = "LONGTEXT")
+    @Column(name = "origin_image_path", columnDefinition = "LONGTEXT")
     private String originImagePath;
 
-    @Column(name = "thumbnail_image_path",columnDefinition = "LONGTEXT")
+    @Column(name = "thumbnail_image_path", columnDefinition = "LONGTEXT")
     private String thumbnailImagePath;
 
     private long stock;
@@ -58,36 +58,36 @@ public class Product extends BaseTimeEntity {
     public void update(ProductUpdateRequest request) {
         this.name = request.getName();
         this.price = request.getPrice();
-        this.content  = request.getContent();
+        this.content = request.getContent();
         this.stock = request.getStock();
         this.status = request.getStatus();
     }
 
-    public void delete(){
+    public void delete() {
         this.deleted = true;
     }
 
-    public void decrease(int quantity){
+    public void decrease(int quantity) {
         this.stock -= quantity;
-        if(this.stock == 0){
+        if (this.stock == 0) {
             this.status = ProductType.TEMP_SOLD_OUT;
         }
     }
 
-    public void increase(int quantity){
-        this.stock +=quantity;
-        if(this.status == ProductType.TEMP_SOLD_OUT){
+    public void increase(int quantity) {
+        this.stock += quantity;
+        if (this.status == ProductType.TEMP_SOLD_OUT) {
             this.status = ProductType.SALE;
         }
     }
 
-    public void updateLikes(long likes){
+    public void updateLikes(long likes) {
         this.likes = likes;
     }
 
-    public void updateStock(long quantity){
+    public void updateStock(long quantity) {
         this.stock += quantity;
-        if(this.status != ProductType.SALE){
+        if (this.status != ProductType.SALE) {
             this.status = ProductType.SALE;
         }
     }

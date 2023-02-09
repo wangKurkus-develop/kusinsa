@@ -7,7 +7,7 @@ import lombok.*;
 
 @Getter
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProductResponse {
 

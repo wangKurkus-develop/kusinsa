@@ -16,7 +16,6 @@ import org.hibernate.annotations.SQLDelete;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @DynamicInsert
-@Table(name = "point", indexes = @Index(name = "idx_point_created_user", columnList = "user_id, created_at"))
 public class Point extends BaseTimeEntity {
 
     @Id
@@ -24,9 +23,7 @@ public class Point extends BaseTimeEntity {
     private Long id;
 
     private Long score;
-
-    // 획득, 사용 여부를 구분한다.
-    // 획득 - post, 사용 - update
+    
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PointType division;

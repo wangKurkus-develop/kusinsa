@@ -58,6 +58,8 @@ dependencies {
     annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
     // kafka
     implementation 'org.springframework.kafka:spring-kafka'
+    // smtp
+    implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.0'
 
 }
 

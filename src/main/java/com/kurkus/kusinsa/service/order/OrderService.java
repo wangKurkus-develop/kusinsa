@@ -15,6 +15,7 @@ import com.kurkus.kusinsa.exception.order.OrderException;
 import com.kurkus.kusinsa.repository.OrderRepository;
 import com.kurkus.kusinsa.repository.product.ProductRepository;
 import com.kurkus.kusinsa.repository.UserRepository;
+import com.kurkus.kusinsa.service.kafka.KafkaProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -31,6 +32,8 @@ public class OrderService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final ApplicationEventPublisher publisher;
+
+    private final KafkaProducer producer;
     /**
      * v1 : 동시성 처리
      * v2 : 포인트 지급
@@ -47,7 +50,6 @@ public class OrderService {
         publisher.publishEvent(new PointOrderSavedEvent(userId, request.getTotalObtainPoint(),
                 request.getTotalUsedPoint(),saveOrder.getId()));
         publisher.publishEvent(new OrderHistorySavedEvent(saveOrder, request.getOrderProductRequestList()));
-        log.info("주문생성완료 메시지");
     }
 
     @Transactional

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/products/status")
-public class ProductStatusController {
+public class ProductUpdateController {
 
     private final ProductStatusService productStatusService;
 

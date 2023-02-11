@@ -1,4 +1,4 @@
-package com.kurkus.kusinsa.controller;
+package com.kurkus.kusinsa.controller.user;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;

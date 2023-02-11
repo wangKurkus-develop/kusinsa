@@ -25,4 +25,7 @@ public interface NotificationGroupUserRepository extends JpaRepository<Notificat
     @Query(value = "update NotificationUser n set n.status = 'COMPLETE' where n.notificationGroup.id = :groupId and n.deleted = false")
     int updateStatusComplete(@Param("groupId") Long groupId);
 
+
+    boolean existsByUserIdAndNotificationGroupId(Long userId, Long notificationGroupId);
+
 }

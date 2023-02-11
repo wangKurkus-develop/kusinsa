@@ -18,6 +18,7 @@ import com.kurkus.kusinsa.entity.notification.NotificationUser;
 import com.kurkus.kusinsa.entity.order.OrderHistory;
 import com.kurkus.kusinsa.enums.notification.NotificationGroupStatus;
 import com.kurkus.kusinsa.enums.notification.NotificationStatus;
+import com.kurkus.kusinsa.exception.notification.NotificationGroupException;
 import com.kurkus.kusinsa.exception.notification.NotificationGroupNotFoundException;
 import com.kurkus.kusinsa.repository.OrderHistoryRepository;
 import com.kurkus.kusinsa.repository.mongo.NotificationMessageRepository;
@@ -27,6 +28,7 @@ import com.kurkus.kusinsa.repository.notification.NotificationGroupRepository;
 import com.kurkus.kusinsa.repository.notification.NotificationGroupUserRepository;
 import com.kurkus.kusinsa.service.notification.email.EmailService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,12 +60,15 @@ public class NotificationService {
             if (!group.isPresent()) {
                 throw new NotificationGroupNotFoundException();
             }
+            if (groupUserRepository.existsByUserIdAndNotificationGroupId(userId, group.get().getId())) {
+                throw new NotificationGroupException("이미 신청을 했습니다", HttpStatus.BAD_REQUEST);
+            }
             groupUserRepository.save(request.toNotificationUser(user, group.get()));
         }
     }
 
     @Transactional
-    public void notifyDelivery(Long orderHistoryId){
+    public void notifyDelivery(Long orderHistoryId) {
         OrderHistory orderHistory = orderHistoryRepository.findByIdWithUserAndProduct(orderHistoryId);
         User user = orderHistory.getUser();
         Product product = orderHistory.getProduct();
@@ -80,31 +85,29 @@ public class NotificationService {
      * V2 : 실패의 경우에 대한 예외처리
      */
     @Transactional
-    public void notifyGroup(Long productId, String productName){
+    public void notifyGroup(Long productId, String productName) {
         NotificationGroup group = groupRepository.getByProductIdAndStatus(productId, RECRUIT);
         List<NotificationUser> users = groupUserRepository.findGroupUserEmail(group.getId());
-        String message =  emailService.sendGroup(getEmailList(users), productName);
+        String message = emailService.sendGroup(getEmailList(users), productName);
         saveMessage(users, message);
         group.updateComplete();
         groupUserRepository.updateStatusComplete(group.getId());
     }
 
-    private String[] getEmailList(List<NotificationUser> list){
+    private String[] getEmailList(List<NotificationUser> list) {
         String[] emails = new String[list.size()];
-        for(int i=0; i<list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             emails[i] = list.get(i).getUser().getEmail();
         }
         return emails;
     }
 
-    private void saveMessage(List<NotificationUser> users,  String message){
+    private void saveMessage(List<NotificationUser> users, String message) {
         List<NotificationMessage> list = users.stream()
                 .map(l -> new NotificationMessage(l.getUser().getId(), message))
                 .collect(Collectors.toList());
         notifyMessageRepo.saveAll(list);
     }
-
-
 
 
 }

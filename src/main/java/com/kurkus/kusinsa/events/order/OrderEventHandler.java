@@ -5,11 +5,7 @@ import javax.transaction.Transactional;
 
 import java.util.List;
 
-import static com.kurkus.kusinsa.enums.PointType.OBTAIN;
-
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
-import com.kurkus.kusinsa.dto.request.point.PointCreateRequest;
-import com.kurkus.kusinsa.events.point.PointLoginSavedEvent;
 import com.kurkus.kusinsa.service.order.OrderHistoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +31,5 @@ public class OrderEventHandler {
             OrderProductRequest request = list.get(i);
             orderHistoryService.save(event.getOrder(), request);
         }
-        log.info("주문 기록 저장완료 : "+event.getOrder().getId());
     }
 }

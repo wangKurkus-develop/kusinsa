@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * 재고와 배송상태륿 변경하는 곳을 따로 만들었습니다.
- *
- */
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/products/status")
@@ -29,7 +26,6 @@ public class ProductUpdateController {
     }
 
     // 재고변경 일괄적으로 변경하는것도 추가하기
-
-    // 판매중지나 MVP후에 추가하기
+    // 판매중지나 추가하기
 
 }

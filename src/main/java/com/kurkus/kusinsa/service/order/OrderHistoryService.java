@@ -12,6 +12,7 @@ import com.kurkus.kusinsa.entity.order.Order;
 import com.kurkus.kusinsa.entity.order.OrderHistory;
 import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.enums.DeliveryStatus;
+import com.kurkus.kusinsa.events.notification.DeliveryStatusEvent;
 import com.kurkus.kusinsa.events.point.PointEvent;
 import com.kurkus.kusinsa.exception.order.OrderException;
 import com.kurkus.kusinsa.repository.OrderHistoryRepository;
@@ -34,6 +35,7 @@ public class OrderHistoryService {
     private final ProductRepository productRepository;
     private final OrderHistoryRepository historyRepository;
     private final ApplicationEventPublisher publisher;
+
 
     @Transactional
     public void save(Order order, OrderProductRequest request) {
@@ -74,14 +76,13 @@ public class OrderHistoryService {
         Product product = history.getProduct();
         product.increase(history.getQuantity());
         publisher.publishEvent(new PointEvent(userId, ORDER_CANCEL, history.getObtainPoint(), USED));
-        log.info("주문이 추소됬습니다 - 알림");
     }
 
     @Transactional
     public void updateDeliveryStatus(Long orderHistoryId, DeliveryStatus deliveryStatus) {
         OrderHistory orderHistory = historyRepository.findByIdPessimisticLock(orderHistoryId);
         orderHistory.updateDeliveryStatus(deliveryStatus);
-        log.info("배송이 출발됬습니다 상태변경 메시지 보내기");
+        publisher.publishEvent(new DeliveryStatusEvent(orderHistoryId, deliveryStatus));
     }
 
 

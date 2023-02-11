@@ -30,7 +30,7 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Long
     @Query(value = "select h from OrderHistory h join fetch h.product join fetch h.user where h.id = :id")
     OrderHistory findByIdPessimisticLock(@Param("id") Long id);
 
-
-
+    @Query(value = "select h from OrderHistory h join fetch h.user join fetch h.product where h.id = :id and h.deleted = false ")
+    OrderHistory findByIdWithUserAndProduct(@Param("id") Long id);
 
 }

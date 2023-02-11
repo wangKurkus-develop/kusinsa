@@ -38,3 +38,4 @@ out/
 
 
 /src/main/resources/application-mail.properties
+/src/test/resources/application-mail.properties

@@ -57,6 +57,9 @@ dependencies {
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
 
+    // smtp
+    implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.0'
+
 }
 
 tasks.named('test') {

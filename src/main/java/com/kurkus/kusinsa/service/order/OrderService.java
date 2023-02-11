@@ -31,6 +31,7 @@ public class OrderService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final ApplicationEventPublisher publisher;
+
     /**
      * v1 : 동시성 처리
      * v2 : 포인트 지급
@@ -47,7 +48,6 @@ public class OrderService {
         publisher.publishEvent(new PointOrderSavedEvent(userId, request.getTotalObtainPoint(),
                 request.getTotalUsedPoint(),saveOrder.getId()));
         publisher.publishEvent(new OrderHistorySavedEvent(saveOrder, request.getOrderProductRequestList()));
-        log.info("주문생성완료 메시지");
     }
 
     @Transactional

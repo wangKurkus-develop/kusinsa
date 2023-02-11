@@ -40,5 +40,7 @@ public class NotificationGroup extends BaseTimeEntity {
     private String uniqueKey;
 
 
-
+    public void updateComplete() {
+        this.status = NotificationGroupStatus.COMPLETE;
+    }
 }

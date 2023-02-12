@@ -41,6 +41,8 @@ public final class ErrorMessages {
     public static final String NOT_SALE = "매진이거나 판매중이 아닙니다";
     // notification
     public static final String NOT_FOUND_NOTIFICATION_GROUP = "존재하지 않는 알림그룹 입니다";
+    // notificationGroupUser
+    public static final String DUPLICATE_APPLY = "이미 신청을 했습니다";
 
 
 }

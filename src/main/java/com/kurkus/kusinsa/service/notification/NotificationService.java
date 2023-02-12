@@ -27,6 +27,7 @@ import com.kurkus.kusinsa.repository.UserRepository;
 import com.kurkus.kusinsa.repository.notification.NotificationGroupRepository;
 import com.kurkus.kusinsa.repository.notification.NotificationGroupUserRepository;
 import com.kurkus.kusinsa.service.notification.email.EmailService;
+import com.kurkus.kusinsa.utils.constants.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -61,7 +62,7 @@ public class NotificationService {
                 throw new NotificationGroupNotFoundException();
             }
             if (groupUserRepository.existsByUserIdAndNotificationGroupId(userId, group.get().getId())) {
-                throw new NotificationGroupException("이미 신청을 했습니다", HttpStatus.BAD_REQUEST);
+                throw new NotificationGroupException(ErrorMessages.DUPLICATE_APPLY, HttpStatus.BAD_REQUEST);
             }
             groupUserRepository.save(request.toNotificationUser(user, group.get()));
         }

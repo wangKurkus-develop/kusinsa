@@ -23,7 +23,6 @@ import org.springframework.transaction.event.TransactionalEventListener;
 public class PointEventHandler {
 
     private final PointService pointService;
-    private final PointDao pointDao;
 
     @EventListener
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
@@ -33,34 +32,17 @@ public class PointEventHandler {
                 new PointCreateRequest(event.getPoint(), event.getContent(), event.getType()));
     }
 
-    /**
-     * 로그인 포인트 중복체크하기
-     */
     @EventListener
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void loginPointSave(PointLoginSavedEvent event) {
-        if(pointDao.checkTodayLoginPoint(event.getUserId()) == 1){
-            PointCreateRequest request = new PointCreateRequest(LOGIN_POINT, LOGIN_POINT_CONTENT, OBTAIN);
-            pointService.save(event.getUserId(), request);
-            log.info("{} 포인트 저장 완료", event.getUserId());
-        }
+        pointService.loginPointSave(event);
     }
 
-    // 적립된 포인트, 내용(상품 결제),
     @EventListener
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void orderPointSave(PointOrderSavedEvent event) {
-        if(event.getUsedPoint() != 0){
-            pointService.save(event.getUserId(),
-                    new PointCreateRequest(event.getUsedPoint(),
-                            ORDER_USED_CONTENT+event.getOrderId(), USED));
-            log.info(ORDER_USED_CONTENT+event.getOrderId());
-        }
-        pointService.save(event.getUserId(), new PointCreateRequest(event.getObtainPoint(),
-                ORDER_OBTAIN_CONTENT+event.getOrderId(), OBTAIN
-                ));
-        log.info(ORDER_OBTAIN_CONTENT+event.getOrderId());
+        pointService.orderPointSave(event);
     }
 }

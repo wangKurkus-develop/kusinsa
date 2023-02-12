@@ -28,9 +28,7 @@ public class EmailService {
     private String id;
 
     private final JavaMailSender javaMailSender;
-
-
-    @Transactional
+    
     public String sendDeliveryComplete(String email, String productName)  {
         MimeMessage message = javaMailSender.createMimeMessage();
         String content = productName + " 배달완료 했습니다";

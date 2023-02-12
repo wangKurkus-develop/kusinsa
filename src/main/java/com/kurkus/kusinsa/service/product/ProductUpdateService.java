@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ProductStatusService {
+public class ProductUpdateService {
 
     private final ProductRepository productRepository;
     private final ApplicationEventPublisher publisher;

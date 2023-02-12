@@ -6,6 +6,8 @@ import com.kurkus.kusinsa.entity.order.OrderHistory;
 import com.kurkus.kusinsa.entity.Product;
 import com.kurkus.kusinsa.entity.User;
 import com.kurkus.kusinsa.enums.DeliveryStatus;
+import com.kurkus.kusinsa.events.notification.DeliveryStatusEvent;
+import com.kurkus.kusinsa.events.point.PointEvent;
 import com.kurkus.kusinsa.repository.OrderHistoryRepository;
 import com.kurkus.kusinsa.repository.product.ProductRepository;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 
+import static com.kurkus.kusinsa.enums.PointType.USED;
+import static com.kurkus.kusinsa.utils.constants.PointMessages.ORDER_CANCEL;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -70,6 +74,7 @@ class OrderHistoryServiceTest {
         orderHistoryService.cancel(userId, historyId);
         // then
         then(historyRepository).should(times(1)).findByIdPessimisticLock(any());
+        then(publisher).should(times(1)).publishEvent(any(PointEvent.class));
     }
 
     @Test
@@ -82,5 +87,6 @@ class OrderHistoryServiceTest {
         orderHistoryService.updateDeliveryStatus(orderHistoryId, deliveryStatus);;
         // then
         then(historyRepository).should(times(1)).findByIdPessimisticLock(any());
+        then(publisher).should(times(1)).publishEvent(any(DeliveryStatusEvent.class));
     }
 }

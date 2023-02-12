@@ -1,15 +1,20 @@
 package com.kurkus.kusinsa.service.product;
 
+import java.util.ArrayList;
+
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.*;
 import static com.kurkus.kusinsa.utils.constants.ErrorMessages.EXISTS_PRODUCT;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.kurkus.kusinsa.dao.LikesDao;
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
+import com.kurkus.kusinsa.dto.request.product.ProductSearchCondition;
 import com.kurkus.kusinsa.dto.request.product.ProductUpdateRequest;
+import com.kurkus.kusinsa.dto.response.prodcut.ProductResponse;
 import com.kurkus.kusinsa.entity.Brand;
 import com.kurkus.kusinsa.entity.Category;
 import com.kurkus.kusinsa.entity.Product;
+import com.kurkus.kusinsa.enums.ProductType;
 import com.kurkus.kusinsa.exception.brand.BrandNotFoundException;
 import com.kurkus.kusinsa.exception.category.CategoryNotFoundException;
 import com.kurkus.kusinsa.exception.product.ProductException;
@@ -17,12 +22,18 @@ import com.kurkus.kusinsa.exception.product.ProductNotFoundException;
 import com.kurkus.kusinsa.repository.BrandRepository;
 import com.kurkus.kusinsa.repository.CategoryRepository;
 import com.kurkus.kusinsa.repository.product.ProductRepository;
+import com.kurkus.kusinsa.utils.PasswordEncoder;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import static org.mockito.BDDMockito.*;
 
@@ -63,6 +74,7 @@ class ProductServiceTest {
                 .thumbnailImagePath(thumbnailImagePath)
                 .build();
     }
+
 
 
     @Nested
@@ -114,18 +126,26 @@ class ProductServiceTest {
         }
     }
 
-
-    @Nested
-    class findById {
-        @Test
-        public void 성공() {
-            // given
-            given(productRepository.getByIdWithAll(anyLong())).willReturn(Product.builder().build());
-            // when
-            productService.findById(anyLong());
-            // then
-            then(productRepository).should(times(1)).getByIdWithAll(anyLong());
-        }
+    @Test
+    public void findById() {
+        // given
+        Product product = Product.builder()
+                .id(1L)
+                .name(name)
+                .content(content)
+                .price(price)
+                .stock(1)
+                .status(ProductType.SOLD_OUT)
+                .thumbnailImagePath(thumbnailImagePath)
+                .originImagePath(originImagePath)
+                .brand(Brand.builder().id(brandId).name("브랜드이름").build())
+                .category(Category.builder().id(categoryId).name("카테고리이름").build())
+                .build();
+        given(productRepository.getByIdWithAll(anyLong())).willReturn(product);
+        // when
+        productService.findById(anyLong());
+        // then
+        then(productRepository).should(times(1)).getByIdWithAll(anyLong());
     }
 
     @Nested
@@ -151,6 +171,26 @@ class ProductServiceTest {
             // then
             assertEquals(NOT_FOUND_PRODUCT, ex.getMessage());
         }
+    }
+
+    @Test
+    public void delete() throws Exception {
+        // given
+        given(productRepository.getById(anyLong())).willReturn(Product.builder().build());
+        // when
+        productService.delete(anyLong());
+        // then
+        then(productRepository).should(times(1)).getById(anyLong());
+    }
+
+    @Test
+    public void searchCondition() throws Exception {
+        // given
+        given(productRepository.searchPageCondition(any(), any())).willReturn(new PageImpl(new ArrayList()));
+        // when
+        productService.searchCondition(ProductSearchCondition.builder().build(), PageRequest.of(1,2));
+        // then
+        then(productRepository).should(times(1)).searchPageCondition(any(), any());
     }
 
 

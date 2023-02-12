@@ -12,10 +12,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ProductStatusServiceTest {
+class ProductUpdateServiceTest {
 
     @InjectMocks
-    ProductStatusService productStatusService;
+    ProductUpdateService productUpdateService;
 
     @Mock
     ProductRepository productRepository;
@@ -26,7 +26,7 @@ class ProductStatusServiceTest {
         ProductStockUpdateRequest request = new ProductStockUpdateRequest(15L, 23L);
         given(productRepository.findByIdWithPessimisticLock(any())).willReturn(Product.builder().build());
         // when
-        productStatusService.updateStock(request);
+        productUpdateService.updateStock(request);
         // then
         then(productRepository).should(times(1)).findByIdWithPessimisticLock(any());
     }

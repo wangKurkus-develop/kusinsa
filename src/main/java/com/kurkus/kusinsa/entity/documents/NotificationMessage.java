@@ -23,9 +23,13 @@ public class NotificationMessage {
     @Field("created_at")
     private LocalDateTime createdAt;
 
+    @Field("expired_at")
+    private LocalDateTime expiredAt;
+
     public NotificationMessage( Long userId, String message) {
         this.userId = userId;
         this.message = message;
         this.createdAt = LocalDateTime.now().plusHours(9);
+        this.expiredAt = LocalDateTime.now().plusHours(9).plusDays(30);
     }
 }

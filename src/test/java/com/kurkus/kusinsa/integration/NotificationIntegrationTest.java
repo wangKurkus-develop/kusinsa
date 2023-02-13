@@ -1,8 +1,6 @@
 package com.kurkus.kusinsa.integration;
 
 
-import javax.transaction.Transactional;
-
 import static com.kurkus.kusinsa.utils.constants.SessionConstants.AUTH_TYPE;
 import static com.kurkus.kusinsa.utils.constants.SessionConstants.SESSION_ID;
 
@@ -25,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@Transactional
 @AutoConfigureMockMvc
 @SpringBootTest
-public class NotificationController {
+public class NotificationIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;

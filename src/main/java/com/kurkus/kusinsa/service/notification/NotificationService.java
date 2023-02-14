@@ -87,6 +87,7 @@ public class NotificationService {
      */
     @Transactional
     public void notifyGroup(Long productId, String productName) {
+        notificationDao.deleteUniqueKey(productId);
         NotificationGroup group = groupRepository.getByProductIdAndStatus(productId, RECRUIT);
         List<NotificationUser> users = groupUserRepository.findGroupUserEmail(group.getId());
         String message = emailService.sendGroup(getEmailList(users), productName);

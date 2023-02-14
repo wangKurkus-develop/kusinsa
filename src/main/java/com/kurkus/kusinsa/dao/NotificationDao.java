@@ -25,4 +25,8 @@ public class NotificationDao {
     public String getUniqueKey(Long productId){
         return redisSetTemplate.opsForHash().get(KEY, productId.toString()).toString();
     }
+
+    public void deleteUniqueKey(Long productId){
+        redisSetTemplate.opsForHash().delete(KEY, productId.toString());
+    }
 }

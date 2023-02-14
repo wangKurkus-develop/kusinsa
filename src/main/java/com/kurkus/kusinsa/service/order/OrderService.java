@@ -32,12 +32,7 @@ public class OrderService {
     private final ProductRepository productRepository;
     private final ApplicationEventPublisher publisher;
 
-    /**
-     * v1 : 동시성 처리
-     * v2 : 포인트 지급
-     * v3 : 알림서비스
-     * v4 : 분산락을 활용할것 고려 포인트지급, 알림서비스 카프카로 빼기
-     */
+
     @Transactional
     public void save(Long userId, OrderCreateRequest request) {
         List<OrderProductRequest> list = request.getOrderProductRequestList();

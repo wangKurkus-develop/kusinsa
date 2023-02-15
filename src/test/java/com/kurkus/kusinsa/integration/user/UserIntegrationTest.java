@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kurkus.kusinsa.DockerComposeContainerInitializer;
 import com.kurkus.kusinsa.dto.request.user.DeviceCreateRequest;
 import com.kurkus.kusinsa.dto.request.user.LoginRequest;
 import com.kurkus.kusinsa.dto.request.user.SignupRequest;
@@ -24,18 +25,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.testcontainers.containers.DockerComposeContainer;
-import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
-//@ContextConfiguration(initializers = {DockerComposeInitializer.class})
-//@Testcontainers
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest
+@ContextConfiguration(initializers = {DockerComposeContainerInitializer.class})
 public class UserIntegrationTest {
 
     @Autowired
@@ -43,12 +40,6 @@ public class UserIntegrationTest {
 
     @Autowired
     ObjectMapper objectMapper;
-
-//    @Container
-//    static DockerComposeContainer composeContainer =
-//            new DockerComposeContainer(new File("src/test/resources/docker-compose.yml"))
-//                    .withExposedService("redis-session", 6379,
-//                            Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
 
 
     private Long id = 18L;

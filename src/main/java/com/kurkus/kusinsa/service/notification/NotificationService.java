@@ -51,11 +51,12 @@ public class NotificationService {
     public void save(Long userId, NotificationCreateRequest request) {
         boolean isUniqueKey = notificationDao.createUniqueKey(request.getProductId());
         User user = userRepository.getById(userId);
-        if (isUniqueKey == true) {
+        if (isUniqueKey == true) { // 이거를 redis로하니까그렇네 db로해야지 정확할듯 그런데 동시성때문에 Redis를 활용하는거임
             NotificationGroup group = groupRepository.save(request.toNotificationGroup(
                     productRepository.getById(request.getProductId()),
                     notificationDao.getUniqueKey(request.getProductId())));
             groupUserRepository.save(request.toNotificationUser(user, group));
+            // 그룹처음만들어지는거라 중복체크를안함
         } else {
             Optional<NotificationGroup> group = groupRepository.findByProductIdAndStatus(request.getProductId(), RECRUIT);
             if (!group.isPresent()) {

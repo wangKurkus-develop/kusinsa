@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kurkus.kusinsa.DockerComposeContainerInitializer;
 import com.kurkus.kusinsa.dto.request.order.OrderCreateRequest;
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
 import com.kurkus.kusinsa.enums.UserType;
@@ -17,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -30,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest
+@ContextConfiguration(initializers = {DockerComposeContainerInitializer.class})
 public class OrderIntegrationTest {
 
     @Autowired
@@ -49,7 +52,7 @@ public class OrderIntegrationTest {
 
     @Nested
     class save{
-        Long productId= 5L;
+        Long productId= 12L;
         long obtainPoint = 200;
         int quantity = 1;
         long price = 30000L;
@@ -87,9 +90,9 @@ public class OrderIntegrationTest {
         }
 
         @Test
-        public void 실패_재고없는경우_기존4개() throws Exception {
+        public void 실패_재고없는경우_기존140개() throws Exception {
             // given
-            quantity = 5;
+            quantity = 1000;
             userLogin();
             List<OrderProductRequest> requestList = new ArrayList<>();
             OrderProductRequest orderProduct = OrderProductRequest.builder()
@@ -112,7 +115,7 @@ public class OrderIntegrationTest {
                     .session(mockHttpSession)).andDo(print());
             // then
             result.andExpect(status().is4xxClientError())
-                    .andExpect(content().string("테스트상품1 "+NOT_ENOUGH_QUANTITY));
+                    .andExpect(content().string("이름1 "+NOT_ENOUGH_QUANTITY));
         }
 
         @Test

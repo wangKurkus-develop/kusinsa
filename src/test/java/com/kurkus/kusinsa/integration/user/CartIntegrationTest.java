@@ -2,12 +2,14 @@ package com.kurkus.kusinsa.integration.user;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kurkus.kusinsa.DockerComposeContainerInitializer;
 import com.kurkus.kusinsa.enums.UserType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
+@ContextConfiguration(initializers = {DockerComposeContainerInitializer.class})
 public class CartIntegrationTest {
 
     @Autowired

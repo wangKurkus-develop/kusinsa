@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kurkus.kusinsa.DockerComposeContainerInitializer;
 import com.kurkus.kusinsa.dto.request.order.OrderCreateRequest;
 import com.kurkus.kusinsa.dto.request.order.OrderProductRequest;
 import com.kurkus.kusinsa.enums.UserType;
@@ -22,6 +23,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest
+@ContextConfiguration(initializers = {DockerComposeContainerInitializer.class})
 public class OrderIntegrationTest {
 
     @Autowired
@@ -70,7 +73,7 @@ public class OrderIntegrationTest {
         // given
         userLogin();
         List<OrderProductRequest> list = new ArrayList<>();
-        OrderProductRequest order1 = new OrderProductRequest(12L, 2000, 10000L, 0);
+        OrderProductRequest order1 = new OrderProductRequest(12L, 20000, 10000L, 0);
         list.add(order1);
         OrderCreateRequest request = new OrderCreateRequest(list, 10000L, 0,
                 0, "주소1");

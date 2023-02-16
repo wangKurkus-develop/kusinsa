@@ -33,5 +33,8 @@ jobs:
       run: chmod +x gradlew
     - name: Test with Gradle # test application build
       run: ./gradlew test
-    
-    
+    - name: access to secrets
+      run: | 
+            echo "test=$MYSQL"
+      env:
+          MYSQL: ${{secrets.MYSQL_HOST}}

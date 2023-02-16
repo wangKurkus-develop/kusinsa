@@ -28,12 +28,11 @@ jobs:
       with:
         java-version: '8'
         distribution: 'temurin'
-    - name : Properties Init 
+    - uses: actions/checkout@v3
     - run: touch ./src/main/resources/application-prod.properties
     - run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application-prod.properties
     - run: cat ./src/main/resources/application-prod.properties
     
-    - name : Properties Test Init 
     - run: touch ./src/test/resources/application-prod.properties
     - run: echo "${{ secrets.PRO_TEST }}" > ./src/test/resources/application.properties
     - run: cat ./src/test/resources/application-prod.properties

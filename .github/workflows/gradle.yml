@@ -32,17 +32,32 @@ jobs:
     - run: touch ./src/main/resources/application-prod.properties
     - run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application-prod.properties
     - run: cat ./src/main/resources/application-prod.properties
+    
+    - run: touch ./src/test/resources/application-prod.properties
+    - run: echo "${{ secrets.PRO_TEST }}" > ./src/test/resources/application.properties
+    - run: cat ./src/test/resources/application-prod.properties
         
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Test with Gradle # test application build
-      run: ./gradlew test
       
     - name: Build Gradle 
-      run : ./gradlew build -x test
+      run : ./gradlew build 
       
-    - name: Docker build
+    - name: add comments to a pull request
+      uses: mikepenz/action-junit-report@v3
+      if: always()
+      with:
+        report_paths: /build/test-results/test/TEST-*.xml
+      
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{secrets.DOCKER_USERNAME}}
+        password: ${{secrets.DOCKER_TOKEN}}
+    - name: build and release to DockerHub
+      env:
+        REPO: icwgi897/kusinsa 
       run: |
-        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker build -t ${{secrets.DOCKER_REPO}} .
-        docker push ${{secrets.DOCKER_REPO}}
+        docker build -t $REPO .
+        docker push $REPO
+

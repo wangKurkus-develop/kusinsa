@@ -49,4 +49,5 @@ jobs:
       with:
         report_paths: /build/test-results/test/TEST-*.xml
     
-
+    - name : test
+      run: echo "hello world"

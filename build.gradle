@@ -63,10 +63,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.0'
 
 }
-// 이거추가했음
-test.onlyIf {
-    !project.hasProperty('test')
-}
 
 tasks.named('test') {
     useJUnitPlatform()

@@ -43,11 +43,11 @@ jobs:
     - name: Build Gradle 
       run : ./gradlew build 
       
-    - name: 테스트 결과를 PR에 코멘트로 등록합니다
-      uses: EnricoMi/publish-unit-test-result-action@v1
+    - name: add comments to a pull request
+      uses: mikepenz/action-junit-report@v3
       if: always()
       with:
-        files: '**/build/test-results/test/TEST-*.xml'
+        report_paths: /build/test-results/test/TEST-*.xml
       
     - name: Login to DockerHub
       uses: docker/login-action@v1
@@ -56,7 +56,7 @@ jobs:
         password: ${{secrets.DOCKER_TOKEN}}
     - name: build and release to DockerHub
       env:
-        REPO: icwgi897/actiontest # 레포 이름
+        REPO: icwgi897/kusinsa 
       run: |
         docker build -t $REPO .
         docker push $REPO

@@ -36,6 +36,4 @@ out/
 ### VS Code ###
 .vscode/
 
-
-/src/main/resources/application-mail.properties
-/src/test/resources/application-mail.properties
+/src/main/resources/application-prod.properties

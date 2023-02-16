@@ -16,6 +16,7 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @DynamicInsert
+@Table(name = "users")
 public class User extends BaseTimeEntity {
 
     @Id
@@ -38,7 +39,6 @@ public class User extends BaseTimeEntity {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("USER")
     private UserType type;
 
     @Column(nullable = false)

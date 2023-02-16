@@ -153,5 +153,6 @@ class NotificationServiceTest {
 
         notificationService.notifyGroup(productId, productName);
         then(groupUserRepository).should(times(1)).updateStatusComplete(groupId);
+        then(notificationDao).should(times(1)).deleteUniqueKey(productId);
     }
 }

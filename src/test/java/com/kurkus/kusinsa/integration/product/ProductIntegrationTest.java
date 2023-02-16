@@ -11,11 +11,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kurkus.kusinsa.DockerComposeContainerInitializer;
 import com.kurkus.kusinsa.dto.request.product.ProductCreateRequest;
 import com.kurkus.kusinsa.dto.request.product.ProductSearchCondition;
 import com.kurkus.kusinsa.dto.request.product.ProductUpdateRequest;
 import com.kurkus.kusinsa.enums.ProductType;
 import com.kurkus.kusinsa.enums.UserType;
+import com.kurkus.kusinsa.utils.constants.PageSizeConstants;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,13 +26,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-//@Testcontainers
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest
+@ContextConfiguration(initializers = {DockerComposeContainerInitializer.class})
 public class ProductIntegrationTest {
 
     @Autowired
@@ -39,17 +43,8 @@ public class ProductIntegrationTest {
     @Autowired
     ObjectMapper objectMapper;
 
-//    @Container
-//    static DockerComposeContainer composeContainer =
-//            new DockerComposeContainer(new File("src/test/resources/docker-compose.yml"))
-//                    .withExposedService("redis-session", 6379,
-//                            Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
-
     private MockHttpSession mockHttpSession = new MockHttpSession();
     private final String URI = "/products";
-
-
-
 
     @Nested
     class save{
@@ -155,14 +150,14 @@ public class ProductIntegrationTest {
                     .andDo(print());
             // then
             result.andExpect(status().isOk())
-                    .andExpect(jsonPath("$.id").value(1));
+                    .andExpect(jsonPath("$.productId").value(1));
         }
 
         @Test
         @DisplayName("아이디가 존재하지않아 실패")
         public void 실패() throws Exception {
             // given
-            String productId = "/1000";
+            String productId = "/2";
             // when
             ResultActions result = mvc.perform(get(URI + productId))
                     .andDo(print());
@@ -218,23 +213,18 @@ public class ProductIntegrationTest {
         }
     }
 
-//    @Test
-//    @DisplayName("데이터 응답에서 categoryId가 맞게들어가는지 확인합니다")
-//    public void findAllByCategory() throws Exception {
-//        // given
-//        ProductSearchCondition request = ProductSearchCondition.builder()
-//                .id(1L)
-//                .page(0)
-//                .sortProperty("name")
-//                .build();
-//        // when
-//        ResultActions result = mvc.perform(get(URI + "/categories").contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(request)))
-//                .andDo(print());
-//        // then
-//        result.andExpect(status().isOk())
-//                .andExpect(jsonPath("$.content[0].categoryResponse.name").value("맨투맨"));
-//    }
+    @Test
+    public void searchCondition() throws Exception {
+        // given
+        ProductSearchCondition request = ProductSearchCondition.builder().build();
+        // when
+        ResultActions result = mvc.perform(get(URI)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andDo(print());
+        // then
+        result.andExpect(status().isOk());
+    }
 
     
     private void adminLogin(){

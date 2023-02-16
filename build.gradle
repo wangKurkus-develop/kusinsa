@@ -22,6 +22,7 @@ configurations {
     }
 }
 
+
 repositories {
     mavenCentral()
 }
@@ -51,6 +52,7 @@ dependencies {
 
     // TestContainer
     testImplementation 'org.testcontainers:junit-jupiter:1.17.3'
+    testImplementation "org.testcontainers:mysql:1.17.6"
     // mongodb
     implementation ('org.springframework.boot:spring-boot-starter-data-mongodb')
     //querydsl 추가
@@ -60,6 +62,10 @@ dependencies {
     // smtp
     implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.0'
 
+}
+// 이거추가했음
+test.onlyIf {
+    !project.hasProperty('test')
 }
 
 tasks.named('test') {

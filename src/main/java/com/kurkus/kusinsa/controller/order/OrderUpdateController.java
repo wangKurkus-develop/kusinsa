@@ -16,7 +16,6 @@ public class OrderUpdateController {
 
     private final OrderHistoryService orderHistoryService;
 
-    // 배달 상태 변경
     @PatchMapping("/delivery/{orderHistoryId}")
     @LoginCheck(userType = UserType.ADMIN)
     public ResponseEntity<Void> updateDeliveryStatus(@PathVariable Long orderHistoryId,

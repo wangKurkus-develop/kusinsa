@@ -33,7 +33,5 @@ jobs:
       run: chmod +x gradlew
     - name: Test with Gradle # test application build
       run: ./gradlew test
-        
-    - name: Build with Gradle # 실제 application build(-x 옵션을 통해 test는 제외)
-      run: ./gradlew build -x test
+    
     

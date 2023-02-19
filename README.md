@@ -32,3 +32,5 @@ Kusinsa는 e-commerce 서비스로, `무신사`를 벤치마킹했습니다.
 ### API 및 Test Data
 노션으로해서 만들기
 
+### 화면구상도
+https://ovenapp.io/project/j7iFV4dXJGhnZ0GVFaYsbN5zGyj45b8e/#Ym79j

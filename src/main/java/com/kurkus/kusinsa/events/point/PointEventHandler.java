@@ -23,8 +23,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 public class PointEventHandler {
 
     private final PointService pointService;
-
-    @EventListener
+    
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void save(PointEvent event){
@@ -32,14 +31,14 @@ public class PointEventHandler {
                 new PointCreateRequest(event.getPoint(), event.getContent(), event.getType()));
     }
 
-    @EventListener
+
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void loginPointSave(PointLoginSavedEvent event) {
         pointService.loginPointSave(event);
     }
 
-    @EventListener
+
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void orderPointSave(PointOrderSavedEvent event) {

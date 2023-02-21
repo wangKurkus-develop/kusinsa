@@ -24,11 +24,12 @@ Kusinsa는 e-commerce 서비스로, `무신사`를 벤치마킹했습니다.
 - 통계데이터 수집
 
 ---
-
+### 기능정의 
+---
 ### ERD
 <https://github.com/wangKurkus-develop/kusinsa/wiki/ERD>
 
-
+---
 ### API 및 Test Data
 노션으로해서 만들기
 

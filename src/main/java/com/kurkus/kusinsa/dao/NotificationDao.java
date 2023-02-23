@@ -19,7 +19,8 @@ public class NotificationDao {
 
     public boolean createUniqueKey(Long productId){
         // 처음인경우 true, 이미있으면 false
-        return redisSetTemplate.opsForHash().putIfAbsent(KEY, productId.toString(), LocalDateTime.now().toString());
+        String uniqueKey = productId.toString() + LocalDateTime.now();
+        return redisSetTemplate.opsForHash().putIfAbsent(KEY, productId.toString(), uniqueKey);
     }
 
     public String getUniqueKey(Long productId){

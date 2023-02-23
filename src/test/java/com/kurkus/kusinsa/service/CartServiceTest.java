@@ -66,4 +66,18 @@ class CartServiceTest {
     }
 
 
+    @Test
+    public void getLikeProducts() throws Exception {
+        // given
+        Long userId = 16L;
+        given(likesDao.getLikeProducts(userId)).willReturn(new ArrayList<>());
+        given(productRepository.findAllWithBrandByList(anyList())).willReturn(new ArrayList<>());
+        // when
+        cartService.getLikeProducts(userId);
+        // then
+        then(likesDao).should(times(1)).getLikeProducts(anyLong());
+        then(productRepository).should(times(1)).findAllWithBrandByList(anyList());
+    }
+
+
 }

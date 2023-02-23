@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 public class RecentDao {
 
     private final RedisTemplate<String, Object> redisSetTemplate;
-    private final String PREFIX = "recent_user:"; // 최근본상품
+    private final String PREFIX = "recent_user:";
 
     public void recentSave(Long userId, Long productId){
         redisSetTemplate.expire(PREFIX+userId, 6, TimeUnit.HOURS);

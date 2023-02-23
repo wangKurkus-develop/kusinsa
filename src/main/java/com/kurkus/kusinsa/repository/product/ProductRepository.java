@@ -36,9 +36,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Product
 
 
     // ORDER BY FIELD(id,2,3,1); QueryDSL로 변경
-    @Query(value = "select * from Product p inner join Brand b on p.brand_id = b.id where p.id in (:list) order by FIELD(p.id, :list)",
-            nativeQuery = true)
-//    @Query(value = "select p from Product p join fetch p.brand where p.id in :list")
+    @Query(value = "select p from Product p join fetch p.brand where p.id in :list")
     List<Product> findAllWithBrandByList(@Param("list") List<Long> list);
 
 

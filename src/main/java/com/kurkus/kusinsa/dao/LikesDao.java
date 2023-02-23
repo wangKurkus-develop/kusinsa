@@ -63,6 +63,11 @@ public class LikesDao {
         return set.stream().map(o -> new Long(o.toString())).collect(Collectors.toList());
     }
 
+    public List<Long> getLikeProducts(Long userId){
+        Set<Object> likeProductId = redisSetTemplate.opsForSet().members(USER_PREFIX + userId);
+        return likeProductId.stream().map(o -> new Long(o.toString())).collect(Collectors.toList());
+    }
+
     public Long getLikeQuantity(String productId){
         return redisSetTemplate.opsForSet().size(PRODUCT_PREFIX+productId);
     }

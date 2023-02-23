@@ -6,6 +6,7 @@ import java.util.List;
 import com.kurkus.kusinsa.annotation.LoginCheck;
 import com.kurkus.kusinsa.annotation.SessionUserId;
 import com.kurkus.kusinsa.dto.response.prodcut.ProductCommonResponse;
+import com.kurkus.kusinsa.dto.response.prodcut.ProductWithRankResponse;
 import com.kurkus.kusinsa.enums.UserType;
 import com.kurkus.kusinsa.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -38,11 +39,16 @@ public class CartController {
     // 최근본 상품 보여주기
     @LoginCheck(userType = UserType.USER)
     @GetMapping("/recents")
-    public ResponseEntity<List<ProductCommonResponse>> recentProducts(@SessionUserId Long userId){
+    public ResponseEntity<ProductWithRankResponse> recentProducts(@SessionUserId Long userId){
         return ResponseEntity.ok(cartService.findAllRecent(userId));
     }
 
-
+    // 좋아요 상품 목록 가져오기
+    @LoginCheck(userType = UserType.USER)
+    @GetMapping("/likes")
+    public ResponseEntity<List<ProductCommonResponse>> likeProducts(@SessionUserId Long userId){
+        return ResponseEntity.ok(cartService.getLikeProducts(userId));
+    }
 
 
 }

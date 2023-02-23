@@ -20,12 +20,10 @@ public class CountAspect {
     private final SessionLoginService sessionLoginService;
     private final RankDao rankDao;
 
-    // 주문완료시에만 주문한 상품 count
     @AfterReturning("execution(* com.kurkus.kusinsa.service.order.OrderHistoryService.save(..))")
     public void orderCount(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
         OrderProductRequest request = (OrderProductRequest) args[1];
-        System.out.println("request.getProductId() = " + request.getProductId());
         rankDao.orderCount(request.getProductId());
     }
 

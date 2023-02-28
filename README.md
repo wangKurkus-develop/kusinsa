@@ -32,3 +32,7 @@ Kusinsa는 e-commerce 서비스로, `무신사`를 벤치마킹했습니다.
 ### API 및 Test Data
 노션으로해서 만들기
 
+
+### 구상도
+![image](https://user-images.githubusercontent.com/79621675/221783055-f7543182-869f-4fbe-b663-5f6a0fb0e8ff.png)
+

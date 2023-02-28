@@ -29,8 +29,8 @@ Kusinsa는 e-commerce 서비스로, `무신사`를 벤치마킹했습니다.
 <https://github.com/wangKurkus-develop/kusinsa/wiki/ERD>
 
 
-### API 및 Test Data
-노션으로해서 만들기
+### API - Postman
+https://documenter.getpostman.com/view/21534834/2s93CHtuM5#a4d7a6cc-2dd5-4e97-91ce-e0ccc33b229f
 
 
 ### 구상도

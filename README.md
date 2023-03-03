@@ -22,7 +22,7 @@ Kusinsa는 e-commerce 서비스로, `무신사`를 벤치마킹했습니다.
 - 이전까지 모두 팀원들과 함께한 프로젝트였지만 혼자 프로젝트를 진행하여 스스로 고민을 하여 해결
 - 통계데이터 수집
 
-### 🌈기능정의
+### 🌈기능
 
 
 ### ✅ 회원가입, 로그인
@@ -67,6 +67,18 @@ Kusinsa는 e-commerce 서비스로, `무신사`를 벤치마킹했습니다.
 https://documenter.getpostman.com/view/21534834/2s93CHtuM5#a4d7a6cc-2dd5-4e97-91ce-e0ccc33b229f
 
 
-### 구상도
+### Installation
+1. git clone
+2. application.properties 파일의 profile을 dev로 바꿔주세요
+3. mysql 8.0 버전에서 kusinsa db를 만들어주세요
+3. resources/db에서 V7_DB_table.sql 스크립트를 실행시켜주세요
+4. `docker-compose up -d` 명령어를 통해 redis를 실행시켜주세요
+5. mongoDB 4.4 버전에서 kusinsa DB를 생성해주세요
+6. 다음 명령어를 통해 컬렉션을 생성해주세요 `db.createCollection("click_ranks"); db.createCollection("notification_message"); db.createCollection("order_ransk");`
+7. 실행시켜주세요
+8. API링크를 통해 요청을 해보세요
+
+
+### 아키텍쳐
 ![image](https://user-images.githubusercontent.com/79621675/221783055-f7543182-869f-4fbe-b663-5f6a0fb0e8ff.png)
 

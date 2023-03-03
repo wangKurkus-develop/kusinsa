@@ -55,13 +55,13 @@ Kusinsa는 e-commerce 서비스로, `무신사`를 벤치마킹했습니다.
 
 
 ### 프로젝트 주요 이슈해결사항
-[이벤트를 활용해 책임 및 트랜잭션  분리](https://transparent-bugle-0d4.notion.site/888d0c0adfd94e01b4bb3e3df56f7466)
-[커버링 인덱스를 사용하여 페이징 성능 개선기](https://transparent-bugle-0d4.notion.site/ebb08290afeb4efb8205e426b3a3758c)
-[SortedSet을통한 job queue 구축 스케줄링](https://transparent-bugle-0d4.notion.site/SortedSet-job-queue-5446b0befa6e479d9e3c494038ea723d)
-[재입고 알림 신청 동시성](https://transparent-bugle-0d4.notion.site/cc8078be34554524a9d656eac713d711)
-[MongoDB 인덱스를 활용한 알림 메시지 설계](https://transparent-bugle-0d4.notion.site/MongoDB-7bb8938c1e5a4454b3034080ddd857b8)
-[좋아요, 최근 본 상품](https://transparent-bugle-0d4.notion.site/0e8dfd0247d94b9baaee865df8e28699)
-[랭킹TOP 10 서비스](https://transparent-bugle-0d4.notion.site/TOP-10-3df77822f56a4124aa52a2d36be9fe61)
+- [이벤트를 활용해 책임 및 트랜잭션  분리](https://transparent-bugle-0d4.notion.site/888d0c0adfd94e01b4bb3e3df56f7466)
+- [커버링 인덱스를 사용하여 페이징 성능 개선기](https://transparent-bugle-0d4.notion.site/ebb08290afeb4efb8205e426b3a3758c)
+- [SortedSet을통한 job queue 구축 스케줄링](https://transparent-bugle-0d4.notion.site/SortedSet-job-queue-5446b0befa6e479d9e3c494038ea723d)
+- [재입고 알림 신청 동시성](https://transparent-bugle-0d4.notion.site/cc8078be34554524a9d656eac713d711)
+- [MongoDB 인덱스를 활용한 알림 메시지 설계](https://transparent-bugle-0d4.notion.site/MongoDB-7bb8938c1e5a4454b3034080ddd857b8)
+- [좋아요, 최근 본 상품](https://transparent-bugle-0d4.notion.site/0e8dfd0247d94b9baaee865df8e28699)
+- [랭킹TOP 10 서비스](https://transparent-bugle-0d4.notion.site/TOP-10-3df77822f56a4124aa52a2d36be9fe61)
 
 
 ### ERD
@@ -75,14 +75,15 @@ Kusinsa는 e-commerce 서비스로, `무신사`를 벤치마킹했습니다.
 ### Installation
 1. git clone
 2. application.properties 파일의 profile을 dev로 바꿔주세요
-3. mysql 8.0 버전에서 kusinsa db를 만들어주세요
-3. resources/db에서 `V7_DB_table.sql` 스크립트를 실행시켜주세요
-4. `docker-compose up -d` 명령어를 통해 redis를 실행시켜주세요
-5. mongoDB 4.4 버전에서 kusinsa DB를 생성해주세요
-6. 다음 명령어를 통해 컬렉션을 생성해주세요 `db.createCollection("click_ranks"); db.createCollection("notification_message"); db.createCollection("order_ransk");`
-7. 실행시켜주세요
-8. Postman을 다운받아주세요
-9. [API 문서 링크](https://documenter.getpostman.com/view/21534834/2s93CHtuM5#a4d7a6cc-2dd5-4e97-91ce-e0ccc33b229f)를 통해 요청해보세요
+3. properties에서 email연동을 해주세요
+4. mysql 8.0 버전에서 kusinsa db를 만들어주세요
+5. resources/db에서 `V7_DB_table.sql` 스크립트를 실행시켜주세요
+6. `docker-compose up -d` 명령어를 통해 redis를 실행시켜주세요
+7. mongoDB 4.4 버전에서 kusinsa DB를 생성해주세요
+8. 다음 명령어를 통해 컬렉션을 생성해주세요 `db.createCollection("click_ranks"); db.createCollection("notification_message"); db.createCollection("order_ransk");`
+9. 실행시켜주세요
+10. Postman을 다운받아주세요
+11. [API 문서 링크](https://documenter.getpostman.com/view/21534834/2s93CHtuM5#a4d7a6cc-2dd5-4e97-91ce-e0ccc33b229f)를 통해 요청해보세요
 
 
 ### 아키텍쳐

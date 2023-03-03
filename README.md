@@ -25,6 +25,10 @@ Kusinsa는 e-commerce 서비스로, `무신사`를 벤치마킹했습니다.
 ### 기능정의 
 
 
+### 프로젝트 주요 이슈해결사항
+
+
+
 ### ERD
 <https://github.com/wangKurkus-develop/kusinsa/wiki/ERD>
 
